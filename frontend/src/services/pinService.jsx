@@ -10,6 +10,11 @@ export const getPins = async () => {
   return result;
 };
 
+export const getPinsByTopic = async (topicIds) => {
+  const result = await post("pins/topics", { topicIds });
+  return result;
+};
+
 export const getPinsBySlug = async (user_account_slug) => {
   const result = await get(`pins/${user_account_slug}`);
   return result;

@@ -3,9 +3,9 @@ import "./App.css";
 import { routes } from "./routes";
 
 function App() {
-  const elements = useRoutes(routes);
+	const elements = useRoutes(routes);
 
-  return <>{elements}</>;
+	return <>{elements}</>;
 }
 
 export default App;

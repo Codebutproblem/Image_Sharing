@@ -1,6 +1,5 @@
 import { Link, useNavigate} from "react-router-dom";
 import { registerUserAccount } from "../../services/authService";
-import { isUsernameValidated } from "../../utils/validateInput";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../../actions/alert";
 
@@ -9,10 +8,6 @@ function Register() {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!isUsernameValidated(e.target.username.value)){
-      setAlert({ type: "error", message: "Tên tài khoản không hợp lệ!" });
-      return;
-    }
     const userAccount = {
       email: e.target.email.value,
       username: e.target.username.value,

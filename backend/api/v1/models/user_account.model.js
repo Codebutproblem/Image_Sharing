@@ -53,13 +53,13 @@ const UserAccount = sequelize.define('UserAccount', {
     hooks: {
         beforeCreate: (user) => {
             if(!user.slug){
-                user.slug = user.username + "." + (new Date()).getTime().toString();
+                user.slug = slugify(user.username,{replacement: '_', lower:true}) + "." + (new Date()).getTime().toString();
                 console.log(user.slug);
             }
         },
         beforeUpdate: (user) => {
             if(user.changed('username')){
-                user.slug = user.username + "." + (new Date()).getTime().toString();
+                user.slug = slugify(user.username,{replacement: '_', lower:true}) + "." + (new Date()).getTime().toString();
             }
         }
     }

@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 function Loading() {
 
     const loading = useSelector((state) => state.LoadingReducer);
-    console.log("loading " + loading);
     return (
         <>
             {loading && (
