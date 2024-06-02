@@ -1,19 +1,19 @@
-export function addTopicId(id) {
+export function addTopicTag(topic) {
   return {
-    type: "ADD_TOPIC_ID",
+    type: "ADD_TOPIC_TAG",
+    topic: topic
+  };
+}
+
+export function removeTopicTag(id) {
+  return {
+    type: "REMOVE_TOPIC_TAG",
     id: id
   };
 }
 
-export function removeTopicId(id) {
+export function clearTopicTags() {
   return {
-    type: "REMOVE_TOPIC_ID",
-    id: id
-  };
-}
-
-export function clearTopicIds() {
-  return {
-    type: "CLEAR_TOPIC_IDS"
+    type: "CLEAR_TOPIC_TAGS"
   };
 }

@@ -1,13 +1,10 @@
 const TopicReducer = (state = [], action) => {
     switch (action.type) {
-        case "ADD_TOPIC_ID":
-            if(state.includes(action.id)){
-                return state;
-            }
-            return [...state, action.id];
-        case "REMOVE_TOPIC_ID":
-            return state.filter((id) => id !== action.id);
-        case "CLEAR_TOPIC_IDS":
+        case "ADD_TOPIC_TAG":
+            return [...state, action.topic];
+        case "REMOVE_TOPIC_TAG":
+            return state.filter((topic) => topic.id !== action.id);
+        case "CLEAR_TOPIC_TAGS":
             return [];
         default:
             return state;

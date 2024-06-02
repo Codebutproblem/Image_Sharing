@@ -1,8 +1,7 @@
 import { combineReducers } from "redux";
 import UploadReducer from "./uploader";
-import AlertReducer from "./alert";
-import LoadingReducer from "./loading";
 import TopicReducer from "./topic";
+import { AlertReducer, LoadingReducer } from "./other";
 
 const allReducers = combineReducers({
     UploadReducer,

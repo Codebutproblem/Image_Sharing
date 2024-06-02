@@ -5,22 +5,12 @@ export const createPin = async (pin) => {
   return result;
 };
 
-export const getPins = async () => {
-  const result = await get("pins");
+export const getPins = async ({page, limit}) => {
+  const result = await get(`pins?page=${page}&limit=${limit}`);
   return result;
 };
 
-export const getPinsByTopic = async (topicIds) => {
-  const result = await post("pins/topics", { topicIds });
-  return result;
-};
-
-export const getPinsBySlug = async (user_account_slug) => {
-  const result = await get(`pins/${user_account_slug}`);
-  return result;
-}
-
-export const getSavedPinsBySlug = async (user_account_slug) => {
-  const result = await get(`pins/saved/${user_account_slug}`);
+export const getPinsByTopic = async ({selectedTopics, page, limit}) => {
+  const result = await post(`pins/topics?page=${page}&limit=${limit}`, { selectedTopics });
   return result;
 };

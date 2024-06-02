@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { loginUserAccount } from "../../services/authService";
 import { useDispatch } from "react-redux";
-import { showAlert } from "../../actions/alert";
+import { showAlert } from "../../actions/other";
 
 function Login() {
   const dispatch = useDispatch();

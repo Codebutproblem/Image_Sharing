@@ -1,10 +1,10 @@
 import DefaultLayout from "./layouts/DefaultLayout";
 import UserAccountDefault from "./layouts/UserAccountDefault";
 import Home from "./pages/Home";
-import TopicPin from "./pages/TopicPin";
 import Uploader from "./pages/Uploader";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import PinByTopic from "./pages/PinByTopic";
 
 export const routes = [
   {
@@ -12,7 +12,7 @@ export const routes = [
     element: <DefaultLayout />,
     children: [
       {path: "", element: <Home />},
-      {path: "topic", element: <TopicPin />},
+      {path: "topic", element: <PinByTopic />},
       { path: "upload", element: <Uploader /> }
     ],
   },

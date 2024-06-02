@@ -2,23 +2,29 @@ import { useEffect, useState } from "react";
 import { getAllTopics } from "../../../services/topicService";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addTopicId, clearTopicIds } from "../../../actions/topic";
+import { addTopicTag } from "../../../actions/topic";
 
 function DropDownList({ id, setShowTopics }) {
 	const navigate = useNavigate();
 	const [topics, setTopics] = useState({
 		all: [],
-		remain: []
+		remaind: []
 	});
 	const dispatch = useDispatch();
-	const topicIds = useSelector((state) => state.TopicReducer);
+	const selectedTopics = useSelector((state) => state.TopicReducer);
 
 	useEffect(() => {
 		const fetchApi = async () => {
 			const result = await getAllTopics("name-ASC");
 			if (result.message === "get-all-topics-success") {
 				result.topics.unshift({ id: 0, name: "Tất cả", slug: "all" });
-				setTopics({ all: result.topics, remain: result.topics});
+				const remaind = result.topics.filter((topic) => {
+					return !selectedTopics.find((ts) => ts.id === topic.id);
+				});
+				setTopics({ 
+					all: result.topics,
+					remaind: remaind
+				});
 			}
 		};
 		fetchApi();
@@ -26,30 +32,32 @@ function DropDownList({ id, setShowTopics }) {
 
 	
 	useEffect(() => {
-		const remainTopics = topics.all.filter((topic) => {
-			return !topicIds.find((topicId) => topicId === topic.id);
+		const remaindTopics = topics.all.filter((topic) => {
+			return !selectedTopics.find((ts) => ts.id === topic.id);
 		});
 		setTopics({
 			all: topics.all,
-			remain: remainTopics
+			remaind: remaindTopics
 		});
-	}, [topicIds.length]);
+	}, [selectedTopics.length]);
 
 
 	const handleButtonClick = (e) => {
-		const topicId = e.target.getAttribute("topic-id");
-		if(parseInt(topicId) === 0){
+		const topicId = parseInt(e.target.getAttribute("topic-id"));
+		if(topicId === 0){
 			setShowTopics(false);
 			navigate("/");
+			return;
 		}
-		if(topicIds.length === 0){
+		if(selectedTopics.length === 0){
 			navigate(`/topic`);
 		}
-		dispatch(addTopicId(parseInt(topicId)));
+		const selectedTopic = topics.all.find((topic) => topic.id === topicId);
+		dispatch(addTopicTag(selectedTopic));
 
 	}
 
-	const displayTopics = topics.remain.map((topic) => {
+	const displayTopics = topics.remaind.map((topic) => {
 		return (
 			<li key={topic.id} className="list-none">
 				<div
