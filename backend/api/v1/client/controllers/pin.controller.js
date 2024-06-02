@@ -32,6 +32,10 @@ export const createPin = async (req, res) => {
 
 export const getPins = async (req, res) => {
     try {
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 13;
+        const offset = (page - 1) * limit;
         const pins = await Pin.findAll({
             attributes: ["id", "title", "url", "user_id", "createdAt"],
             where: {
@@ -40,6 +44,8 @@ export const getPins = async (req, res) => {
             order: [
                 ["createdAt", "DESC"]
             ],
+            offset: offset, 
+            limit: limit, 
             raw: true
         });
 
@@ -53,7 +59,16 @@ export const getPins = async (req, res) => {
             });
             pin.user = user;
         }
-        res.status(200).json({ pins, message: "get-pins-success" });
+
+        const totalPins = await Pin.count({
+            where: {
+                deleted: false
+            }
+        });
+
+        const total_pages = Math.ceil(totalPins / limit);
+
+        res.status(200).json({ pins, total_pages: total_pages , message: "get-pins-success" });
     } catch (error) {
         console.log(error);
         res.status(502).json({ message: "get-pins-failed" });
@@ -62,7 +77,12 @@ export const getPins = async (req, res) => {
 
 export const getPinsByTopic = async (req, res) => {
     try {
-        const topicIds = req.body.topicIds;
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 13;
+        const offset = (page - 1) * limit;
+
+        const topicSelected = req.body.selectedTopics;
+        const topicIds = topicSelected.map((topic) => topic.id);
         if(!topicIds || topicIds.length === 0){
             return res.status(200).json({ pins: [], message: "get-pins-by-topic-success" });
         }
@@ -73,9 +93,10 @@ export const getPinsByTopic = async (req, res) => {
         const pins = await sequelize.query(`
             SELECT p.id, p.title, p.url, p.user_id, p.createdAt from pin p
             inner join topic_pin tp on p.id = tp.pin_id
-            where p.deleted = false and ${condition.join(" or ")}
+            where p.deleted = false and (${condition.join(" or ")})
             group by p.id
             order by p.createdAt desc
+            LIMIT ${limit} OFFSET ${offset}
         `, {
             type: Sequelize.QueryTypes.SELECT,
             raw: true
@@ -91,7 +112,18 @@ export const getPinsByTopic = async (req, res) => {
             });
             pin.user = user;
         }
-        res.status(200).json({ pins, message: "get-pins-by-topic-success" });
+
+        const allPinsByTopic = await sequelize.query(`
+            SELECT p.id as totalPins from pin p
+            inner join topic_pin tp on p.id = tp.pin_id
+            where p.deleted = false and (${condition.join(" or ")})
+            group by p.id
+        `, {
+            type: Sequelize.QueryTypes.SELECT,
+            raw: true
+        });
+        const total_pages = Math.ceil(allPinsByTopic.length / limit);
+        res.status(200).json({ pins,total_pages: total_pages, message: "get-pins-by-topic-success" });
     } catch (error) {
         console.log(error);
         res.status(502).json({ message: "get-pins-by-topic-failed" });
