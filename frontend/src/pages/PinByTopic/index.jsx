@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import PinTable from "../../components/PinTable";
 import { getPinsByTopic } from "../../services/pinService";
-import { clearTopicTags } from "../../actions/topic";
+import { clearTopicTags } from "../../redux/actions/topic";
 import PinByTopicHeader from "../../components/PinByTopicHeader";
 
 function PinByTopic() {

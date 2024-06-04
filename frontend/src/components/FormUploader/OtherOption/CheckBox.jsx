@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import {
   updateAllowComment,
   updateAllowRecommend,
-} from "../../../actions/uploader";
+} from "../../../redux/actions/uploader";
 
 function Checkbox(props) {
   const { desc, name, checked } = props;

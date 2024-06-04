@@ -1,13 +1,13 @@
-import Home from "./pages/Home";
-import Uploader from "./pages/Uploader";
-import PinByTopic from "./pages/PinByTopic";
-import Login from "./pages/UserAccount/Login";
-import Register from "./pages/UserAccount/Register";
-import ForgotPassword from "./pages/UserAccount/ForgotPassword";
-import DefaultLayout from "./pages/Layouts/DefaultLayout";
-import UserAccountDefault from "./pages/Layouts/UserAccountDefault";
+import Home from "../pages/Home";
+import Uploader from "../pages/Uploader";
+import PinByTopic from "../pages/PinByTopic";
+import Login from "../pages/UserAccount/Login";
+import Register from "../pages/UserAccount/Register";
+import ForgotPassword from "../pages/UserAccount/ForgotPassword";
+import DefaultLayout from "../layouts/DefaultLayout";
+import UserAccountDefault from "../layouts/UserAccountDefault";
 
-export const routes = [
+const routes = [
   {
     path: "/",
     element: <DefaultLayout />,
@@ -27,3 +27,5 @@ export const routes = [
     ],
   },
 ];
+
+export default routes;

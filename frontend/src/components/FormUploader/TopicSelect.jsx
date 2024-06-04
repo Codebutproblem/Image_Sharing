@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllTopics } from "../../services/topicService";
 import { useDispatch, useSelector } from "react-redux";
-import { addTopic, removeTopic } from "../../actions/uploader";
+import { addTopic, removeTopic } from "../../redux/actions/uploader";
 import { getContrastingTextColor } from "../../utils/Color";
 function TopicSelect() {
 	const uploader = useSelector((state) => state.UploadReducer);

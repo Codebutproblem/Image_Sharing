@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllTopics } from "../../../services/topicService";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addTopicTag } from "../../../actions/topic";
+import { addTopicTag } from "../../../redux/actions/topic";
 
 function DropDownList({ id, setShowTopics }) {
 	const navigate = useNavigate();

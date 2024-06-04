@@ -1,6 +1,6 @@
 import { Alert } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux"
-import { showAlert } from "../../actions/other";
+import { showAlert } from "../../redux/actions/other";
 import { useEffect } from "react";
 
 function MyAlert() {

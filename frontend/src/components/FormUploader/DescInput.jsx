@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updateDesc } from "../../actions/uploader";
+import { updateDesc } from "../../redux/actions/uploader";
 
 function DescInput() {
   const dispatch = useDispatch();

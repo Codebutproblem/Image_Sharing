@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { checkLogin } from "../../services/userAccountService";
-import MyAlert from "../../components/MyAlert";
+import { checkLogin } from "../services/userAccountService";
+import MyAlert from "../components/MyAlert";
 function UserAccountDefault() {
   const [displayLayout, setDisplayLayout] = useState(false);
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { sendOTP, verifyOTP } from "../../services/authService";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { showAlert } from "../../actions/other";
+import { showAlert } from "../../redux/actions/other";
 import OtpInput from 'react-otp-input';
 function ForgotPassword() {
 

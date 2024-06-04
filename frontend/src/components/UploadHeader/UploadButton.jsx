@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import UploadFirebase from "../../utils/UploadFirebase";
 import { createPin } from "../../services/pinService";
-import { resetUploader } from "../../actions/uploader";
-import { showAlert } from "../../actions/other";
-import { showLoading } from "../../actions/other";
+import { resetUploader } from "../../redux/actions/uploader";
+import { showAlert } from "../../redux/actions/other";
+import { showLoading } from "../../redux/actions/other";
 function UploadButton() {
   const dispatch = useDispatch();
   const uploader = useSelector((state) => state.UploadReducer);

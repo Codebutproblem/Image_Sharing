@@ -1,6 +1,6 @@
 import { getContrastingTextColor } from "../../utils/Color";
 import { useDispatch } from "react-redux";
-import { removeTopicTag } from "../../actions/topic";
+import { removeTopicTag } from "../../redux/actions/topic";
 
 function PinByTopicHeader({ selectedTopics }) {
 

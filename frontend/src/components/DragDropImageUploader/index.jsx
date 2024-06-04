@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { GrUploadOption } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
-import { allowUpload, updateImage } from "../../actions/uploader";
+import { allowUpload, updateImage } from "../../redux/actions/uploader";
 function DragDropImageUploader() {
   const [imagePath, setImagePath] = useState(null);
   const fileInputRef = useRef(null);

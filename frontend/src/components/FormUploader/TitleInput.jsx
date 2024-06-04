@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updateTitle } from "../../actions/uploader";
+import { updateTitle } from "../../redux/actions/uploader";
 
 function TitleInput() {
   const uploader = useSelector((state) => state.UploadReducer);
