@@ -30,8 +30,13 @@ function Login() {
     }
   };
   return (
-    <>
-      <div className="text-center font-semibold text-3xl mb-6">Đăng nhập</div>
+    <div
+      style={{
+        backdropFilter: "blur(15px)",
+      }}
+      className="absolute top-1/2 left-[55%] -translate-y-1/2 w-[500px] max-w-[900px] min-h-[80%] border rounded-xl border-slate-400 p-5 text-slate-200"
+    >
+      <div className="text-center font-semibold text-4xl mb-6">Đăng nhập</div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-sm font-medium text-slate-50">
@@ -62,9 +67,9 @@ function Login() {
               Nhớ mật khẩu
             </label>
           </div>
-          <a href="/" className=" text-sm hover:underline">
+          <Link to={"/user-account/forgot-password"} className=" text-sm hover:underline">
             Quên mật khẩu
-          </a>
+          </Link>
         </div>
         <div className="mb-4">
           <button className="p-2 w-full bg-sky-500 hover:bg-sky-600 text-slate-50 rounded-md">
@@ -83,7 +88,8 @@ function Login() {
           </p>
         </div>
       </form>
-    </>
+    </div>
+
   );
 }
 

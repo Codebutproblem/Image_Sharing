@@ -1,4 +1,4 @@
-import { post } from "../requests/authRequest";
+import { get, post } from "../requests/authRequest";
 
 export const registerUserAccount = async (userAccount) => {
   const result = await post("auth/register", userAccount);
@@ -23,3 +23,13 @@ export const logout = async () => {
   });
   return result;
 };
+
+export const sendOTP = async (email) => {
+  const result = await post(`auth/send-otp`, { email: email });
+  return result;
+}
+
+export const verifyOTP = async (data) => {
+  const result = await post(`auth/verify-otp`, data);
+  return result;
+}

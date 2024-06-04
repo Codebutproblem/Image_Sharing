@@ -1,3 +1,5 @@
+import { generateRandomNumber } from "../../../../utils/generate.js";
+import OTPEmail from "../../models/otp_email.model.js";
 import UserAccount from "../../models/user_account.model.js";
 import md5 from "md5";
 import jwt from "jsonwebtoken";
@@ -121,4 +123,55 @@ export const logout = async (req, res) => {
         }
     });
     res.status(200).json({ message: "logout-success" });
+};
+
+
+export const sendOTP = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await UserAccount.findOne({
+            where: { 
+                email: email,
+                deleted: false
+            }
+        });
+        if (!user) {
+            return res.status(404).json({ message: "user-not-found" });
+        }
+
+        await OTPEmail.update({ deleted: true }, {
+            where: { 
+                email: email
+            }
+        });
+
+        await OTPEmail.create({
+            email: email,
+            otp: generateRandomNumber(6),
+            expireIn: new Date(new Date().getTime() + (2 * 60 * 1000))
+        });
+        res.status(200).json({ message: "send-otp-success" });
+    } catch (error) {
+        console.log(error);
+        res.status(502).json({ message: "send-otp-failed" });
+    }
+};
+
+export const verifyOTP = async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+        const otpEmail = await OTPEmail.findOne({
+            where: { 
+                email: email,
+                deleted: false 
+            }
+        });
+        if (!otpEmail || otpEmail.otp !== otp) {
+            return res.status(400).json({ message: "verify-otp-failed" });
+        }
+        res.status(200).json({ message: "verify-otp-success" });
+    } catch (error) {
+        console.log(error);
+        res.status(502).json({ message: "verify-otp-failed" });
+    }
 };

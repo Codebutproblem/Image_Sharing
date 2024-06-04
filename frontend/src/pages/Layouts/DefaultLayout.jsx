@@ -1,9 +1,9 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import { checkLogin } from "../services/userAccountService";
-import MyAlert from "../components/MyAlert";
-import Loading from "../components/Loading";
+import { checkLogin } from "../../services/userAccountService";
+import MyAlert from "../../components/MyAlert";
+import Loading from "../../components/Loading";
 
 function DefaultLayout() {
   const navigate = useNavigate();

@@ -16,6 +16,18 @@ export const post = async (path, data) => {
   }
 };
 
+export const get = async (path) => {
+  try {
+    const response = await fetch(API_AUTH_DOMAIN + path, {
+      method: "GET",
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    return { message: "error" };
+  }
+};
+
 export const del = async (path) => {
   try {
     const response = await fetch(API_AUTH_DOMAIN + path, {
