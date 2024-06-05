@@ -1,5 +1,4 @@
-import { Sequelize } from "sequelize";
-import Topic from "../../models/topic.model.js";
+import { Topic } from "../../models/index.model.js";
 
 export const getAllTopics = async (req, res) => {
     try {

@@ -1,7 +1,5 @@
 import sequelize from "../../../../config/database.js";
-import Pin from "../../models/pin.model.js";
-import TopicPin from "../../models/topic_pin.model.js";
-import UserAccount from "../../models/user_account.model.js";
+import { Pin, TopicPin, UserAccount } from "../../models/index.model.js";
 import { Sequelize } from "sequelize";
 export const createPin = async (req, res) => {
     try {
@@ -37,28 +35,34 @@ export const getPins = async (req, res) => {
         const limit = parseInt(req.query.limit) || 13;
         const offset = (page - 1) * limit;
         const pins = await Pin.findAll({
-            attributes: ["id", "title", "url", "user_id", "createdAt"],
+            attributes: ["id", "title", "url", "createdAt"],
             where: {
                 deleted: false
+            },
+            include: {
+                model: UserAccount,
+                attributes: ["id", "username", "avatar"]
             },
             order: [
                 ["createdAt", "DESC"]
             ],
-            offset: offset, 
-            limit: limit, 
-            raw: true
+            offset: offset,
+            limit: limit,
+            // raw: true
         });
 
-        for (const pin of pins) {
-            const user = await UserAccount.findOne({
-                attributes: ["id", "username", "avatar"],
-                where: {
-                    id: pin.user_id
-                },
-                raw: true
-            });
-            pin.user = user;
-        }
+        console.log(pins);
+
+        // for (const pin of pins) {
+        //     const user = await UserAccount.findOne({
+        //         attributes: ["id", "username", "avatar"],
+        //         where: {
+        //             id: pin.user_id
+        //         },
+        //         raw: true
+        //     });
+        //     pin.user = user;
+        // }
 
         const totalPins = await Pin.count({
             where: {

@@ -20,7 +20,7 @@ const Topic = sequelize.define('topic', {
     },
     deletedAt: DataTypes.DATE,
 },{
-    tableName: "topic",
+    freezeTableName: true,
     timestamps: true,
     hooks: {
         beforeCreate: (topic) => {

@@ -51,8 +51,8 @@ function PinTable({ pinObject, page, setPage }) {
                             <div className="text-slate-50">
                                 <div className="mb-1">{pin.title}</div>
                                 <div className="flex items-center gap-3">
-                                    <img src={pin.user.avatar || "https://www.gravatar.com/avatar/"} alt={pin.user.username} className="w-10 max-w-10 h-10 rounded-full" />
-                                    <div>{pin.user.username}</div>
+                                    <img src={pin?.UserAccount?.avatar || "https://www.gravatar.com/avatar/"} alt={pin?.UserAccount?.username} className="w-10 max-w-10 h-10 rounded-full" />
+                                    <div>{pin?.UserAccount?.username}</div>
                                 </div>
                             </div>
                         </div>

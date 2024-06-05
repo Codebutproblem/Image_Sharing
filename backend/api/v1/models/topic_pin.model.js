@@ -1,27 +1,30 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../../../config/database.js";
-
+import Topic from "./topic.model.js";
+import Pin from "./pin.model.js";
 const TopicPin = sequelize.define('TopicPin', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-    },
     topic_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: Topic,
+            key: 'id'
+        }
     },
     pin_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: Pin,
+            key: 'id'
+        }
     },
     deleted: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
 },{
-    tableName: 'topic_pin',
+    freezeTableName: true,
     timestamps: false
 });
 

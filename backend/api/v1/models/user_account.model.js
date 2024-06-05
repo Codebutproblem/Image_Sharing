@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../../config/database.js';
 import slugify from 'slugify';
+import Pin from './pin.model.js';
 const UserAccount = sequelize.define('UserAccount', {
     id: {
         type: DataTypes.INTEGER,
@@ -36,7 +37,7 @@ const UserAccount = sequelize.define('UserAccount', {
     gender: DataTypes.STRING(50),
     language: {
         type: DataTypes.STRING(50),
-        defaultValue: "vietnamese",
+        defaultValue: "Việt Nam",
         allowNull: false
     },
     nation: DataTypes.STRING(100),
@@ -48,7 +49,7 @@ const UserAccount = sequelize.define('UserAccount', {
     },
     deletedAt: DataTypes.DATE
 },{
-    tableName: "user_account",
+    freezeTableName: true,
     timestamps: true,
     hooks: {
         beforeCreate: (user) => {

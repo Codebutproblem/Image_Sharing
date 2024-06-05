@@ -25,7 +25,7 @@ const OTPEmail = sequelize.define("OTPEmail", {
         allowNull: false
     }  
 },{
-    tableName: "otp_email",
+    freezeTableName: true,
     timestamps: false
 });
 

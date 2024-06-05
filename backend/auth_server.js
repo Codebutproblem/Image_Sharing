@@ -6,7 +6,9 @@ import sequelize from './config/database.js';
 import clientAuthRoutes from './api/v1/client/auth_routes/index.route.js';
 
 dotenv.config();
+
 sequelize;
+await sequelize.sync();
 
 const app = express();
 const port = process.env.AUTH_PORT || 3001;

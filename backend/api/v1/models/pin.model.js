@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../../../config/database.js";
-
+import UserAccount from "./user_account.model.js";
 
 const Pin = sequelize.define("Pin", {
     id: {
@@ -8,10 +8,6 @@ const Pin = sequelize.define("Pin", {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
-    },
-    user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
     },
     url: {
         type: DataTypes.STRING(255),
@@ -33,7 +29,7 @@ const Pin = sequelize.define("Pin", {
     deletedAt: DataTypes.DATE
     
 }, {
-    tableName: "pin",
+    freezeTableName: true,
     timestamps: true
 });
 

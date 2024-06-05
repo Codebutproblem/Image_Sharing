@@ -6,7 +6,9 @@ import sequelize from './config/database.js';
 import clientRoutes from './api/v1/client/routes/index.route.js';
 
 dotenv.config();
+
 sequelize;
+await sequelize.sync();
 
 const app = express();
 const port = process.env.PORT || 3000;
