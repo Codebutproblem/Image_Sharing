@@ -1,5 +1,5 @@
-import { generateRandomNumber } from "../../../../utils/generate.js";
-import { UserAccount, OTPEmail } from "../../models/index.model.js";
+import { generateRandomNumber } from "../../../utils/generate.js";
+import { UserAccount, OTPEmail } from "../models/index.model.js";
 import md5 from "md5";
 import jwt from "jsonwebtoken";
 

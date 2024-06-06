@@ -1,4 +1,4 @@
-import UserAccount from "../../models/user_account.model.js";
+import UserAccount from "../models/user_account.model.js";
 
 export const validateRegister = async (req, res, next) => {
     const { email, password, confirmPassword} = req.body;

@@ -25,7 +25,7 @@ function UploadButton() {
         allow_comment: uploader.allowComment,
         allow_recommend: uploader.allowRecommend,
         url: url,
-        topics: uploader.topics.map((topic) => topic.id),
+        topic_ids: uploader.topics.map((topic) => topic.id),
         table_id: uploader.tableId,
       };
       const result = await createPin(pin);
