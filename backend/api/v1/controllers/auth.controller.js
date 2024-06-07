@@ -2,7 +2,7 @@ import { generateRandomNumber } from "../../../utils/generate.js";
 import { UserAccount, OTPEmail } from "../models/index.model.js";
 import md5 from "md5";
 import jwt from "jsonwebtoken";
-
+import sendMail from "../../../utils/mail.js";
 
 export const registerPost = async (req, res) => {
 
@@ -144,11 +144,16 @@ export const sendOTP = async (req, res) => {
             }
         });
 
-        await OTPEmail.create({
+        const otpEmail = await OTPEmail.create({
             email: email,
             otp: generateRandomNumber(6),
             expireIn: new Date(new Date().getTime() + (2 * 60 * 1000))
         });
+
+        const subject = "OTP Email From Photo Sharing";
+        const html = `<p>MÃ XÁC MINH: <h3>${otpEmail.otp}</h3>(Thời hạn trong 2 phút)</p>`;
+        sendMail(email, subject, html);
+
         res.status(200).json({ message: "send-otp-success" });
     } catch (error) {
         console.log(error);

@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-export default send = (email,subject, html) => {
+const sendMail = (email,subject, html) => {
     const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -22,3 +22,5 @@ export default send = (email,subject, html) => {
         }
     });
 }
+
+export default sendMail;
