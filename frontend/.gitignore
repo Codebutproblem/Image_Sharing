@@ -12,13 +12,6 @@ dist
 dist-ssr
 *.local
 
-# misc
-.DS_Store
-.env.local
-.env.development.local 
-.env.test.local
-.env.production.local
-.env
 
 # Editor directories and files
 .vscode/*
@@ -30,3 +23,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment files
+.env
