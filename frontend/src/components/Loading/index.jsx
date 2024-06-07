@@ -7,7 +7,7 @@ function Loading() {
     return (
         <>
             {loading && (
-                <div className="absolute z-[50] bg-[#00000040] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+                <div className="fixed z-[150] bg-[#00000040] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
                     <CircularProgress disableShrink size={60} color="primary" />
                 </div>
             )}

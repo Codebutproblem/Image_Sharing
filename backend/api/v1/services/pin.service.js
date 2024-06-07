@@ -46,7 +46,7 @@ export const countAllPinsService = async () => {
 };
 
 export const getPinsByTopicService = async (pagination, topicIds) => {
-    const pins = Pin.findAll({
+    const pins = await Pin.findAll({
         attributes: [
             "id",
             "title", 

@@ -5,6 +5,7 @@ import PinTable from "../../components/PinTable";
 import { getPinsByTopic } from "../../services/pinService";
 import { clearTopicTags } from "../../redux/actions/topic";
 import PinByTopicHeader from "../../components/PinByTopicHeader";
+import SkeletonTable from "../../components/PinTable/SkeletonTable";
 
 function PinByTopic() {
     const selectedTopics = useSelector((state) => state.TopicReducer);
@@ -13,11 +14,7 @@ function PinByTopic() {
     const [page, setPage] = useState(1);
     const dispatch = useDispatch();
 
-
     useEffect(() => {
-        if (selectedTopics.length === 0) {
-            navigate("/");
-        }
         return () => {
             dispatch(clearTopicTags());
         };
@@ -37,13 +34,32 @@ function PinByTopic() {
             }
         };
         waittingAPI();
-    },[selectedTopics.length, page]);
+    }, [selectedTopics.length]);
 
+    useEffect(() => {
+        if (selectedTopics.length === 0) {
+            navigate("/");
+            return;
+        }
+        const waittingAPI = async () => {
+            const result = await getPinsByTopic({ selectedTopics, page: 1, limit: 15 });
+            if (result.message === "get-pins-by-topic-success") {
+                setPinObject({
+                    pins: result.pins,
+                    total_pages: result.total_pages
+                });
+            }
+        };
+        waittingAPI();
+    }, [selectedTopics.length]);
 
     return (
         <>
             <PinByTopicHeader selectedTopics={selectedTopics} />
-            <PinTable pinObject={pinObject} setPage={setPage} page={page} />
+            {pinObject.pins.length === 0 ?
+                <SkeletonTable /> :
+                <PinTable pinObject={pinObject} setPage={setPage} page={page} />
+            }
         </>
     );
 }

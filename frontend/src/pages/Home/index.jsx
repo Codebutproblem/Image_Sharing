@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PinTable from "../../components/PinTable";
 import { getPins } from "../../services/pinService";
+import SkeletonTable from "../../components/PinTable/SkeletonTable";
 
 function Home() {
   const [pinObject, setPinObject] = useState({pins: [], total_pages: 0});
@@ -16,7 +17,12 @@ function Home() {
   }, [page]);
 
   return (
-    <PinTable pinObject={pinObject} setPage={setPage} page={page} />
+    <>
+      {pinObject.pins.length === 0 ? 
+        <SkeletonTable />:
+        <PinTable pinObject={pinObject} setPage={setPage} page={page} />
+      }
+    </>
   );
 }
 export default Home;

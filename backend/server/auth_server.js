@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser"
 import sequelize from '../config/database.js';
-import authRoutes from '../api/v1/auth_routes/index.route.js';
+import authRoutes from '../api/v1/routes/auth.route.js';
 
 dotenv.config();
 
