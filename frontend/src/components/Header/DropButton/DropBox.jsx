@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { getInfoUser } from "../../../services/userAccountService";
 import { logout } from "../../../services/authService";
-
+import { useNavigate } from "react-router-dom";
 function DropBox({ id }) {
 
   const [infoUser, setInfoUser] = useState({});
+  const naviate = useNavigate();
 
   useEffect(() => {
     const waittingAPI = async () => {
@@ -20,7 +21,7 @@ function DropBox({ id }) {
     await logout();
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    window.location.reload();
+    naviate("/user-account/login");
   };
 
   return (

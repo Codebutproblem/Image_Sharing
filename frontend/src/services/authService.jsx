@@ -14,7 +14,9 @@ export const refreshToken = async () => {
   const result = await post("auth/refresh-token", {
     refreshToken: localStorage.getItem("refreshToken"),
   });
-  localStorage.setItem("accessToken", result.accessToken);
+  if(result.message === "refresh-token-success") {
+    localStorage.setItem("accessToken", result.accessToken);
+  }
 };
 
 export const logout = async () => {
