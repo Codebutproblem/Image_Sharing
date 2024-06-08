@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../../redux/actions/other";
 import OtpInput from 'react-otp-input';
+import { ResponseMessage } from "../../config/system";
 function ForgotPassword() {
 
     const [sent, setSent] = useState(false);
@@ -14,7 +15,7 @@ function ForgotPassword() {
         e.preventDefault();
         if (!sent) {
             const result = await sendOTP(email);
-            if (result.message === "send-otp-success") {
+            if (result.message === ResponseMessage.SEND_OTP_SUCCESS) {
                 setSent(true);
                 dispatch(showAlert({ type: "success", message: "Mã xác thực đã được gửi" }));
             } else {
@@ -37,7 +38,7 @@ function ForgotPassword() {
 
     const sendOTPAgain = async () => {
         const result = await sendOTP(email);
-        if (result.message === "send-otp-success") {
+        if (result.message === ResponseMessage.SEND_OTP_SUCCESS) {
             dispatch(showAlert({ type: "success", message: "Mã xác thực đã được gửi" }));
         } else {
             dispatch(showAlert({ type: "error", message: "Email không tồn tại" }));

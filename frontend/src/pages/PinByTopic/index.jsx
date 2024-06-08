@@ -6,6 +6,7 @@ import { getPinsByTopic } from "../../services/pinService";
 import { clearTopicTags } from "../../redux/actions/topic";
 import PinByTopicHeader from "../../components/PinByTopicHeader";
 import SkeletonTable from "../../components/PinTable/SkeletonTable";
+import { ResponseMessage } from "../../config/system";
 
 function PinByTopic() {
     const selectedTopics = useSelector((state) => state.TopicReducer);
@@ -25,7 +26,7 @@ function PinByTopic() {
     useEffect(() => {
         const waittingAPI = async () => {
             const result = await getPinsByTopic({ selectedTopics, page: page, limit: 15 });
-            if (result.message === "get-pins-by-topic-success") {
+            if (result.message === ResponseMessage.GET_PINS_BY_TOPIC_SUCCESS) {
                 const newPins = [...new Map([...pinObject.pins, ...result.pins].map(pin => [pin.id, pin])).values()];
                 setPinObject({
                     pins: newPins,
@@ -43,7 +44,7 @@ function PinByTopic() {
         }
         const waittingAPI = async () => {
             const result = await getPinsByTopic({ selectedTopics, page: 1, limit: 15 });
-            if (result.message === "get-pins-by-topic-success") {
+            if (result.message === ResponseMessage.GET_PINS_BY_TOPIC_SUCCESS) {
                 setPinObject({
                     pins: result.pins,
                     total_pages: result.total_pages

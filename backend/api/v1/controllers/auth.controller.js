@@ -1,3 +1,4 @@
+import { HttpStatusCode, ResponseMessage } from "../../../config/system.js";
 import { 
     creatAccountService, 
     findOTPEmailService, 
@@ -9,15 +10,12 @@ import {
 export const registerPost = async (req, res) => {
 
     try {
-        const userAccount = await creatAccountService(req.body);
-        return res.status(201).json({
-            userAccount: userAccount,
-            message: "register-success"
-        });
+        await creatAccountService(req.body);
+        return res.status(HttpStatusCode.CREATED).json({message: ResponseMessage.REGISTER_SUCCESS});
     } catch (error) {
         console.log(error);
-        return res.status(502).json({
-            message: "register-failed"
+        return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+            message: ResponseMessage.REGISTER_FAILED
         });
     }
 
@@ -27,25 +25,24 @@ export const loginPost = async (req, res) => {
     try {
         const userAccount = req.userAccount;
         const { accessToken, refreshToken } = await signTokenService(userAccount);
-        res.status(200).json({ accessToken, refreshToken, message: "login-success" });
+        res.status(HttpStatusCode.OK).json({ accessToken, refreshToken, message: ResponseMessage.LOGIN_SUCCESS });
     } catch (error) {
-        res.status(502).json({ message: "login-failed" });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.LOGIN_FAILED });
     }
 }
 
 export const refreshAccessToken = async (req, res) => {
     const accessToken = req.accessToken;
-    res.status(201).json({ accessToken, message: "refresh-token-success" });
+    res.status(HttpStatusCode.CREATED).json({ accessToken, message: ResponseMessage.REFRESH_TOKEN_SUCCESS });
 }
 
 export const logout = async (req, res) => {
     try {
         const refreshToken = req.body.refreshToken;
-
         await logoutService(refreshToken);
-        res.status(200).json({ message: "logout-success" });
+        res.status(HttpStatusCode.OK).json({ message: ResponseMessage.LOGOUT_SUCCESS });
     } catch (error) {
-        res.status(502).json({ message: "logout-failed" });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.LOGOUT_FAILED});
     }
 };
 
@@ -55,10 +52,10 @@ export const sendOTP = async (req, res) => {
 
         await sendOTPEmailService(email);
 
-        res.status(200).json({ message: "send-otp-success" });
+        res.status(HttpStatusCode.OK).json({ message: ResponseMessage.SEND_OTP_SUCCESS });
     } catch (error) {
         console.log(error);
-        res.status(502).json({ message: "send-otp-failed" });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.SEND_OTP_FAILED });
     }
 };
 
@@ -69,11 +66,11 @@ export const verifyOTP = async (req, res) => {
         const otpEmail = await findOTPEmailService(email);
 
         if (!otpEmail || otpEmail.otp !== otp) {
-            return res.status(400).json({ message: "verify-otp-failed" });
+            return res.status(HttpStatusCode.UNAUTHORIZED).json({ message: ResponseMessage.WRONG_OTP });
         }
-        res.status(200).json({ message: "verify-otp-success" });
+        res.status(HttpStatusCode.OK).json({ message: ResponseMessage.VERIFY_OTP_SUCCESS });
     } catch (error) {
         console.log(error);
-        res.status(502).json({ message: "verify-otp-failed" });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.VERIFY_OTP_FAILED });
     }
 };

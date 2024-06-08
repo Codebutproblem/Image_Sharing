@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { registerUserAccount } from "../../services/authService";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../../redux/actions/other";
+import { ResponseMessage } from "../../config/system";
 
 function Register() {
   const dispatch = useDispatch();
@@ -17,17 +18,17 @@ function Register() {
     };
     const result = await registerUserAccount(userAccount);
     switch (result.message) {
-      case "register-success":
+      case ResponseMessage.REGISTER_SUCCESS:
         dispatch(showAlert({ type: "success", message: "Đăng ký thành công!" }));
         navigate("/user-account/login");
         break;
-      case "email-existed":
+      case ResponseMessage.FIELD_REQUIRED:
+        dispatch(showAlert({ type: "error", message: "Vui lòng điền đầy đủ thông tin!" }));
+        break;
+      case ResponseMessage.EMAIL_EXISTED:
         dispatch(showAlert({ type: "error", message: "Email đã tồn tại!" }));
         break;
-      case "username-existed":
-        dispatch(showAlert({ type: "error", message: "Tên tài khoản đã tồn tại!" }));
-        break;
-      case "password-incorrect":
+      case ResponseMessage.PASSWORD_NOT_MATCH:
         dispatch(showAlert({ type: "error", message: "Mật khẩu không khớp!" }));
         break;
       default:

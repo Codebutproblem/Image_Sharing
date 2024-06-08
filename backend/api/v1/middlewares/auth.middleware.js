@@ -4,18 +4,19 @@ import {
     findUserAccountByEmailService,
     findUserAccountByRefreshTokenService
 } from '../services/auth.service.js';
+import { HttpStatusCode, ResponseMessage } from '../../../config/system.js';
 
 export const authToken = (req, res, next) => {
     const authorizationHeader = req.headers['authorization'];
     const accessToken = authorizationHeader && authorizationHeader.split(' ')[1];
 
     if (!accessToken) {
-        return res.status(401).json({ message: "access-token-not-found" });
+        return res.status(HttpStatusCode.UNAUTHORIZED).json({ message: ResponseMessage.ACCESS_TOKEN_NOT_FOUND });
     }
 
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
-            return res.status(403).json({ message: "invalid-token" });
+            return res.status(HttpStatusCode.FORBIDDEN).json({ message: ResponseMessage.INVALID_TOKEN });
         }
         delete user.iat;
         delete user.exp;
@@ -31,43 +32,58 @@ export const verifyLogin = async (req, res, next) => {
         const userAccount = await findUserAccountByEmailService(email);
 
         if (!userAccount || userAccount.password !== md5(password)) {
-            return res.status(400).json({
-                message: "login-failed"
+            return res.status(HttpStatusCode.UNAUTHORIZED).json({
+                message: ResponseMessage.WRONG_ACCOUNT_OR_PASSWORD
             });
         }
 
         if (userAccount.status === "inactive") {
-            return res.status(400).json({
-                message: "account-inactive"
+            return res.status(HttpStatusCode.FORBIDDEN).json({
+                message: ResponseMessage.ACCOUNT_INACTIVE
             });
         }
         req.userAccount = userAccount;
         next();
     } catch (error) {
         console.log(error);
-        res.status(502).json({ message: "login-failed" });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.LOGIN_FAILED });
     }
 
+};
+
+export const validRegister = async (req, res, next) => {
+    const { email, password, confirmPassword } = req.body;
+    if (!email || !password || !confirmPassword) {
+        return res.status(HttpStatusCode.BAD_REQUEST).json({ message: ResponseMessage.FIELD_REQUIRED });
+    }
+    if (password !== confirmPassword) {
+        return res.status(HttpStatusCode.BAD_REQUEST).json({ message: ResponseMessage.PASSWORD_NOT_MATCH });
+    }
+    const userAccount = await findUserAccountByEmailService(email);
+    if (userAccount) {
+        return res.status(HttpStatusCode.CONFLICT).json({ message: ResponseMessage.EMAIL_EXISTED });
+    }
+    next();
 };
 
 export const verifyRefreshToken = async (req, res, next) => {
     const refreshToken = req.body.refreshToken;
     if (!refreshToken) {
-        return res.status(401).json({ message: "refresh-token-not-found" });
+        return res.status(HttpStatusCode.UNAUTHORIZED).json({ message: ResponseMessage.REFRESH_TOKEN_NOT_FOUND });
     }
 
     try {
         const userExisted = await findUserAccountByRefreshTokenService(refreshToken);
         if (!userExisted) {
-            return res.status(403).json({ message: "invalid-refresh-token" });
+            return res.status(HttpStatusCode.FORBIDDEN).json({ message: ResponseMessage.INVALID_REFRESH_TOKEN });
         }
     } catch (error) {
-        return res.status(502).json({ message: "refresh-token-failed" });
+        return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.REFRESH_TOKEN_FAILED });
     }
 
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if (err) {
-            return res.status(403).json({ message: "invalid-refresh-token" });
+            return res.status(HttpStatusCode.FORBIDDEN).json({ message: ResponseMessage.INVALID_REFRESH_TOKEN });
         }
         delete user.iat;
         delete user.exp;
@@ -83,10 +99,10 @@ export const verifyEmail = async (req, res, next) => {
         const { email } = req.body;
         const userAccount = await findUserAccountByEmailService(email);
         if (!userAccount) {
-            return res.status(404).json({ message: "user-not-found" });
+            return res.status(HttpStatusCode.NOT_FOUND).json({ message: ResponseMessage.USER_NOT_FOUND });
         }
         next();
     } catch (error) {
-        res.status(502).json({ message: "send-otp-failed" });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.SEND_OTP_FAILED });
     }
 };

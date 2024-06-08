@@ -1,4 +1,5 @@
 
+import { HttpStatusCode, ResponseMessage } from "../../../config/system.js";
 import { 
     countAllPinsService, 
     countPinsByTopicService, 
@@ -14,11 +15,11 @@ export const createPin = async (req, res) => {
             ...rawData,
             user_id: req.user.id,
         }
-        const pin = await createPinService(data);
-        res.status(200).json({ pin, message: "create-pin-success" });
+        await createPinService(data);
+        res.status(HttpStatusCode.CREATED).json({ message: ResponseMessage.CREATE_PIN_SUCCESS });
     } catch (error) {
         console.log(error);
-        res.status(502).json({ message: "create-pin-failed" });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.CREATE_PIN_FAILED });
     }
 };
 
@@ -35,10 +36,10 @@ export const getPins = async (req, res) => {
 
         const total_pages = Math.ceil(totalPins / limit);
 
-        res.status(200).json({ pins, total_pages: total_pages , message: "get-pins-success" });
+        res.status(HttpStatusCode.OK).json({ pins, total_pages: total_pages , message: ResponseMessage.GET_PINS_SUCCESS });
     } catch (error) {
         console.log(error);
-        res.status(502).json({ message: "get-pins-failed" });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_PINS_FAILED });
     }
 };
 
@@ -51,7 +52,7 @@ export const getPinsByTopic = async (req, res) => {
         const topicSelected = req.body.selectedTopics;
         const topicIds = topicSelected.map((topic) => topic.id);
         if(!topicIds || topicIds.length === 0){
-            return res.status(200).json({ pins: [], message: "get-pins-by-topic-success" });
+            return res.status(HttpStatusCode.OK).json({ pins: [], message: ResponseMessage.GET_PINS_BY_TOPIC_SUCCESS });
         }
 
         const pins = await getPinsByTopicService({ offset, limit }, topicIds);
@@ -59,9 +60,8 @@ export const getPinsByTopic = async (req, res) => {
         const totalPins = await countPinsByTopicService(topicIds);
 
         const total_pages = Math.ceil(totalPins / limit);
-        res.status(200).json({ pins,total_pages: total_pages, message: "get-pins-by-topic-success" });
+        res.status(HttpStatusCode.OK).json({ pins,total_pages: total_pages, message: ResponseMessage.GET_PINS_BY_TOPIC_SUCCESS });
     } catch (error) {
-        console.log(error);
-        res.status(502).json({ message: "get-pins-by-topic-failed" });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_PINS_BY_TOPIC_FAILED });
     }
 };

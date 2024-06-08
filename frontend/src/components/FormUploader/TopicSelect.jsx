@@ -3,6 +3,8 @@ import { getAllTopics } from "../../services/topicService";
 import { useDispatch, useSelector } from "react-redux";
 import { addTopic, removeTopic } from "../../redux/actions/uploader";
 import { getContrastingTextColor } from "../../utils/Color";
+import { ResponseMessage } from "../../config/system";
+
 function TopicSelect() {
 	const uploader = useSelector((state) => state.UploadReducer);
 	const [topics, setTopics] = useState({
@@ -14,7 +16,7 @@ function TopicSelect() {
 	useEffect(() => {
 		const fetchApi = async () => {
 			const result = await getAllTopics("name-ASC");
-			if (result.message === "get-all-topics-success") {
+			if (result.message === ResponseMessage.GET_ALL_TOPICS_SUCCESS) {
 				setTopics({
 					all: result.topics,
 					remaind: result.topics,

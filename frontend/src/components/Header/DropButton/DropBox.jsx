@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getInfoUser } from "../../../services/userAccountService";
 import { logout } from "../../../services/authService";
 import { useNavigate } from "react-router-dom";
+import { ResponseMessage } from "../../../config/system";
 function DropBox({ id }) {
 
   const [infoUser, setInfoUser] = useState({});
@@ -10,7 +11,7 @@ function DropBox({ id }) {
   useEffect(() => {
     const waittingAPI = async () => {
       const result = await getInfoUser();
-      if (result.message !== "get-info-user-success") {
+      if (result.message === ResponseMessage.GET_INFO_SUCCESS) {
         setInfoUser(result.user);
       }
     };

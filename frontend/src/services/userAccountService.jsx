@@ -1,3 +1,4 @@
+import { ResponseMessage } from "../config/system";
 import { get } from "../requests/request";
 
 export const checkLogin = async () => {
@@ -6,7 +7,7 @@ export const checkLogin = async () => {
     return false;
   }
   const result = await get("user-account/verify-login");
-  if (result.message == "verify-success") {
+  if (result.message == ResponseMessage.VERIFY_LOGIN_SUCCESS) {
     return true;
   }
   return false;

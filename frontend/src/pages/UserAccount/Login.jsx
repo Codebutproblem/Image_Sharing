@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUserAccount } from "../../services/authService";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../../redux/actions/other";
+import { ResponseMessage } from "../../config/system";
 
 function Login() {
   const dispatch = useDispatch();
@@ -14,16 +15,19 @@ function Login() {
     };
     const result = await loginUserAccount(userAccount);
     switch (result.message) {
-      case "login-success":
+      case ResponseMessage.LOGIN_SUCCESS:
         localStorage.setItem("accessToken", result.accessToken);
         localStorage.setItem("refreshToken", result.refreshToken);
         navigate("/");
         break;
-      case "login-failed":
-        dispatch(showAlert({ type: "error", message: "Email hoặc mật khẩu không đúng!" }))
+      case ResponseMessage.WRONG_ACCOUNT_OR_PASSWORD:
+        dispatch(showAlert({ type: "error", message: "Tài khoản hoặc mật khẩu không đúng!" }))
         break;
-      case "account-inactive":
+      case ResponseMessage.ACCOUNT_INACTIVE:
         dispatch(showAlert({ type: "error", message: "Tài khoản đã bị khóa!" }))
+        break;
+      case ResponseMessage.LOGIN_FAILED:
+        dispatch(showAlert({ type: "error", message: "Email hoặc mật khẩu không đúng!" }))
         break;
       default:
         break;

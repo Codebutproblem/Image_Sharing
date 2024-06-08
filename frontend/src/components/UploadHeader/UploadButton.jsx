@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import UploadFirebase from "../../utils/UploadFirebase";
 import { createPin } from "../../services/pinService";
 import { resetUploader } from "../../redux/actions/uploader";
 import { showAlert } from "../../redux/actions/other";
 import { showLoading } from "../../redux/actions/other";
+import { ResponseMessage } from "../../config/system";
+import { uploadImageFirebase } from "../../utils/UploadFirebase";
 function UploadButton() {
   const dispatch = useDispatch();
   const uploader = useSelector((state) => state.UploadReducer);
@@ -13,12 +14,12 @@ function UploadButton() {
     }
     const loadingApi = async () => {
       if (!uploader.title) {
-        return { message: "title-required" };
+        return { message: ResponseMessage.TITLE_REQUIRED };
       }
       if (!uploader.file) {
-        return { message: "url-required" };
+        return { message: ResponseMessage.FILE_REQUIRED };
       }
-      const url = await UploadFirebase(uploader.file);
+      const url = await uploadImageFirebase(uploader.file);
       const pin = {
         title: uploader.title,
         description: uploader.description,
@@ -35,17 +36,17 @@ function UploadButton() {
       .then((result) => {
         dispatch(showLoading(false));
         switch (result.message) {
-          case "create-pin-success":
+          case ResponseMessage.CREATE_PIN_SUCCESS:
             dispatch(resetUploader());
             dispatch(showAlert({ type: "success", message: "Tải lên thành công" }));
             break;
-          case "url-required":
+          case ResponseMessage.FILE_REQUIRED:
             dispatch(showAlert({ type: "error", message: "Vui lòng chọn tệp" }));
             break;
-          case "title-required":
+          case ResponseMessage.TITLE_REQUIRED:
             dispatch(showAlert({ type: "error", message: "Vui lòng nhập tiêu đề" }));
             break;
-          case "create-pin-failed":
+          case ResponseMessage.CREATE_PIN_FAILED:
             dispatch(showAlert({ type: "error", message: "Tải lên thất bại" }));
             break;
           default:
