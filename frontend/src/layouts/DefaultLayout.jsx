@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { checkLogin } from "../services/userAccountService";
 import MyAlert from "../components/MyAlert";
 import Loading from "../components/Loading";
+import { refreshToken } from "../services/authService";
 
 function DefaultLayout() {
   const navigate = useNavigate();
@@ -18,6 +19,11 @@ function DefaultLayout() {
       }
     };
     waitingAPI();
+    refreshToken();
+    const refreshTokenInterval = setInterval(refreshToken, 13000);
+    return ()=>{
+      clearInterval(refreshTokenInterval);
+    }
   }, []);
 
   if (!displayLayout) return;

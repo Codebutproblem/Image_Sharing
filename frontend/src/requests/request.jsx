@@ -1,9 +1,6 @@
-import { refreshToken } from "../services/authService";
-
 const API_DOMAIN = import.meta.env.VITE_REACT_API_DOMAIN;
 
 export const get = async (path) => {
-  await refreshToken();
   try {
     const response = await fetch(API_DOMAIN + path, {
       method: "GET",
@@ -19,7 +16,6 @@ export const get = async (path) => {
 };
 
 export const post = async (path, data) => {
-  await refreshToken();
   try {
     const response = await fetch(API_DOMAIN + path, {
       method: "POST",
@@ -37,7 +33,6 @@ export const post = async (path, data) => {
 };
 
 export const del = async (path) => {
-  await refreshToken();
   try {
     const response = await fetch(API_DOMAIN + path, {
       method: "DELETE",
@@ -53,7 +48,6 @@ export const del = async (path) => {
 };
 
 export const patch = async (path, data) => {
-  await refreshToken();
   try {
     const response = await fetch(API_DOMAIN + path, {
       method: "PATCH",

@@ -22,10 +22,16 @@ function UserAccountDefault() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 bottom-0 bg-[url('/images/user_account_bg.gif')] bg-cover bg-no-repeat bg-fixed bg-center">
+      <div className="fixed top-0 left-0 right-0 bottom-0 bg-[url('/images/bg.jpg')] bg-cover bg-no-repeat bg-fixed bg-center">
       </div>
       <MyAlert />
-      <Outlet/>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] flex items-center">
+        <Outlet />
+        <div className="flex-1">
+          <div className="ms-auto max-w-[500px] text-orange-400 text-8xl font-bold leading-normal tracking-wide text-center">HI THERE! <span className=" text-sky-500">ENJOY MY WEB APP</span> </div>
+        </div>
+      </div>
+
     </>
   );
 }

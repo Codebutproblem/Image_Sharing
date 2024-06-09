@@ -3,6 +3,8 @@ import { registerUserAccount } from "../../services/authService";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../../redux/actions/other";
 import { ResponseMessage } from "../../config/system";
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import FormInput from "../../components/FormInput";
 
 function Register() {
   const dispatch = useDispatch();
@@ -37,108 +39,56 @@ function Register() {
     }
   };
   return (
-      <div
-        style={{
-          backdropFilter: "blur(15px)",
-        }}
-        className="absolute top-1/2 left-[55%] -translate-y-1/2 w-[500px] max-w-[900px] min-h-[80%] border rounded-xl border-slate-400 p-5 text-slate-200"
-      >
-        <div className="text-center font-semibold text-4xl mb-6">Đăng ký</div>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-slate-50">
-              Email
-            </label>
-            <input
-              name="email"
-              type="email"
-              className="mt-1 min-w-[300px] block w-full px-3 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-600 focus:border-sky-600 sm:text-sm text-black"
-              placeholder="Nhập email"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-slate-50">
-              Tên tài khoản
-            </label>
-            <input
-              name="username"
-              type="text"
-              className="mt-1 min-w-[300px] block w-full px-3 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-600 focus:border-sky-600 sm:text-sm text-black"
-              placeholder="Nhập tên tài khoản"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-slate-50">
-              Mật khẩu
-            </label>
-            <input
-              name="password"
-              type="password"
-              className="mt-1 min-w-[300px] block w-full px-3 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-600 focus:border-sky-600 sm:text-sm text-black"
-              placeholder="Nhập mật khẩu"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-slate-50">
-              Xác nhận mật khẩu
-            </label>
-            <input
-              name="confirmPassword"
-              type="password"
-              className="mt-1 min-w-[300px] block w-full px-3 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-600 focus:border-sky-600 sm:text-sm text-black"
-              placeholder="Nhập xác nhận mật khẩu"
-              required
-            />
-          </div>
-          <div className="mb-4 flex items-center">
-            <div className="text-sm font-medium text-slate-50">Giới tính:</div>
-            <div className="ms-3">
-              <input
-                type="radio"
-                name="gender"
-                id="male-gender"
-                value={"male"}
-                defaultChecked
-                required
-              />
-              <label htmlFor="male-gender" className="ms-1">
-                Nam
-              </label>
-            </div>
-            <div className="ms-3">
-              <input
-                type="radio"
-                name="gender"
-                id="female-gender"
-                value={"female"}
-                required
-              />
-              <label htmlFor="female-gender" className="ms-1">
-                Nữ
-              </label>
-            </div>
-          </div>
-          <div className="mb-4">
-            <button className="p-2 w-full bg-orange-500 hover:bg-orange-600 text-slate-50 rounded-md">
-              Đăng ký
-            </button>
-          </div>
-          <div className="mb-4">
-            <p className="text-sm text-center">
-              Đã có tài khoản?{" "}
-              <Link
-                to={"/user-account/login"}
-                className="hover:underline font-bold"
-              >
-                Đăng nhập
-              </Link>{" "}
-            </p>
-          </div>
-        </form>
-      </div>
+    <div
+      style={{
+        backdropFilter: "blur(20px)",
+      }}
+      className="w-[500px] max-w-[500px] border rounded-xl border-slate-400 p-5 text-slate-200 min-h-[560px]"
+    >
+      <div className="text-center font-semibold text-4xl mb-6">Đăng ký</div>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <FormInput label="Email" name="email" type="email" placeholder="Nhập email" />
+        </div>
+        <div className="mb-4">
+          <FormInput label="Tên tài khoản" name="username" type="text" placeholder="Nhập tên tài khoản" />
+        </div>
+        <div className="mb-4">
+          <FormInput label="Mật khẩu" name="password" type="password" placeholder="Nhập mật khẩu" />
+        </div>
+        <div className="mb-4">
+          <FormInput label="Xác nhận mật khẩu" name="confirmPassword" type="password" placeholder="Nhập xác nhận mật khẩu" />
+        </div>
+        <div className="mb-4 flex items-center gap-3">
+          <div className="text-sm font-medium">Giới tính:</div>
+          <RadioGroup
+            row
+            aria-labelledby="demo-radio-buttons-group-label"
+            defaultValue="female"
+            name="gender"
+          >
+            <FormControlLabel value="male" control={<Radio />} label="Nam" />
+            <FormControlLabel value="female" control={<Radio />} label="Nữ" />
+          </RadioGroup>
+        </div>
+        <div className="mb-4">
+          <button className="p-2 w-full duration-200 bg-orange-500 hover:bg-orange-600 text-slate-50 rounded-md">
+            Đăng ký
+          </button>
+        </div>
+        <div className="mb-4">
+          <p className="text-sm text-center">
+            Đã có tài khoản?{" "}
+            <Link
+              to={"/user-account/login"}
+              className="hover:underline font-bold"
+            >
+              Đăng nhập
+            </Link>{" "}
+          </p>
+        </div>
+      </form>
+    </div>
   );
 }
 
