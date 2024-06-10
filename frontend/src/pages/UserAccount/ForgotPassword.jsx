@@ -48,12 +48,7 @@ function ForgotPassword() {
         }
     };
     return (
-        <div
-            style={{
-                backdropFilter: "blur(15px)",
-            }}
-            className="w-[500px] max-w-[500px] border rounded-xl border-slate-400 p-5 text-slate-200 min-h-[300px]"
-        >
+        <div className="w-[500px] max-w-[500px] border rounded-xl border-slate-400 p-5 text-slate-200 min-h-[300px] backdrop-blur-lg">
             <div className="text-center font-semibold text-4xl mb-6">Xác thực tài khoản</div>
             <form onSubmit={handleSubmit} className="mb-12">
                 <div className="mb-5">

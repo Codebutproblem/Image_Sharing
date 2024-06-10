@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { showAlert } from "../../redux/actions/other";
 import { ResponseMessage } from "../../config/system";
 import FormInput from "../../components/FormInput";
-import { FormControlLabel } from "@mui/material";
+import LoginWith from "../../components/LoginWith";
 
 function Login() {
   const dispatch = useDispatch();
@@ -44,11 +44,9 @@ function Login() {
       localStorage.removeItem("password");
     }
   };
+
   return (
-    <div
-      style={{ backdropFilter: "blur(20px)" }}
-      className="w-[500px] max-w-[500px] border rounded-xl border-slate-400 p-5 text-slate-200 min-h-[560px]"
-    >
+    <div className="w-[500px] max-w-[500px] border rounded-xl border-slate-400 p-5 text-slate-200 min-h-[560px] backdrop-blur-lg">
       <div className="text-center font-semibold text-4xl mb-6">Đăng nhập</div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -84,16 +82,8 @@ function Login() {
             </Link>
           </p>
         </div>
-        <div>
-          <div className="mb-5 text-center text-base">Hoặc đăng nhập với</div>
-          <div className="flex justify-center gap-4">
-            <a href="#">
-              <img src="/images/google.png" alt="" className="w-14 h-14 duration-300 hover:scale-110" />
-            </a>
-            <a href="#">
-              <img src="/images/facebook.png" alt="" className="w-14 h-14 duration-300 hover:scale-110" />
-            </a>
-          </div>
+        <div className="mb-4">
+          <LoginWith />
         </div>
       </form>
     </div>

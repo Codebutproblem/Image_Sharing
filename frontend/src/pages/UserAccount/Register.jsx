@@ -39,12 +39,7 @@ function Register() {
     }
   };
   return (
-    <div
-      style={{
-        backdropFilter: "blur(20px)",
-      }}
-      className="w-[500px] max-w-[500px] border rounded-xl border-slate-400 p-5 text-slate-200 min-h-[560px]"
-    >
+    <div className="w-[500px] max-w-[500px] border rounded-xl border-slate-400 p-5 text-slate-200 min-h-[560px] backdrop-blur-lg">
       <div className="text-center font-semibold text-4xl mb-6">Đăng ký</div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
