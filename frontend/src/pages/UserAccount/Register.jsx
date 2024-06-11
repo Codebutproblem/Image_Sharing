@@ -21,11 +21,18 @@ function Register() {
     const result = await registerUserAccount(userAccount);
     switch (result.message) {
       case ResponseMessage.REGISTER_SUCCESS:
-        dispatch(showAlert({ type: "success", message: "Đăng ký thành công!" }));
+        dispatch(
+          showAlert({ type: "success", message: "Đăng ký thành công!" }),
+        );
         navigate("/user-account/login");
         break;
       case ResponseMessage.FIELD_REQUIRED:
-        dispatch(showAlert({ type: "error", message: "Vui lòng điền đầy đủ thông tin!" }));
+        dispatch(
+          showAlert({
+            type: "error",
+            message: "Vui lòng điền đầy đủ thông tin!",
+          }),
+        );
         break;
       case ResponseMessage.EMAIL_EXISTED:
         dispatch(showAlert({ type: "error", message: "Email đã tồn tại!" }));
@@ -39,20 +46,40 @@ function Register() {
     }
   };
   return (
-    <div className="w-[500px] max-w-[500px] border rounded-xl border-slate-400 p-5 text-slate-200 min-h-[560px] backdrop-blur-lg">
+    <div className="px-6 w-[500px] max-w-[500px] min-w-[300px] border rounded-xl border-slate-400 p-5 text-slate-200 min-h-[560px] backdrop-blur-lg">
       <div className="text-center font-semibold text-4xl mb-6">Đăng ký</div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <FormInput label="Email" name="email" type="email" placeholder="Nhập email" />
+          <FormInput
+            label="Email"
+            name="email"
+            type="email"
+            placeholder="Nhập email"
+          />
         </div>
         <div className="mb-4">
-          <FormInput label="Tên tài khoản" name="username" type="text" placeholder="Nhập tên tài khoản" />
+          <FormInput
+            label="Tên tài khoản"
+            name="username"
+            type="text"
+            placeholder="Nhập tên tài khoản"
+          />
         </div>
         <div className="mb-4">
-          <FormInput label="Mật khẩu" name="password" type="password" placeholder="Nhập mật khẩu" />
+          <FormInput
+            label="Mật khẩu"
+            name="password"
+            type="password"
+            placeholder="Nhập mật khẩu"
+          />
         </div>
         <div className="mb-4">
-          <FormInput label="Xác nhận mật khẩu" name="confirmPassword" type="password" placeholder="Nhập xác nhận mật khẩu" />
+          <FormInput
+            label="Xác nhận mật khẩu"
+            name="confirmPassword"
+            type="password"
+            placeholder="Nhập xác nhận mật khẩu"
+          />
         </div>
         <div className="mb-4 flex items-center gap-3">
           <div className="text-sm font-medium">Giới tính:</div>

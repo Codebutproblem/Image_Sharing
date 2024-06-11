@@ -13,7 +13,7 @@ export default {
           "0%": { bottom: "-72px" },
           "100%": { bottom: "0px", trasition: "all 2s ease" },
         },
-      }
+      },
     },
   },
   plugins: [],

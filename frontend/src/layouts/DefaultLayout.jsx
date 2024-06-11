@@ -21,9 +21,9 @@ function DefaultLayout() {
     waitingAPI();
     refreshToken();
     const refreshTokenInterval = setInterval(refreshToken, 13000);
-    return ()=>{
+    return () => {
       clearInterval(refreshTokenInterval);
-    }
+    };
   }, []);
 
   if (!displayLayout) return;

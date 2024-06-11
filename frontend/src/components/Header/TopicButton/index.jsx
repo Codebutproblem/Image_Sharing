@@ -23,7 +23,9 @@ function TopicButton() {
           <FaAngleDown />
         </span>
       </button>
-      {showTopics && <DropDownList id="topicDropDown" setShowTopics={setShowTopics} />}
+      {showTopics && (
+        <DropDownList id="topicDropDown" setShowTopics={setShowTopics} />
+      )}
     </div>
   );
 }

@@ -5,14 +5,14 @@ import hideHiddenBoxListener from "../../../utils/hideHiddenBox";
 
 function DropButton() {
   const [showSettingBox, setShowSettingBox] = useState(false);
-  
+
   hideHiddenBoxListener(
     showSettingBox,
     setShowSettingBox,
     "dropButton",
     "settingBox",
   );
-  
+
   return (
     <div className="relative">
       <button

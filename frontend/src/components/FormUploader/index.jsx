@@ -6,7 +6,7 @@ import TopicSelect from "./TopicSelect";
 
 function FormUploader() {
   return (
-    <div className="flex-grow">
+    <div className="md:flex-grow md:w-auto w-full">
       <div className="mb-5">
         <TitleInput />
       </div>

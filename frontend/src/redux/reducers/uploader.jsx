@@ -6,7 +6,7 @@ const initialState = {
   allowComment: true,
   allowRecommend: true,
   file: null,
-  allowUpload: false
+  allowUpload: false,
 };
 
 function UploadReducer(state = initialState, action = null) {

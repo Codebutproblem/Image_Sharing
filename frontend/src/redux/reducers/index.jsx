@@ -4,10 +4,10 @@ import TopicReducer from "./topic";
 import { AlertReducer, LoadingReducer } from "./other";
 
 const allReducers = combineReducers({
-    UploadReducer,
-    AlertReducer,
-    LoadingReducer,
-    TopicReducer
+  UploadReducer,
+  AlertReducer,
+  LoadingReducer,
+  TopicReducer,
 });
 
 export default allReducers;

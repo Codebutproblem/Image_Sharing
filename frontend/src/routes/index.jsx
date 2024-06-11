@@ -12,9 +12,9 @@ const routes = [
     path: "/",
     element: <DefaultLayout />,
     children: [
-      {path: "", element: <Home />},
-      {path: "topic", element: <PinByTopic />},
-      { path: "upload", element: <Uploader /> }
+      { path: "", element: <Home /> },
+      { path: "topic", element: <PinByTopic /> },
+      { path: "upload", element: <Uploader /> },
     ],
   },
   {
@@ -23,7 +23,7 @@ const routes = [
     children: [
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
-      {path: "forgot-password", element: <ForgotPassword />},
+      { path: "forgot-password", element: <ForgotPassword /> },
     ],
   },
 ];

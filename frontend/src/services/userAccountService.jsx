@@ -13,7 +13,7 @@ export const checkLogin = async () => {
   return false;
 };
 
-export const getInfoUser = async (slug="") => {
+export const getInfoUser = async (slug = "") => {
   if (slug !== "") {
     const result = await get(`user-account/info-user/${slug}`);
     return result;
@@ -21,4 +21,3 @@ export const getInfoUser = async (slug="") => {
   const result = await get("user-account/info-user");
   return result;
 };
-

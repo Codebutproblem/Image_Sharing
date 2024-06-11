@@ -4,7 +4,6 @@ import { logout } from "../../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { ResponseMessage } from "../../../config/system";
 function DropBox({ id }) {
-
   const [infoUser, setInfoUser] = useState({});
   const naviate = useNavigate();
 

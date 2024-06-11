@@ -38,13 +38,19 @@ function UploadButton() {
         switch (result.message) {
           case ResponseMessage.CREATE_PIN_SUCCESS:
             dispatch(resetUploader());
-            dispatch(showAlert({ type: "success", message: "Tải lên thành công" }));
+            dispatch(
+              showAlert({ type: "success", message: "Tải lên thành công" }),
+            );
             break;
           case ResponseMessage.FILE_REQUIRED:
-            dispatch(showAlert({ type: "error", message: "Vui lòng chọn tệp" }));
+            dispatch(
+              showAlert({ type: "error", message: "Vui lòng chọn tệp" }),
+            );
             break;
           case ResponseMessage.TITLE_REQUIRED:
-            dispatch(showAlert({ type: "error", message: "Vui lòng nhập tiêu đề" }));
+            dispatch(
+              showAlert({ type: "error", message: "Vui lòng nhập tiêu đề" }),
+            );
             break;
           case ResponseMessage.CREATE_PIN_FAILED:
             dispatch(showAlert({ type: "error", message: "Tải lên thất bại" }));
@@ -57,7 +63,7 @@ function UploadButton() {
         dispatch(showLoading(false));
         setAlert({ type: "error", message: "Tải lên thất bại" });
       });
-      dispatch(showLoading(true));
+    dispatch(showLoading(true));
   };
   return (
     <button

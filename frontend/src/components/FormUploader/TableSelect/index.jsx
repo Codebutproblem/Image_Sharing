@@ -6,7 +6,7 @@ function TableSelect() {
       <label className="block text-sm font-medium text-gray-700 mb-1">
         Bảng
       </label>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
         <SelectSection />
         <TableCreateButton />
       </div>

@@ -43,9 +43,7 @@ function TableCreateButton() {
             />
           </div>
           <div className="text-right">
-            <button
-              className="p-2 bg-sky-500 text-slate-50 rounded-md"
-            >
+            <button className="p-2 bg-sky-500 text-slate-50 rounded-md">
               Lưu
             </button>
           </div>
