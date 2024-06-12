@@ -42,7 +42,7 @@ function DragDropImageUploader() {
 
   if (uploader.file) {
     return (
-      <div className="relative z-10 min-w-[280px] w-[85%] sm:w-[430px] max-w-[430px] rounded-2xl overflow-hidden box-border p-2">
+      <div className="relative z-10 min-w-[160px] md:min-w-[350px] lg:min-w-[430px] w-[85%] sm:w-[430px] max-w-[430px] rounded-2xl overflow-hidden box-border p-2">
         <img
           src={imagePath}
           alt="preview"
@@ -74,7 +74,7 @@ function DragDropImageUploader() {
   }
 
   return (
-    <div className="relative min-w-[280px] w-[85%] sm:w-[430px] max-w-[430px] h-[500px] border-2 border-slate-400 rounded-2xl overflow-hidden box-border p-2 bg-slate-200">
+    <div className="relative min-w-[160px] md:min-w-[350px] lg:min-w-[430px] w-[85%] sm:w-[430px] max-w-[430px] h-[350px] sm:h-[500px] border-2 border-slate-400 rounded-2xl overflow-hidden box-border p-2 bg-slate-200">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center max-w-48">
         <GrUploadOption className="mx-auto text-3xl text-slate-600 mb-3" />
         <p className="text-slate-600 text-base">

@@ -17,7 +17,7 @@ function DropDownList({ id, setShowTopics }) {
   useEffect(() => {
     const fetchApi = async () => {
       const result = await getAllTopics("name-ASC");
-      if (result.message === ResponseMessage.GET_ALL_TOPICS_SUCCESS) {
+      if (result.message === ResponseMessage.GET_SUCCESS) {
         result.topics.unshift({ id: 0, name: "Tất cả", slug: "all" });
         const remaind = result.topics.filter((topic) => {
           return !selectedTopics.find((ts) => ts.id === topic.id);

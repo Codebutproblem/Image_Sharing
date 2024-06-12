@@ -10,7 +10,7 @@ function DropBox({ id }) {
   useEffect(() => {
     const waittingAPI = async () => {
       const result = await getInfoUser();
-      if (result.message === ResponseMessage.GET_INFO_SUCCESS) {
+      if (result.message === ResponseMessage.GET_SUCCESS) {
         setInfoUser(result.user);
       }
     };

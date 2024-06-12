@@ -1,3 +1,5 @@
+import { Op } from "sequelize";
+import sequelize from "../../../config/database.js";
 import { Pin, TopicPin, UserAccount, Topic } from "../models/index.model.js";
 
 export const createPinService = async (data) => {
@@ -18,7 +20,7 @@ export const createPinService = async (data) => {
 
 export const getAllPinsService = async (pagination) => {
     const pins = await Pin.findAll({
-        attributes: ["id", "title", "url"],
+        attributes: ["id", "title", "url", "slug"],
         where: {
             deleted: false
         },
@@ -50,7 +52,8 @@ export const getPinsByTopicService = async (pagination, topicIds) => {
         attributes: [
             "id",
             "title", 
-            "url"
+            "url",
+            "slug"
         ],
         where: {
             deleted: false
@@ -94,4 +97,78 @@ export const countPinsByTopicService = async (topicIds) => {
         ]
     });
     return totalPins;
+};
+
+export const getPinDetailService = async (slug) => {
+    const pin = await Pin.findOne({
+        attributes: ["id", "title", "url", "description", "allow_comment", "allow_recommend", "createdAt" ],
+        where: {
+            slug,
+            deleted: false
+        },
+        include: [
+            {
+                model: UserAccount,
+                attributes: ["id", "username", "avatar"]
+            },
+            {
+                model: Topic,
+                attributes: ["id", "name", "hexa_color"],
+                through: {
+                    attributes: []
+                }
+            }
+        ]
+    });
+
+    return pin;
+};
+
+export const getRecommendPinsService = async (slug, limit) => {
+    const topicIds = (await Topic.findAll(
+        {
+            attributes: ["id"],
+            where: {
+                deleted: false,
+            },
+            include: {
+                model: Pin,
+                attributes: [],
+                through: {
+                    attributes: []
+                },
+                where: {
+                    deleted: false,
+                }
+            },
+            raw: true,
+            group: ["Topic.id"]
+        }
+    )).map((topic) => topic.id);
+    
+    const pins = await Pin.findAll({
+        attributes: ["id", "title", "url", "slug"],
+        where: {
+            deleted: false,
+            slug: {
+                [Op.ne]: slug
+            }
+        },
+        include: [
+            {
+                model: Topic,
+                attributes: [],
+                where: {
+                    id: topicIds
+                }
+            },
+            {
+                model: UserAccount,
+                attributes: ["id", "username", "avatar"]
+            }
+        ],
+        order: sequelize.random(),
+        limit: limit
+    });
+    return pins
 };

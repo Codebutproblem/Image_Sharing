@@ -5,7 +5,9 @@ import {
     countPinsByTopicService, 
     createPinService, 
     getAllPinsService, 
-    getPinsByTopicService 
+    getPinDetailService, 
+    getPinsByTopicService, 
+    getRecommendPinsService
 } from "../services/pin.service.js";
 
 export const createPin = async (req, res) => {
@@ -16,10 +18,10 @@ export const createPin = async (req, res) => {
             user_id: req.user.id,
         }
         await createPinService(data);
-        res.status(HttpStatusCode.CREATED).json({ message: ResponseMessage.CREATE_PIN_SUCCESS });
+        res.status(HttpStatusCode.CREATED).json({ message: ResponseMessage.CREATE_SUCCESS });
     } catch (error) {
         console.log(error);
-        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.CREATE_PIN_FAILED });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.CREATE_FAILED });
     }
 };
 
@@ -36,10 +38,10 @@ export const getPins = async (req, res) => {
 
         const total_pages = Math.ceil(totalPins / limit);
 
-        res.status(HttpStatusCode.OK).json({ pins, total_pages: total_pages , message: ResponseMessage.GET_PINS_SUCCESS });
+        res.status(HttpStatusCode.OK).json({ pins, total_pages: total_pages , message: ResponseMessage.GET_SUCCESS });
     } catch (error) {
         console.log(error);
-        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_PINS_FAILED });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
     }
 };
 
@@ -52,7 +54,7 @@ export const getPinsByTopic = async (req, res) => {
         const topicSelected = req.body.selectedTopics;
         const topicIds = topicSelected.map((topic) => topic.id);
         if(!topicIds || topicIds.length === 0){
-            return res.status(HttpStatusCode.OK).json({ pins: [], message: ResponseMessage.GET_PINS_BY_TOPIC_SUCCESS });
+            return res.status(HttpStatusCode.OK).json({ pins: [], message: ResponseMessage.GET_SUCCESS });
         }
 
         const pins = await getPinsByTopicService({ offset, limit }, topicIds);
@@ -60,8 +62,32 @@ export const getPinsByTopic = async (req, res) => {
         const totalPins = await countPinsByTopicService(topicIds);
 
         const total_pages = Math.ceil(totalPins / limit);
-        res.status(HttpStatusCode.OK).json({ pins,total_pages: total_pages, message: ResponseMessage.GET_PINS_BY_TOPIC_SUCCESS });
+        res.status(HttpStatusCode.OK).json({ pins,total_pages: total_pages, message: ResponseMessage.GET_SUCCESS });
     } catch (error) {
-        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_PINS_BY_TOPIC_FAILED });
+        console.log(error)
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
+    }
+};
+
+export const getPinDetail = async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const pin = await getPinDetailService(slug);
+        res.status(HttpStatusCode.OK).json({ pin, message: ResponseMessage.GET_SUCCESS });
+    } catch (error) {
+        console.log(error);
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
+    }
+};
+
+export const getRecommendPins = async (req, res) => {
+    try {
+        const limit = parseInt(req.query.limit) || 7;
+        const slug = req.params.slug;
+        const pins = await getRecommendPinsService(slug, limit);
+        res.status(HttpStatusCode.OK).json({ pins, message: ResponseMessage.GET_SUCCESS });
+    } catch (error) {
+        console.log(error);
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
     }
 };

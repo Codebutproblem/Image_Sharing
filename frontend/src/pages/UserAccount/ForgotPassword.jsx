@@ -33,7 +33,7 @@ function ForgotPassword() {
         return;
       }
       const result = await verifyOTP({ email: inputRef.current.value, otp });
-      if (result.message === "verify-otp-success") {
+      if (result.message === ResponseMessage.VERIFY_SUCCESS) {
         dispatch(
           showAlert({ type: "success", message: "Xác thực thành công" }),
         );

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ImageList, ImageListItem, Pagination } from "@mui/material";
 import SaveButton from "../SaveButton";
+import { Link } from "react-router-dom";
 
 function PinTable({ pinObject, page, setPage }) {
   let initColumns = 4;
@@ -52,7 +53,10 @@ function PinTable({ pinObject, page, setPage }) {
             className="group duration-1000 rounded-2xl overflow-hidden"
           >
             <img src={pin.url} alt={pin.title} loading="lazy" />
-            <div className="cursor-zoom-in absolute left-0 right-0 top-0 bottom-0 bg-[#00000040] hidden duration-1000 group-hover:flex flex-col justify-between p-2.5 font-medium">
+            <Link
+              to={`/pin-detail/${pin.slug}`}
+              className="cursor-zoom-in absolute left-0 right-0 top-0 bottom-0 bg-[#00000040] hidden group-hover:flex flex-col justify-between p-2.5 font-medium"
+            >
               <SaveButton pinId={pin.id} />
               <div className="text-slate-50">
                 <div className="mb-1">{pin.title}</div>
@@ -68,7 +72,7 @@ function PinTable({ pinObject, page, setPage }) {
                   <div>{pin.UserAccount.username}</div>
                 </div>
               </div>
-            </div>
+            </Link>
           </ImageListItem>
         ))}
       </ImageList>

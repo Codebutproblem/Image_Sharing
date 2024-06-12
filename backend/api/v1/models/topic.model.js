@@ -25,12 +25,12 @@ const Topic = sequelize.define('topic', {
     hooks: {
         beforeCreate: (topic) => {
             if(!topic.slug){
-                topic.slug = slugify(topic.name,"_")+ "." + (new Date()).getTime().toString();
+                topic.slug = slugify(topic.name,"_") + (new Date()).getTime().toString();
             }
         },
         beforeUpdate: (topic) => {
             if(topic.changed('name')){
-                topic.slug = slugify(topic.name, "_")+ "." + (new Date()).getTime().toString();
+                topic.slug = slugify(topic.name, "_") + (new Date()).getTime().toString();
             }
         }
     }

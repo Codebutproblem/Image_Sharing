@@ -36,7 +36,7 @@ function UploadButton() {
       .then((result) => {
         dispatch(showLoading(false));
         switch (result.message) {
-          case ResponseMessage.CREATE_PIN_SUCCESS:
+          case ResponseMessage.CREATE_SUCCESS:
             dispatch(resetUploader());
             dispatch(
               showAlert({ type: "success", message: "Tải lên thành công" }),
@@ -52,7 +52,7 @@ function UploadButton() {
               showAlert({ type: "error", message: "Vui lòng nhập tiêu đề" }),
             );
             break;
-          case ResponseMessage.CREATE_PIN_FAILED:
+          case ResponseMessage.CREATE_FAILED:
             dispatch(showAlert({ type: "error", message: "Tải lên thất bại" }));
             break;
           default:

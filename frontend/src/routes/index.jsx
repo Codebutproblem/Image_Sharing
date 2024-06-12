@@ -6,6 +6,7 @@ import Register from "../pages/UserAccount/Register";
 import ForgotPassword from "../pages/UserAccount/ForgotPassword";
 import DefaultLayout from "../layouts/DefaultLayout";
 import UserAccountDefault from "../layouts/UserAccountDefault";
+import PinDetail from "../pages/PinDetail";
 
 const routes = [
   {
@@ -15,6 +16,7 @@ const routes = [
       { path: "", element: <Home /> },
       { path: "topic", element: <PinByTopic /> },
       { path: "upload", element: <Uploader /> },
+      { path: "pin-detail/:slug", element: <PinDetail /> },
     ],
   },
   {

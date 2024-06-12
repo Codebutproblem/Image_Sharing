@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../../../config/database.js";
-import UserAccount from "./user_account.model.js";
 
 const Pin = sequelize.define("Pin", {
     id: {
@@ -17,6 +16,7 @@ const Pin = sequelize.define("Pin", {
         type: DataTypes.STRING(100),
         allowNull: false
     },
+    slug: DataTypes.STRING(100),
     description: DataTypes.TEXT,
     allow_comment: DataTypes.BOOLEAN,
     allow_recommend: DataTypes.BOOLEAN,
@@ -30,7 +30,14 @@ const Pin = sequelize.define("Pin", {
     
 }, {
     freezeTableName: true,
-    timestamps: true
+    timestamps: true,
+    hooks: {
+        beforeCreate: (pin) => {
+            if(!pin.slug){
+                pin.slug = `pin${(new Date()).getTime().toString()}`;
+            }
+        }
+    }
 });
 
 export default Pin;

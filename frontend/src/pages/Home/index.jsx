@@ -10,7 +10,7 @@ function Home() {
   useEffect(() => {
     const waittingAPI = async () => {
       const result = await getPins({ page: page, limit: 15 });
-      if (result.message === ResponseMessage.GET_PINS_SUCCESS) {
+      if (result.message === ResponseMessage.GET_SUCCESS) {
         setPinObject({
           pins: [...pinObject.pins, ...result.pins],
           total_pages: result.total_pages,

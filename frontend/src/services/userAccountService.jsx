@@ -7,7 +7,7 @@ export const checkLogin = async () => {
     return false;
   }
   const result = await get("user-account/verify-login");
-  if (result.message == ResponseMessage.VERIFY_LOGIN_SUCCESS) {
+  if (result.message == ResponseMessage.VERIFY_SUCCESS) {
     return true;
   }
   return false;

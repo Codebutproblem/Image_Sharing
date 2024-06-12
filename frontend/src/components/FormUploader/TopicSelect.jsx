@@ -16,7 +16,7 @@ function TopicSelect() {
   useEffect(() => {
     const fetchApi = async () => {
       const result = await getAllTopics("name-ASC");
-      if (result.message === ResponseMessage.GET_ALL_TOPICS_SUCCESS) {
+      if (result.message === ResponseMessage.GET_SUCCESS) {
         setTopics({
           all: result.topics,
           remaind: result.topics,

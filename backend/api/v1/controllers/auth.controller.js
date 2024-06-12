@@ -68,9 +68,9 @@ export const verifyOTP = async (req, res) => {
         if (!otpEmail || otpEmail.otp !== otp) {
             return res.status(HttpStatusCode.UNAUTHORIZED).json({ message: ResponseMessage.WRONG_OTP });
         }
-        res.status(HttpStatusCode.OK).json({ message: ResponseMessage.VERIFY_OTP_SUCCESS });
+        res.status(HttpStatusCode.OK).json({ message: ResponseMessage.VERIFY_SUCCESS });
     } catch (error) {
         console.log(error);
-        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.VERIFY_OTP_FAILED });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.VERIFY_FAILED });
     }
 };

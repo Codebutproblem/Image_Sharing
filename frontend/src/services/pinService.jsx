@@ -16,3 +16,13 @@ export const getPinsByTopic = async ({ selectedTopics, page, limit }) => {
   });
   return result;
 };
+
+export const getPinDetail = async (slug) => {
+  const result = await get(`pins/detail/${slug}`);
+  return result;
+};
+
+export const getRecommendPins = async ({ slug, limit }) => {
+  const result = await get(`pins/recommend/${slug}?limit=${limit}`);
+  return result;
+};

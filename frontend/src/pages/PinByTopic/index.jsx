@@ -28,7 +28,7 @@ function PinByTopic() {
         page: page,
         limit: 15,
       });
-      if (result.message === ResponseMessage.GET_PINS_BY_TOPIC_SUCCESS) {
+      if (result.message === ResponseMessage.GET_SUCCESS) {
         const newPins = [
           ...new Map(
             [...pinObject.pins, ...result.pins].map((pin) => [pin.id, pin]),
@@ -54,7 +54,7 @@ function PinByTopic() {
         page: 1,
         limit: 15,
       });
-      if (result.message === ResponseMessage.GET_PINS_BY_TOPIC_SUCCESS) {
+      if (result.message === ResponseMessage.GET_SUCCESS) {
         setPinObject({
           pins: result.pins,
           total_pages: result.total_pages,
