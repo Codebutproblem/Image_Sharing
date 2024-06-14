@@ -57,19 +57,22 @@ function PinTable({ pinObject, page, setPage }) {
               to={`/pin-detail/${pin.slug}`}
               className="cursor-zoom-in absolute left-0 right-0 top-0 bottom-0 bg-[#00000040] hidden group-hover:flex flex-col justify-between p-2.5 font-medium"
             >
-              <SaveButton pinId={pin.id} />
+              <div className="flex gap-2  justify-between">
+                <SaveButton pinId={pin.id} />
+                <div className="text-slate-50">{pin?.Lover?.length}❤️</div>
+              </div>
               <div className="text-slate-50">
                 <div className="mb-1">{pin.title}</div>
                 <div className="flex items-center gap-3">
                   <img
                     src={
-                      pin.UserAccount.avatar ||
+                      pin.Author.avatar ||
                       "https://www.gravatar.com/avatar/"
                     }
-                    alt={pin.UserAccount.username}
-                    className="w-10 max-w-10 h-10 rounded-full"
+                    alt={pin.Author.username}
+                    className="w-10 max-w-10 h-10 rounded-full object-cover"
                   />
-                  <div>{pin.UserAccount.username}</div>
+                  <div>{pin.Author.username}</div>
                 </div>
               </div>
             </Link>

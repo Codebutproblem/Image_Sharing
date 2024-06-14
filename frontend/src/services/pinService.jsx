@@ -1,4 +1,4 @@
-import { get, post } from "../requests/request";
+import { get, patch, post } from "../requests/request";
 
 export const createPin = async (pin) => {
   const result = await post("pins/create", pin);
@@ -24,5 +24,10 @@ export const getPinDetail = async (slug) => {
 
 export const getRecommendPins = async ({ slug, limit }) => {
   const result = await get(`pins/recommend/${slug}?limit=${limit}`);
+  return result;
+};
+
+export const setLovePin = async (pinId) => {
+  const result = await patch(`pins/love/${pinId}`);
   return result;
 };

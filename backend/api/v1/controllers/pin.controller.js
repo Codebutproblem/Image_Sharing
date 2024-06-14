@@ -1,5 +1,6 @@
 
-import { HttpStatusCode, ResponseMessage } from "../../../config/system.js";
+import HttpStatusCode from "../../../config/http_status.js";
+import ResponseMessage from "../../../config/message.js";
 import { 
     countAllPinsService, 
     countPinsByTopicService, 
@@ -7,7 +8,8 @@ import {
     getAllPinsService, 
     getPinDetailService, 
     getPinsByTopicService, 
-    getRecommendPinsService
+    getRecommendPinsService,
+    setLovePinService
 } from "../services/pin.service.js";
 
 export const createPin = async (req, res) => {
@@ -71,8 +73,9 @@ export const getPinsByTopic = async (req, res) => {
 
 export const getPinDetail = async (req, res) => {
     try {
+        const userId = req.user.id;
         const slug = req.params.slug;
-        const pin = await getPinDetailService(slug);
+        const pin = await getPinDetailService(userId, slug);
         res.status(HttpStatusCode.OK).json({ pin, message: ResponseMessage.GET_SUCCESS });
     } catch (error) {
         console.log(error);
@@ -89,5 +92,17 @@ export const getRecommendPins = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
+    }
+};
+
+export const setLovePin = async (req, res) => {
+    try {
+        const pinId = req.params.pinId;
+        const userId = req.user.id;
+        await setLovePinService(pinId, userId);
+        res.status(HttpStatusCode.OK).json({ message: ResponseMessage.UPDATE_SUCCESS });
+    } catch (error) {
+        console.log(error);
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.UPDATE_FAILED });
     }
 };

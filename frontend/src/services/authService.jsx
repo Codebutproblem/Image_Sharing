@@ -1,4 +1,5 @@
 import { get, post } from "../requests/authRequest";
+import ResponseMessage from "../config/message";
 
 export const registerUserAccount = async (userAccount) => {
   const result = await post("auth/register", userAccount);
@@ -14,7 +15,7 @@ export const refreshToken = async () => {
   const result = await post("auth/refresh-token", {
     refreshToken: localStorage.getItem("refreshToken"),
   });
-  if (result.message === "refresh-token-success") {
+  if (result.message === ResponseMessage.REFRESH_TOKEN_SUCCESS) {
     localStorage.setItem("accessToken", result.accessToken);
   }
 };

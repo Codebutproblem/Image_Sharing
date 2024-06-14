@@ -1,10 +1,14 @@
-export const ResponseMessage = {
+const ResponseMessage = {
     VERIFY_SUCCESS: "verify-success",
     VERIFY_FAILED: "verify-failed",
     CREATE_SUCCESS: "create-success",
     CREATE_FAILED: "create-failed",
     GET_SUCCESS: "get-success",
     GET_FAILED: "get-failed",
+    UPDATE_SUCCESS: "update-success",
+    UPDATE_FAILED: "update-failed",
+    DELETE_SUCCESS: "delete-success",
+    DELETE_FAILED: "delete-failed",
     REGISTER_SUCCESS: "register-success",
     REGISTER_FAILED: "register-failed",
     LOGIN_SUCCESS: "login-success",
@@ -30,16 +34,4 @@ export const ResponseMessage = {
     FIELD_REQUIRED: "field-required",
 };
 
-export const HttpStatusCode={
-    OK:200,
-    CREATED:201,
-    ACCEPTED:202,
-    NO_CONTENT:204,
-    BAD_REQUEST:400,
-    UNAUTHORIZED:401,
-    FORBIDDEN:403,
-    NOT_FOUND:404,
-    CONFLICT:409,
-    METHOD_NOT_ALLOWED:405,
-    INTERNAL_SERVER_ERROR:500
-};
+export default ResponseMessage;

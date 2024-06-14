@@ -6,7 +6,7 @@ import { getPinsByTopic } from "../../services/pinService";
 import { clearTopicTags } from "../../redux/actions/topic";
 import PinByTopicHeader from "../../components/PinByTopicHeader";
 import SkeletonTable from "../../components/PinTable/SkeletonTable";
-import { ResponseMessage } from "../../config/system";
+import ResponseMessage from "../../config/message";
 
 function PinByTopic() {
   const selectedTopics = useSelector((state) => state.TopicReducer);

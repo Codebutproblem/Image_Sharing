@@ -5,21 +5,25 @@ import { checkLogin } from "../services/userAccountService";
 import MyAlert from "../components/MyAlert";
 import Loading from "../components/Loading";
 import { refreshToken } from "../services/authService";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/actions/user";
 
 function DefaultLayout() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [displayLayout, setDisplayLayout] = useState(false);
   useEffect(() => {
     const waitingAPI = async () => {
-      const login = await checkLogin();
-      if (!login) {
+      const result = await checkLogin();
+      if (!result) {
         navigate("/user-account/login");
       } else {
+        dispatch(setUser(result));
         setDisplayLayout(true);
       }
     };
-    waitingAPI();
     refreshToken();
+    waitingAPI();
     const refreshTokenInterval = setInterval(refreshToken, 13000);
     return () => {
       clearInterval(refreshTokenInterval);

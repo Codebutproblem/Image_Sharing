@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUserAccount } from "../../services/authService";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../../redux/actions/other";
-import { ResponseMessage } from "../../config/system";
+import ResponseMessage from "../../config/message";
 import FormInput from "../../components/FormInput";
 import LoginWith from "../../components/LoginWith";
 

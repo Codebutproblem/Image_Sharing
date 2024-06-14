@@ -7,8 +7,8 @@ function UserAccountDefault() {
   const navigate = useNavigate();
   useEffect(() => {
     const waitingAPI = async () => {
-      const login = await checkLogin();
-      if (login) {
+      const result = await checkLogin();
+      if (result) {
         navigate("/");
       } else {
         setDisplayLayout(true);

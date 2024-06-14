@@ -3,7 +3,7 @@ import { createPin } from "../../services/pinService";
 import { resetUploader } from "../../redux/actions/uploader";
 import { showAlert } from "../../redux/actions/other";
 import { showLoading } from "../../redux/actions/other";
-import { ResponseMessage } from "../../config/system";
+import ResponseMessage from "../../config/message";
 import { uploadImageFirebase } from "../../utils/UploadFirebase";
 function UploadButton() {
   const dispatch = useDispatch();

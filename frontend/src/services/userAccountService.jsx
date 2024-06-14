@@ -1,16 +1,16 @@
-import { ResponseMessage } from "../config/system";
+import ResponseMessage from "../config/message";
 import { get } from "../requests/request";
 
 export const checkLogin = async () => {
   const refeshToken = localStorage.getItem("refreshToken");
   if (refeshToken === null) {
-    return false;
+    return null;
   }
   const result = await get("user-account/verify-login");
   if (result.message == ResponseMessage.VERIFY_SUCCESS) {
-    return true;
+    return result.user;
   }
-  return false;
+  return null;
 };
 
 export const getInfoUser = async (slug = "") => {

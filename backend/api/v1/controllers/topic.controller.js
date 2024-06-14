@@ -1,4 +1,5 @@
-import { HttpStatusCode, ResponseMessage } from "../../../config/system.js";
+import HttpStatusCode from "../../../config/http_status.js";
+import ResponseMessage from "../../../config/message.js";
 import { getAllTopicsService } from "../services/topic.service.js";
 
 export const getAllTopics = async (req, res) => {

@@ -4,7 +4,8 @@ import {
     findUserAccountByEmailService,
     findUserAccountByRefreshTokenService
 } from '../services/auth.service.js';
-import { HttpStatusCode, ResponseMessage } from '../../../config/system.js';
+import HttpStatusCode from "../../../config/http_status.js";
+import ResponseMessage from "../../../config/message.js";
 
 export const authToken = (req, res, next) => {
     const authorizationHeader = req.headers['authorization'];

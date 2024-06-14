@@ -1,26 +1,16 @@
-import { useEffect, useState } from "react";
-import { getInfoUser } from "../../../services/userAccountService";
 import { logout } from "../../../services/authService";
 import { useNavigate } from "react-router-dom";
-import { ResponseMessage } from "../../../config/system";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteUser } from "../../../redux/actions/user";
 function DropBox({ id }) {
-  const [infoUser, setInfoUser] = useState({});
   const naviate = useNavigate();
-
-  useEffect(() => {
-    const waittingAPI = async () => {
-      const result = await getInfoUser();
-      if (result.message === ResponseMessage.GET_SUCCESS) {
-        setInfoUser(result.user);
-      }
-    };
-    waittingAPI();
-  }, []);
-
+  const infoUser = useSelector((state) => state.UserReducer);
+  const dispatch = useDispatch();
   const handleLogout = async () => {
     await logout();
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    dispatch(deleteUser());
     naviate("/user-account/login");
   };
 

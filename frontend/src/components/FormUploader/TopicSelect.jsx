@@ -3,7 +3,7 @@ import { getAllTopics } from "../../services/topicService";
 import { useDispatch, useSelector } from "react-redux";
 import { addTopic, removeTopic } from "../../redux/actions/uploader";
 import { getContrastingTextColor } from "../../utils/Color";
-import { ResponseMessage } from "../../config/system";
+import ResponseMessage from "../../config/message";
 
 function TopicSelect() {
   const uploader = useSelector((state) => state.UploadReducer);

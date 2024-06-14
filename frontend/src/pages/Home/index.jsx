@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PinTable from "../../components/PinTable";
 import { getPins } from "../../services/pinService";
 import SkeletonTable from "../../components/PinTable/SkeletonTable";
-import { ResponseMessage } from "../../config/system";
+import ResponseMessage from "../../config/message";
 
 function Home() {
   const [pinObject, setPinObject] = useState({ pins: [], total_pages: 0 });

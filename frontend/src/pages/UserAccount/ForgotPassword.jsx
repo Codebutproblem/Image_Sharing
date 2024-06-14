@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../../redux/actions/other";
 import OtpInput from "react-otp-input";
-import { ResponseMessage } from "../../config/system";
+import ResponseMessage from "../../config/message";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import FormInput from "../../components/FormInput";

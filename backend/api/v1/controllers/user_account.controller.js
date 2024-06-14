@@ -1,4 +1,5 @@
-import { HttpStatusCode, ResponseMessage } from "../../../config/system.js";
+import HttpStatusCode from "../../../config/http_status.js";
+import ResponseMessage from "../../../config/message.js";
 
 export const getInfoUserAccount = (req, res) => {
     const user = req.user;
@@ -6,5 +7,5 @@ export const getInfoUserAccount = (req, res) => {
 };
 
 export const verifyLogin = (req, res) => {
-    res.status(HttpStatusCode.OK).json({ message: ResponseMessage.VERIFY_SUCCESS });
+    res.status(HttpStatusCode.OK).json({ user: req.user , message: ResponseMessage.VERIFY_SUCCESS });
 }

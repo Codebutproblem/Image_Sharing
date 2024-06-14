@@ -1,6 +1,6 @@
-import { Op } from "sequelize";
+import { Op, literal } from "sequelize";
 import sequelize from "../../../config/database.js";
-import { Pin, TopicPin, UserAccount, Topic } from "../models/index.model.js";
+import { Pin, TopicPin, UserAccount, Topic, LovePin } from "../models/index.model.js";
 
 export const createPinService = async (data) => {
     const topicIds = data.topic_ids;
@@ -20,21 +20,38 @@ export const createPinService = async (data) => {
 
 export const getAllPinsService = async (pagination) => {
     const pins = await Pin.findAll({
-        attributes: ["id", "title", "url", "slug"],
+        attributes: ["id", "title", "url", "createdAt", "slug"],
         where: {
             deleted: false
-        },
-        include: {
-            model: UserAccount,
-            attributes: ["id", "username", "avatar"]
         },
         order: [
             ["createdAt", "DESC"]
         ],
+        include: [
+            {
+                model: UserAccount,
+                as: "Author",
+                attributes: ["id", "username", "avatar", "slug"],
+                where: {
+                    deleted: false
+                }
+            },
+            {
+                model: UserAccount,
+                as: "Lover",
+                attributes: ["id"],
+                through: {
+                    attributes: []
+                },
+                where: {
+                    deleted: false
+                },
+                required: false
+            }
+        ],
         offset: pagination.offset,
         limit: pagination.limit,
     });
-
     return pins;
 }
 
@@ -51,7 +68,7 @@ export const getPinsByTopicService = async (pagination, topicIds) => {
     const pins = await Pin.findAll({
         attributes: [
             "id",
-            "title", 
+            "title",
             "url",
             "slug"
         ],
@@ -63,12 +80,29 @@ export const getPinsByTopicService = async (pagination, topicIds) => {
                 model: Topic,
                 attributes: [],
                 where: {
-                    id: topicIds
+                    id: topicIds,
+                    deleted: false
                 }
             },
             {
                 model: UserAccount,
-                attributes: ["id", "username", "avatar"]
+                as: "Author",
+                attributes: ["id", "username", "avatar", "slug"],
+                where: {
+                    deleted: false
+                }
+            },
+            {
+                model: UserAccount,
+                as: "Lover",
+                attributes: ["id"],
+                through: {
+                    attributes: []
+                },
+                where: {
+                    deleted: false
+                },
+                required: false
             }
         ],
         limit: pagination.limit,
@@ -91,7 +125,8 @@ export const countPinsByTopicService = async (topicIds) => {
                 model: Topic,
                 attributes: [],
                 where: {
-                    id: topicIds
+                    id: topicIds,
+                    deleted: false
                 }
             }
         ]
@@ -99,9 +134,17 @@ export const countPinsByTopicService = async (topicIds) => {
     return totalPins;
 };
 
-export const getPinDetailService = async (slug) => {
+export const getPinDetailService = async (userId, slug) => {
     const pin = await Pin.findOne({
-        attributes: ["id", "title", "url", "description", "allow_comment", "allow_recommend", "createdAt" ],
+        attributes: [
+            "id", 
+            "title", 
+            "url", 
+            "description", 
+            "allow_comment", 
+            "allow_recommend", 
+            "createdAt"
+        ],
         where: {
             slug,
             deleted: false
@@ -109,18 +152,37 @@ export const getPinDetailService = async (slug) => {
         include: [
             {
                 model: UserAccount,
-                attributes: ["id", "username", "avatar"]
+                as: "Author",
+                attributes: ["id", "username", "avatar", "slug"],
+                deleted: false
             },
             {
                 model: Topic,
                 attributes: ["id", "name", "hexa_color"],
                 through: {
                     attributes: []
+                },
+                where: {
+                    deleted: false
                 }
+            },
+            {
+                model: UserAccount,
+                as: "Lover",
+                attributes: ["id", "username", "avatar","slug"],
+                through: {
+                    attributes: [],
+                    where: {
+                        deleted: false
+                    }
+                },
+                where: {
+                    deleted: false
+                },
+                required: false
             }
         ]
     });
-
     return pin;
 };
 
@@ -145,7 +207,7 @@ export const getRecommendPinsService = async (slug, limit) => {
             group: ["Topic.id"]
         }
     )).map((topic) => topic.id);
-    
+
     const pins = await Pin.findAll({
         attributes: ["id", "title", "url", "slug"],
         where: {
@@ -164,11 +226,58 @@ export const getRecommendPinsService = async (slug, limit) => {
             },
             {
                 model: UserAccount,
-                attributes: ["id", "username", "avatar"]
+                as: "Author",
+                attributes: ["id", "username", "avatar", "slug"]
+            },
+            {
+                model: UserAccount,
+                as: "Lover",
+                attributes: ["id"],
+                through: {
+                    attributes: []
+                },
+                where: {
+                    deleted: false
+                },
+                required: false
             }
         ],
         order: sequelize.random(),
         limit: limit
     });
     return pins
+};
+
+export const setLovePinService = async (pinId, userId) => {
+    const lovePin = await LovePin.findOne({
+        where: {
+            pin_id: pinId,
+            user_id: userId,
+        }
+    });
+
+    if (lovePin) {
+        if(lovePin.deleted) {
+            await lovePin.update({ deleted: false });
+        } else{
+            await lovePin.update({ deleted: true });
+        }
+    } 
+    else {
+        await LovePin.create({
+            pin_id: pinId,
+            user_id: userId
+        });
+    }
+};
+
+export const getPinBySlugService = async (slug) => {
+    const pin = await Pin.findOne({
+        where: {
+            slug,
+            deleted: false
+        },
+        raw: true
+    });
+    return pin;
 };
