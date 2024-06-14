@@ -1,8 +1,17 @@
+import { useEffect } from "react";
 import DragDropImageUploader from "../../components/DragDropImageUploader";
 import FormUploader from "../../components/FormUploader";
 import UploadHeader from "../../components/UploadHeader";
+import { useDispatch } from "react-redux";
+import { resetUploader } from "../../redux/actions/uploader";
 
 function Uploader() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    return () => {
+      dispatch(resetUploader())
+    };
+  },[]);
   return (
     <div className="mx-4 sm:mx-1">
       <UploadHeader />

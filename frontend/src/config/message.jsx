@@ -32,6 +32,7 @@ const ResponseMessage = {
     EMAIL_EXISTED: "email-existed",
     PASSWORD_NOT_MATCH: "password-not-match",
     FIELD_REQUIRED: "field-required",
+    TABLE_EXISTS: "table-exists",
 };
 
 export default ResponseMessage;

@@ -1,11 +1,16 @@
 import { Op, literal } from "sequelize";
 import sequelize from "../../../config/database.js";
-import { Pin, TopicPin, UserAccount, Topic, LovePin } from "../models/index.model.js";
+import { Pin, TopicPin, UserAccount, Topic, LovePin, Table, PinTable } from "../models/index.model.js";
 
 export const createPinService = async (data) => {
     const topicIds = data.topic_ids;
     delete data.topics;
     const pin = await Pin.create(data);
+    
+    await PinTable.create({
+        table_id: data.table_id,
+        pin_id: pin.id
+    });
 
     if (topicIds && topicIds.length > 0) {
         topicIds.forEach(async (topicId) => {
@@ -47,6 +52,10 @@ export const getAllPinsService = async (pagination) => {
                     deleted: false
                 },
                 required: false
+            },
+            {
+                model: Table,
+                attributes: ["user_id"],
             }
         ],
         offset: pagination.offset,
@@ -103,6 +112,10 @@ export const getPinsByTopicService = async (pagination, topicIds) => {
                     deleted: false
                 },
                 required: false
+            },
+            {
+                model: Table,
+                attributes: ["user_id"],
             }
         ],
         limit: pagination.limit,
@@ -180,6 +193,10 @@ export const getPinDetailService = async (userId, slug) => {
                     deleted: false
                 },
                 required: false
+            },
+            {
+                model: Table,
+                attributes: ["user_id"],
             }
         ]
     });
@@ -240,6 +257,10 @@ export const getRecommendPinsService = async (slug, limit) => {
                     deleted: false
                 },
                 required: false
+            },
+            {
+                model: Table,
+                attributes: ["user_id"],
             }
         ],
         order: sequelize.random(),
@@ -280,4 +301,22 @@ export const getPinBySlugService = async (slug) => {
         raw: true
     });
     return pin;
+};
+
+export const savePinService = async (pinId, tableId) => {
+    const pinTable = await PinTable.findOne({
+        where: {
+            table_id: tableId,
+            pin_id: pinId
+        }
+    });
+    if(pinTable) {
+        await pinTable.update({ deleted: false });
+    } 
+    else {
+        await PinTable.create({
+            table_id: tableId,
+            pin_id: pinId
+        });
+    }
 };

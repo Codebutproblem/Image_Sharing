@@ -1,9 +1,18 @@
 import { Comment, Pin, UserAccount } from '../models/index.model.js';
-export const createCommentService = async ({ userId, pinId, content }) => {
+export const createCommentService = async ({ pinSlug, userId, content }) => {
+
+    const pin = await Pin.findOne({
+        where: {
+            slug: pinSlug,
+            deleted: false
+        },
+        raw: true
+    });
+
     await Comment.create({
         content: content,
         user_id: userId,
-        pin_id: pinId
+        pin_id: pin.id
     });
 };
 

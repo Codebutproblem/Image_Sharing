@@ -19,7 +19,6 @@ function Home() {
     };
     waittingAPI();
   }, [page]);
-
   return (
     <>
       {pinObject.pins.length === 0 ? (

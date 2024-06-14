@@ -12,3 +12,9 @@ export const showLoading = (loading) => {
   };
 };
 
+export const setSaveBox = (data) => {
+  return {
+    type: "SET_SAVE_BOX",
+    data: data,
+  };
+};

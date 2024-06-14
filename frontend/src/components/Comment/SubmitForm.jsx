@@ -40,8 +40,10 @@ function SubmitForm({reload, setReload}) {
                     placeholder="Viết bình luận..."
                 ></textarea>
             </div>
-            <div className="flex gap-2 justify-end items-start pr-3">
-                <EmojiPicker onEmojiClick={handleEmojiClick} reactionsDefaultOpen={true}/>
+            <div className="flex gap-2 justify-end items-end pr-3">
+                <div className="hidden sm:block">
+                <EmojiPicker onEmojiClick={handleEmojiClick} reactionsDefaultOpen={true} />
+                </div>
                 <button className="p-3 text-white duration-300 bg-blue-500 hover:bg-blue-600 rounded-2xl">
                     Submit
                 </button>

@@ -1,16 +1,13 @@
 import HttpStatusCode from "../../../config/http_status.js";
 import ResponseMessage from "../../../config/message.js";
 import { countAllCommentsService, createCommentService, deleteCommentService, getCommentsService } from "../services/comment.service.js";
-import { getPinBySlugService } from "../services/pin.service.js";
 
 export const createComment = async (req, res) => {
     try {
         const userId = req.user.id;
         const pinSlug = req.params.pin_slug;
         const content = req.body.content;
-        const pin = await getPinBySlugService(pinSlug);
-        const pinId = pin.id;
-        await createCommentService({ userId, pinId, content });
+        await createCommentService({ pinSlug, userId, content });
         res.status(HttpStatusCode.CREATED).json({ message: ResponseMessage.CREATE_SUCCESS });
     } catch (error) {
         console.log(error);

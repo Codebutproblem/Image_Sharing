@@ -1,6 +1,6 @@
+import TableSelect from "../TableSelect";
 import DescInput from "./DescInput";
 import OtherOption from "./OtherOption";
-import TableSelect from "./TableSelect";
 import TitleInput from "./TitleInput";
 import TopicSelect from "./TopicSelect";
 

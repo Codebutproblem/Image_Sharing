@@ -11,6 +11,6 @@ export const getAllTopics = async (req, res) => {
         res.status(HttpStatusCode.OK).json({ topics, message: ResponseMessage.GET_SUCCESS });
     } catch (error) {
         console.log(error);
-        res.status(502).json({ message: ResponseMessage.GET_FAILED });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
     }
 }

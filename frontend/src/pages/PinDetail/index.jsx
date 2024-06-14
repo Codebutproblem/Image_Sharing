@@ -4,12 +4,12 @@ import RecommendPart from "../../components/RecommendPart";
 
 function PinDetail() {
   return (
-    <div className="flex justify-between py-5">
-      <div className="w-[60%] min-w-[460px]">
+    <div className="flex flex-col gap-10 md:flex-row justify-between py-5 px-5 xl:px-0">
+      <div className="w-full md:w-[60%] min-w-[250px] md:min-w-[400px]">
         <PinDetailPart />
         <Comment />
       </div>
-      <div className=" w-[35%] lg:w-[30%]">
+      <div className=" w-full md:w-[35%] lg:w-[30%]">
         <RecommendPart limit={7} />
       </div>
     </div>

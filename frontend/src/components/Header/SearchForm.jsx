@@ -22,7 +22,7 @@ function SearchForm() {
     <form
       action=""
       id="search-form"
-      className="flex items-center w-6/12 min-w-96 bg-neutral-200 hover:bg-neutral-300 transition ease-in duration-100 rounded-3xl overflow-hidden"
+      className="flex items-center w-6/12 min-w-40 bg-neutral-200 hover:bg-neutral-300 transition ease-in duration-100 rounded-3xl overflow-hidden"
       onSubmit={handleSubmit}
     >
       <span id="search-icon" className="text-ml py-3.5 px-3 pr-2 font-light">

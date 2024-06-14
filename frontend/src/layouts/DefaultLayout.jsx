@@ -5,12 +5,14 @@ import { checkLogin } from "../services/userAccountService";
 import MyAlert from "../components/MyAlert";
 import Loading from "../components/Loading";
 import { refreshToken } from "../services/authService";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/actions/user";
+import SavePinBox from "../components/SavePinBox";
 
 function DefaultLayout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const saveBox = useSelector((state) => state.SaveBoxReducer);
   const [displayLayout, setDisplayLayout] = useState(false);
   useEffect(() => {
     const waitingAPI = async () => {
@@ -43,6 +45,7 @@ function DefaultLayout() {
           <Outlet />
         </div>
         <Loading />
+        {saveBox.show && <SavePinBox  />}
       </main>
     </>
   );

@@ -31,3 +31,8 @@ export const setLovePin = async (pinId) => {
   const result = await patch(`pins/love/${pinId}`);
   return result;
 };
+
+export const savePin = async (pinId, tableId) => {
+  const result = await patch("pins/save", { pinId, tableId });
+  return result;
+};

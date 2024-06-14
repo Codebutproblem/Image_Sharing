@@ -5,7 +5,7 @@ import ResponseMessage from "../../config/message";
 import { timeAgo } from "../../utils/Time";
 import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "../../redux/actions/other";
-import CmPag from "./CmPag";
+import { Pagination } from "@mui/material";
 function CommentBox({ setReload, reload }) {
     const { slug } = useParams();
     const [commentObject, setCommentObject] = useState({comments: [], totalPage: 0});
@@ -34,6 +34,10 @@ function CommentBox({ setReload, reload }) {
         }
     };
 
+    const handleChange = (event, value) => {
+        setPage(value);
+    };
+
     return (
         <>
             <div className="w-ful mb-8">
@@ -56,7 +60,7 @@ function CommentBox({ setReload, reload }) {
                 )}
 
             </div>
-            {(commentObject.totalPage > 1) && <CmPag totalPage={commentObject.totalPage} setPage={setPage}/>}
+            {(commentObject.totalPage > 1) && <Pagination count={totalPage} onChange={handleChange} />}
             
         </>
     );

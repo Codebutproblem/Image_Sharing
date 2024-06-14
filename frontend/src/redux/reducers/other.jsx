@@ -18,3 +18,12 @@ export const AlertReducer = (
       return state;
   }
 };
+
+export const SaveBoxReducer = (state = {show: false, pinId: null}, action) => {
+  switch (action.type) {
+    case "SET_SAVE_BOX":
+      return action.data;
+    default:
+      return state;
+  }
+};
