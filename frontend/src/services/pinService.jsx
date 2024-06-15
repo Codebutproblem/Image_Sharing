@@ -36,3 +36,8 @@ export const savePin = async (pinId, tableId) => {
   const result = await patch("pins/save", { pinId, tableId });
   return result;
 };
+
+export const unSavePin = async (pinId) => {
+  const result = await patch(`pins/unsave/${pinId}`);
+  return result;
+};

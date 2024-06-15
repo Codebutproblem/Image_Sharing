@@ -7,7 +7,6 @@ import Loading from "../components/Loading";
 import { refreshToken } from "../services/authService";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/actions/user";
-import SavePinBox from "../components/SavePinBox";
 
 function DefaultLayout() {
   const navigate = useNavigate();
@@ -45,7 +44,6 @@ function DefaultLayout() {
           <Outlet />
         </div>
         <Loading />
-        {saveBox.show && <SavePinBox  />}
       </main>
     </>
   );

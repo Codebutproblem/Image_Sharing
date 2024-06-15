@@ -3,7 +3,6 @@ import ResponseMessage from "../../config/message";
 import { getRecommendPins } from "../../services/pinService";
 import { ImageList, ImageListItem } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import SaveButton from "../SaveButton";
 function RecommendPart({ limit }) {
   const [pins, setPins] = useState([]);
   const { slug } = useParams();
@@ -62,10 +61,7 @@ function RecommendPart({ limit }) {
               to={`/pin-detail/${pin.slug}`}
               className="cursor-zoom-in absolute left-0 right-0 top-0 bottom-0 bg-[#00000040] flex flex-col justify-between p-2.5 font-medium"
             >
-              <div className="flex gap-2 justify-between">
-                <SaveButton pin={pin} />
-                <div className="text-slate-50">{pin.Lover.length}❤️</div>
-              </div>
+              <div className="text-slate-50">❤️{pin.Lover.length}</div>
               <div className="text-slate-50">
                 <div className="mb-1 text-sx sm:text-base">{pin.title}</div>
                 <div className="flex items-center gap-3">

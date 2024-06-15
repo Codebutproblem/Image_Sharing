@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { ImageList, ImageListItem, Pagination } from "@mui/material";
-import SaveButton from "../SaveButton";
 import { Link } from "react-router-dom";
 
 function PinTable({ pinObject, page, setPage }) {
@@ -54,12 +53,9 @@ function PinTable({ pinObject, page, setPage }) {
             <img src={pin.url} alt={pin.title} loading="lazy" />
             <Link
               to={`/pin-detail/${pin.slug}`}
-              className="cursor-zoom-in absolute left-0 right-0 top-0 bottom-0 bg-[#00000040] hidden group-hover:flex flex-col justify-between p-2.5 font-medium"
+              className="cursor-zoom-in absolute left-0 right-0 top-0 bottom-0 bg-[#00000040] hidden group-hover:flex flex-col justify-between p-3 font-medium"
             >
-              <div className="flex gap-2  justify-between">
-                <SaveButton pin={pin} />
-                <div className="text-slate-50">{pin?.Lover?.length}❤️</div>
-              </div>
+              <div className="text-slate-50">❤️{pin?.Lover?.length}</div>
               <div className="text-slate-50">
                 <div className="mb-1">{pin.title}</div>
                 <div className=" hidden sm:flex items-center gap-3">

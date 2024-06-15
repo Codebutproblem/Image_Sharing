@@ -24,7 +24,6 @@ function SubmitForm({reload, setReload}) {
     const handleEmojiClick = (event) => {
         const content = document.getElementById("content");
         content.value += event.emoji;
-        console.log(event);
     };
     return (
         <form onSubmit={handleSubmit}>

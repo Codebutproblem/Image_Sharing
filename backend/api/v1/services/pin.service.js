@@ -196,6 +196,12 @@ export const getPinDetailService = async (userId, slug) => {
             },
             {
                 model: Table,
+                through:{
+                    attributes: [],
+                    where: {
+                        deleted: false
+                    }
+                },
                 attributes: ["user_id"],
             }
         ]
@@ -261,6 +267,9 @@ export const getRecommendPinsService = async (slug, limit) => {
             {
                 model: Table,
                 attributes: ["user_id"],
+                where: {
+                    deleted: false
+                }
             }
         ],
         order: sequelize.random(),
@@ -319,4 +328,25 @@ export const savePinService = async (pinId, tableId) => {
             pin_id: pinId
         });
     }
+};
+
+export const unsavedPinService = async (pinId, userId) => {
+    const table = await Table.findOne({
+        where: {
+            user_id: userId
+        },
+        include: {
+            model: Pin,
+            where: {
+                id: pinId
+            }
+        },
+        raw: true
+    });
+    await PinTable.update({deleted: true},{
+        where: {
+            table_id: table.id,
+            pin_id: pinId
+        }
+    });
 };

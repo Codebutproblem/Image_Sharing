@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MdOutlineZoomOutMap } from "react-icons/md";
 import { useSelector } from "react-redux";
-import SaveButton from "../SaveButton";
+import SaveButton from "./SaveButton";
 function Pin({ pin }) {
     const [loaded, setLoaded] = useState(false);
     const user = useSelector((state) => state.UserReducer);

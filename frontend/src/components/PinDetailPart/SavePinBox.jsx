@@ -1,15 +1,14 @@
 import { FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { setSaveBox, showAlert } from "../../redux/actions/other";
+import { showAlert } from "../../redux/actions/other";
 import TableSelect from "../TableSelect";
 import { useEffect } from "react";
 import { resetUploader } from "../../redux/actions/uploader";
 import { savePin } from "../../services/pinService";
 import ResponseMessage from "../../config/message";
 
-function SavePinBox() {
+function SavePinBox({setShowSaveBox, setSaved, pinId}) {
     const dispatch = useDispatch();
-    const saveBox = useSelector((state) => state.SaveBoxReducer);
     const uploader = useSelector((state) => state.UploadReducer);
     useEffect(() => {
         return () => {
@@ -17,7 +16,8 @@ function SavePinBox() {
         };
     },[]);
     const hideSaveBox = (e) => {
-        dispatch(setSaveBox({show: false, pinId: null}));
+        e.stopPropagation();
+        setShowSaveBox(false);
     };
     const saveBoxClick = (e) => {
         e.stopPropagation();
@@ -29,11 +29,11 @@ function SavePinBox() {
             dispatch(showAlert({type: 'error', message: 'Chưa chọn bảng'}));
             return;
         };
-        const result = await savePin(saveBox.pinId, uploader.tableId);
+        const result = await savePin(pinId, uploader.tableId);
         if(result.message === ResponseMessage.UPDATE_SUCCESS) {
             dispatch(showAlert({type: 'success', message: 'Lưu thành công'}));
-            dispatch(setSaveBox({show: false, pinId: null}));
-            window.location.reload();
+            setSaved(true);
+            setShowSaveBox(false);
         }
         else{
             dispatch(showAlert({type: 'error', message: 'Lưu thất bại'}));

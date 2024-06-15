@@ -10,7 +10,8 @@ import {
     getPinsByTopicService, 
     getRecommendPinsService,
     savePinService,
-    setLovePinService
+    setLovePinService,
+    unsavedPinService
 } from "../services/pin.service.js";
 
 export const createPin = async (req, res) => {
@@ -115,6 +116,18 @@ export const savePin = async (req, res) => {
         await savePinService(pinId, tableId);
         res.status(HttpStatusCode.OK).json({ message: ResponseMessage.UPDATE_SUCCESS });
     } catch (error) {
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.UPDATE_FAILED });
+    }
+};
+
+export const unSavePin = async (req, res) => {
+    try {
+        const pinId = parseInt(req.params.id);
+        const userId = req.user.id;
+        await unsavedPinService(pinId, userId);
+        res.status(HttpStatusCode.OK).json({ message: ResponseMessage.UPDATE_SUCCESS });
+    } catch (error) {
+        console.log(error);
         res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.UPDATE_FAILED });
     }
 };
