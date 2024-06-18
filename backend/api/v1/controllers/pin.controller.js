@@ -4,11 +4,14 @@ import ResponseMessage from "../../../config/message.js";
 import { 
     countAllPinsService, 
     countPinsByTopicService, 
+    countUserPinsService, 
     createPinService, 
     getAllPinsService, 
+    getDetailUserPinService, 
     getPinDetailService, 
     getPinsByTopicService, 
     getRecommendPinsService,
+    getUserPinsService,
     savePinService,
     setLovePinService,
     unsavedPinService
@@ -75,9 +78,8 @@ export const getPinsByTopic = async (req, res) => {
 
 export const getPinDetail = async (req, res) => {
     try {
-        const userId = req.user.id;
         const slug = req.params.slug;
-        const pin = await getPinDetailService(userId, slug);
+        const pin = await getPinDetailService(slug);
         res.status(HttpStatusCode.OK).json({ pin, message: ResponseMessage.GET_SUCCESS });
     } catch (error) {
         console.log(error);
@@ -129,5 +131,34 @@ export const unSavePin = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.UPDATE_FAILED });
+    }
+};
+
+export const getUserPins = async (req, res) => {
+    try {
+        const userSlug = req.params.user_slug;
+        const limit = parseInt(req.query.limit) || 16;
+        const page = parseInt(req.query.page) || 1;
+        const offset = (page - 1) * limit;
+        const pins = await getUserPinsService(userSlug, {offset, limit});
+        const totalPins = await countUserPinsService(userSlug);
+        const total_pages = Math.ceil(totalPins / limit);
+        res.status(HttpStatusCode.OK).json({ pins, total_pages: total_pages, message: ResponseMessage.GET_SUCCESS });
+    } catch (error) {
+        console.log(error);
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
+    }
+};
+
+
+export const getDetailUserPin = async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const userId = req.user.id;
+        const pin = await getDetailUserPinService(slug, userId);
+        res.status(HttpStatusCode.OK).json({ pin, message: ResponseMessage.GET_SUCCESS });
+    } catch (error) {
+        console.log(error);
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
     }
 };

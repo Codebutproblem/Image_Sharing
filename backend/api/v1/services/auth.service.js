@@ -16,14 +16,6 @@ export const signTokenService = async (userAccount) => {
         username: userAccount.username,
         email: userAccount.email,
         avatar: userAccount.avatar,
-        first_name: userAccount.first_name,
-        last_name: userAccount.last_name,
-        introduce: userAccount.introduce,
-        personal_link: userAccount.personal_link,
-        date_of_birth: userAccount.date_of_birth,
-        gender: userAccount.gender,
-        language: userAccount.language,
-        nation: userAccount.nation,
         slug: userAccount.slug
     }
 

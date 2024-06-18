@@ -27,13 +27,6 @@ const UserAccount = sequelize.define('UserAccount', {
         allowNull: false
     },
     avatar: DataTypes.TEXT,
-    first_name: DataTypes.STRING(50),
-    last_name: DataTypes.STRING(50),
-    introduce: DataTypes.TEXT,
-    personal_link: DataTypes.STRING(255),
-    date_of_birth: DataTypes.DATE,
-    gender: DataTypes.STRING(50),
-    nation: DataTypes.STRING(100),
     refreshToken: DataTypes.TEXT,
     slug: DataTypes.STRING(100),
     deleted: {

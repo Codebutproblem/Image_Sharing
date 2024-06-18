@@ -41,3 +41,13 @@ export const unSavePin = async (pinId) => {
   const result = await patch(`pins/unsave/${pinId}`);
   return result;
 };
+
+export const getUserPins = async (slug, {page, limit}) => {
+  const result = await get(`pins/user-pin/${slug}?page=${page}&limit=${limit}`);
+  return result;
+};
+
+export const getDetailUserPin = async (slug) => {
+  const result = await get(`pins/user-pin/detail/${slug}`);
+  return result;
+};

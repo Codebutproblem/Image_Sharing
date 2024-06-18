@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { deleteComment, getComments } from "../../services/commentService";
 import ResponseMessage from "../../config/message";
 import { timeAgo } from "../../utils/Time";
@@ -43,14 +43,18 @@ function CommentBox({ setReload, reload }) {
             <div className="w-ful mb-8">
                 {commentObject.comments.map((comment) =>
                     <div key={comment.id} className="flex items-center gap-3 p-3 pb-0 mb-4">
+                        <Link
+                            to={`/profile/${comment.Author.slug}`}
+                        >
                         <img
                             src={comment.Author.avatar || "https://www.gravatar.com/avatar/"}
                             alt={comment.Author.username}
                             className="w-14 h-14 rounded-full object-cover"
                         />
+                        </Link>
                         <div className="relative">
                             <div className="flex gap-3 items-end">
-                                <span className="text-xl font-semibold">{comment.Author.username}</span>
+                                <Link to={`/profile/${comment.Author.slug}`} className="text-xl font-semibold">{comment.Author.username}</Link>
                                 <span className="text-base font-medium">{timeAgo(comment.createdAt)}</span>
                                 {userId === comment.Author.id && (<button comment_id={comment.id} onClick={handleDelete} className="text-sm font-medium bg-gray-400 duration-200 hover:bg-gray-500 text-slate-50 px-1 py-0.5 rounded-md">Xóa</button>)}
                             </div>

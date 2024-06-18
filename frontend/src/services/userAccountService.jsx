@@ -1,5 +1,5 @@
 import ResponseMessage from "../config/message";
-import { get } from "../requests/request";
+import { get, patch } from "../requests/request";
 
 export const checkLogin = async () => {
   const refeshToken = localStorage.getItem("refreshToken");
@@ -19,5 +19,10 @@ export const getInfoUser = async (slug = "") => {
     return result;
   }
   const result = await get("user-account/info-user");
+  return result;
+};
+
+export const updateInfoUser = async (data) => {
+  const result = await patch("user-account/update-info", data);
   return result;
 };

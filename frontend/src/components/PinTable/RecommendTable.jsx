@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import ResponseMessage from "../../config/message";
 import { getRecommendPins } from "../../services/pinService";
 import { ImageList, ImageListItem } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
-function RecommendPart({ limit }) {
+import { Link, useNavigate, useParams } from "react-router-dom";
+function RecommendTable({ limit }) {
   const [pins, setPins] = useState([]);
+  const navigate = useNavigate();
   const { slug } = useParams();
 
   let initColumns = 1;
@@ -47,6 +48,8 @@ function RecommendPart({ limit }) {
     };
     waittingAPI();
   }, [slug]);
+
+  
   return (
     <>
       <h1 className="text-3xl font-semibold mb-5">Liên quan</h1>
@@ -57,14 +60,18 @@ function RecommendPart({ limit }) {
             className="duration-1000 rounded-2xl overflow-hidden"
           >
             <img src={pin.url} alt={pin.title} loading="lazy" />
-            <Link
-              to={`/pin-detail/${pin.slug}`}
+            <div
+              onClick={()=>navigate(`/pin-detail/${pin.slug}`)}
               className="cursor-zoom-in absolute left-0 right-0 top-0 bottom-0 bg-[#00000040] flex flex-col justify-between p-2.5 font-medium"
             >
               <div className="text-slate-50">❤️{pin.Lover.length}</div>
               <div className="text-slate-50">
-                <div className="mb-1 text-sx sm:text-base">{pin.title}</div>
+                <div className="mb-1.5 text-sx sm:text-base">{pin.title}</div>
                 <div className="flex items-center gap-3">
+                <Link
+                    onClick={(e)=> e.stopPropagation()}
+                    to={`/profile/${pin.Author.slug}`}
+                  >
                   <img
                     src={
                       pin.Author.avatar ||
@@ -73,14 +80,15 @@ function RecommendPart({ limit }) {
                     alt={pin.Author.username}
                     className="w-10 max-w-10 h-10 rounded-full object-cover"
                   />
-                  <div>{pin.Author.username}</div>
+                  </Link>
+                  <Link className=" hover:underline" onClick={(e)=> e.stopPropagation()} to={`/profile/${pin.Author.slug}`}>{pin.Author.username}</Link>
                 </div>
               </div>
-            </Link>
+            </div>
           </ImageListItem>
         ))}
       </ImageList>
     </>
   );
 }
-export default RecommendPart;
+export default RecommendTable;

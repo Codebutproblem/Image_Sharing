@@ -1,6 +1,6 @@
 import Comment from "../../components/Comment";
 import PinDetailPart from "../../components/PinDetailPart";
-import RecommendPart from "../../components/RecommendPart";
+import RecommendTable from "../../components/PinTable/RecommendTable";
 
 function PinDetail() {
   return (
@@ -10,7 +10,7 @@ function PinDetail() {
         <Comment />
       </div>
       <div className=" w-full md:w-[35%] lg:w-[30%]">
-        <RecommendPart limit={7} />
+        <RecommendTable limit={7} />
       </div>
     </div>
   );

@@ -65,3 +65,10 @@ export const allowUpload = (allow) => {
     allow: allow,
   };
 };
+
+export const setUploader = (data) => {
+  return {
+    type: "SET_UPLOADER",
+    uploader: data,
+  };
+};

@@ -58,6 +58,11 @@ function UploadReducer(state = initialState, action = null) {
         ...state,
         allowUpload: action.allow,
       };
+    case "SET_UPLOADER":
+      return {
+        ...state,
+        ...action.uploader
+      }
     default:
       return state;
   }

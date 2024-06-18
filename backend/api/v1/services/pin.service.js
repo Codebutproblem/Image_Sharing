@@ -7,11 +7,13 @@ export const createPinService = async (data) => {
     delete data.topics;
     const pin = await Pin.create(data);
     
-    await PinTable.create({
-        table_id: data.table_id,
-        pin_id: pin.id
-    });
-
+    if(data.table_id !== null) {
+        await PinTable.create({
+            table_id: data.table_id,
+            pin_id: pin.id
+        });
+    }
+    
     if (topicIds && topicIds.length > 0) {
         topicIds.forEach(async (topicId) => {
             await TopicPin.create({
@@ -52,10 +54,6 @@ export const getAllPinsService = async (pagination) => {
                     deleted: false
                 },
                 required: false
-            },
-            {
-                model: Table,
-                attributes: ["user_id"],
             }
         ],
         offset: pagination.offset,
@@ -91,7 +89,7 @@ export const getPinsByTopicService = async (pagination, topicIds) => {
                 where: {
                     id: topicIds,
                     deleted: false
-                }
+                },
             },
             {
                 model: UserAccount,
@@ -112,10 +110,6 @@ export const getPinsByTopicService = async (pagination, topicIds) => {
                     deleted: false
                 },
                 required: false
-            },
-            {
-                model: Table,
-                attributes: ["user_id"],
             }
         ],
         limit: pagination.limit,
@@ -147,7 +141,7 @@ export const countPinsByTopicService = async (topicIds) => {
     return totalPins;
 };
 
-export const getPinDetailService = async (userId, slug) => {
+export const getPinDetailService = async (slug) => {
     const pin = await Pin.findOne({
         attributes: [
             "id", 
@@ -159,7 +153,7 @@ export const getPinDetailService = async (userId, slug) => {
             "createdAt"
         ],
         where: {
-            slug,
+            slug: slug,
             deleted: false
         },
         include: [
@@ -167,7 +161,9 @@ export const getPinDetailService = async (userId, slug) => {
                 model: UserAccount,
                 as: "Author",
                 attributes: ["id", "username", "avatar", "slug"],
-                deleted: false
+                where:{
+                    deleted: false
+                }
             },
             {
                 model: Topic,
@@ -177,7 +173,8 @@ export const getPinDetailService = async (userId, slug) => {
                 },
                 where: {
                     deleted: false
-                }
+                },
+                required: false
             },
             {
                 model: UserAccount,
@@ -203,6 +200,7 @@ export const getPinDetailService = async (userId, slug) => {
                     }
                 },
                 attributes: ["user_id"],
+                required: false
             }
         ]
     });
@@ -263,13 +261,6 @@ export const getRecommendPinsService = async (slug, limit) => {
                     deleted: false
                 },
                 required: false
-            },
-            {
-                model: Table,
-                attributes: ["user_id"],
-                where: {
-                    deleted: false
-                }
             }
         ],
         order: sequelize.random(),
@@ -349,4 +340,133 @@ export const unsavedPinService = async (pinId, userId) => {
             pin_id: pinId
         }
     });
+};
+
+export const getUserPinsService = async (userSlug, pagination) => {
+    const pins = await Pin.findAll({
+        attributes: ["id", "title", "url", "createdAt", "slug"],
+        where: {
+            deleted: false
+        },
+        include: [
+            {
+                model: UserAccount,
+                as: "Author",
+                attributes: [],
+                where: {
+                    slug: userSlug,
+                    deleted: false
+                }
+            },
+            {
+                model: UserAccount,
+                as: "Lover",
+                attributes: ["id"],
+                through: {
+                    attributes: []
+                },
+                where: {
+                    deleted: false
+                },
+                required: false
+            },
+            {
+                model: Table,
+                attributes: ["user_id"],
+            }
+        ],
+        offset: pagination.offset,
+        limit: pagination.limit,
+        order: [
+            ["createdAt", "DESC"]
+        ]
+    });
+    return pins;
+};
+
+export const countUserPinsService = async (userSlug) => {
+    const totalPins = await Pin.count({
+        where: {
+            deleted: false
+        },
+        include: [
+            {
+                model: UserAccount,
+                as: "Author",
+                attributes: [],
+                where: {
+                    slug: userSlug,
+                    deleted: false
+                }
+            }
+        ]
+    });
+    return totalPins;
+};
+
+export const getDetailUserPinService = async (slug, userId) => {
+    const pin = await Pin.findOne({
+        attributes: [
+            "id", 
+            "title", 
+            "url", 
+            "description", 
+            "allow_comment", 
+            "allow_recommend", 
+            "createdAt"
+        ],
+        where: {
+            slug: slug,
+            deleted: false
+        },
+        include: [
+            {
+                model: Topic,
+                attributes: ["id", "name", "hexa_color"],
+                through: {
+                    attributes: []
+                },
+                where: {
+                    deleted: false
+                },
+                required: false
+            },
+            {
+                model: Table,
+                through:{
+                    attributes: [],
+                    where: {
+                        deleted: false,
+                    }
+                },
+                attributes: ["id","name"],
+                where: {
+                    user_id: userId,
+                    deleted: false
+                },
+                required: false
+            }
+        ]
+    });
+    return pin;
+};
+
+export const getPinAuthor = async (slug) => {
+    const user = await UserAccount.findOne({
+        attributes: ["id", "username", "avatar", "slug"],
+        where: {
+            deleted: false
+        },
+        include:  {
+            model: Pin,
+            as: "Author",
+            attributes: [],
+            where: {
+                slug: slug,
+                deleted: false
+            }
+        },
+        raw: true
+    });
+    return user;
 };

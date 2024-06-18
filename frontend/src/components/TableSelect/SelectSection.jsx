@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import ResponseMessage from "../../config/message";
 import { getAllUserTables } from "../../services/tableService";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {updateTable} from "../../redux/actions/uploader";
 
 function SelectSection({ reload}) {
   const [tables, setTables] = useState([]);
   const dispatch = useDispatch();
+  const uploader = useSelector((state) => state.UploadReducer);
   useEffect(() => {
     const waittingAPI = async () => {
       const result = await getAllUserTables();
@@ -20,7 +21,7 @@ function SelectSection({ reload}) {
     dispatch(updateTable(parseInt(e.target.value)));
   };
   return (
-    <select onChange={handleSelect} className="min-w-[180px] block w-full px-3 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-600 focus:border-sky-600 sm:text-sm flex-grow">
+    <select value={uploader.tableId || -1} onChange={handleSelect} className="min-w-[180px] block w-full px-3 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-600 focus:border-sky-600 sm:text-sm flex-grow">
       <option value="" aria-readonly>
         --- Chọn bảng ---
       </option>

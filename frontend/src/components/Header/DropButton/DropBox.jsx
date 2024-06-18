@@ -1,5 +1,5 @@
 import { logout } from "../../../services/authService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser } from "../../../redux/actions/user";
 function DropBox({ id }) {
@@ -21,8 +21,8 @@ function DropBox({ id }) {
     >
       <div className="mb-5">
         <div className="text-sm mb-2">Tài khoản đăng nhập</div>
-        <a
-          href="/"
+        <Link
+          to={`/profile/${infoUser.slug}`}
           className="flex items-center p-2 hover:bg-neutral-200 rounded-xl"
         >
           <img
@@ -36,7 +36,7 @@ function DropBox({ id }) {
               ? `${infoUser.firstName} ${infoUser.lastName}`
               : infoUser.username}
           </div>
-        </a>
+        </Link>
       </div>
       <div>
         <div className="text-sm mb-3">Tùy chọn khác</div>

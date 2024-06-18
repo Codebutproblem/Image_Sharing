@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import PinTable from "../../components/PinTable";
+import PinTable from "../../components/PinTable/PinTable";
 import { getPinsByTopic } from "../../services/pinService";
 import { clearTopicTags } from "../../redux/actions/topic";
 import PinByTopicHeader from "../../components/PinByTopicHeader";
@@ -26,7 +26,7 @@ function PinByTopic() {
       const result = await getPinsByTopic({
         selectedTopics,
         page: page,
-        limit: 15,
+        limit: 16,
       });
       if (result.message === ResponseMessage.GET_SUCCESS) {
         const newPins = [
@@ -41,7 +41,7 @@ function PinByTopic() {
       }
     };
     waittingAPI();
-  }, [selectedTopics.length]);
+  }, [page]);
 
   useEffect(() => {
     if (selectedTopics.length === 0) {
@@ -52,7 +52,7 @@ function PinByTopic() {
       const result = await getPinsByTopic({
         selectedTopics,
         page: 1,
-        limit: 15,
+        limit: 16,
       });
       if (result.message === ResponseMessage.GET_SUCCESS) {
         setPinObject({
@@ -68,7 +68,7 @@ function PinByTopic() {
     <>
       <PinByTopicHeader selectedTopics={selectedTopics} />
       {pinObject.pins.length === 0 ? (
-        <SkeletonTable />
+        <SkeletonTable col={4} row={3} />
       ) : (
         <PinTable pinObject={pinObject} setPage={setPage} page={page} />
       )}
