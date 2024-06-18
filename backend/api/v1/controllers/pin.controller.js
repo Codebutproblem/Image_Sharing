@@ -6,6 +6,7 @@ import {
     countPinsByTopicService, 
     countUserPinsService, 
     createPinService, 
+    deletePinService, 
     getAllPinsService, 
     getDetailUserPinService, 
     getPinDetailService, 
@@ -14,7 +15,8 @@ import {
     getUserPinsService,
     savePinService,
     setLovePinService,
-    unsavedPinService
+    unsavedPinService,
+    updatePinService
 } from "../services/pin.service.js";
 
 export const createPin = async (req, res) => {
@@ -160,5 +162,28 @@ export const getDetailUserPin = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
+    }
+};
+
+export const updatePin = async (req, res) => {
+    try {
+        const data = req.body;
+        const slug = req.params.slug;
+        await updatePinService(slug, data);
+        res.status(HttpStatusCode.OK).json({ message: ResponseMessage.UPDATE_SUCCESS });
+    } catch (error) {
+        console.log(error);
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.UPDATE_FAILED });
+    }
+};
+
+export const deletePin = async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        await deletePinService(slug);
+        res.status(HttpStatusCode.OK).json({ message: ResponseMessage.DELETE_SUCCESS });
+    } catch (error) {
+        console.log(error);
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.DELETE_FAILED });
     }
 };

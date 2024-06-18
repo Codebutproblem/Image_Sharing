@@ -470,3 +470,74 @@ export const getPinAuthor = async (slug) => {
     });
     return user;
 };
+
+export const updatePinService = async (slug, data) => {
+    const topicIds = data.topic_ids;
+    delete data.topics;
+    const pin = await Pin.findOne({
+        where: {
+            slug: slug,
+            deleted: false
+        },
+    });
+    if(pin){
+        await pin.update(data);
+    }
+    if(data.table_id !== null && pin){
+        const pinTable = await PinTable.findOne({
+            where: {
+                pin_id: pin.id,
+                table_id: data.table_id
+            }
+        });
+        if(!pinTable){
+            await PinTable.create({
+                pin_id: pin.id,
+                table_id: data.table_id
+            });
+        }
+        else if(pinTable.deleted){
+            await pinTable.update({deleted: false});
+        }
+    }
+
+    if (topicIds && topicIds.length > 0 && pin) {
+        topicIds.forEach(async (topicId) => {
+            const topicPin = await TopicPin.findOne({
+                where: {
+                    pin_id: pin.id,
+                    topic_id: topicId
+                }
+            });
+            if(!topicPin){
+                await TopicPin.create({
+                    pin_id: pin.id,
+                    topic_id: topicId
+                });
+            }
+            else if(topicPin.deleted){
+                await topicPin.update({deleted: false});
+            }
+        });
+    }
+};
+
+export const findPinBySlugService = async (slug) => {
+    const pin = await Pin.findOne({
+        where: {
+            slug: slug,
+            deleted: false
+        }
+    });
+    return pin;
+};
+
+export const deletePinService = async (slug) => {
+    const pin = await Pin.update({deleted: true, deletedAt: new Date()},{
+        where: {
+            slug: slug,
+            deleted: false
+        }
+    });
+    return pin;
+};

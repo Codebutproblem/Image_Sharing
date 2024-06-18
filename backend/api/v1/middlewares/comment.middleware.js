@@ -2,7 +2,7 @@ import HttpStatusCode from "../../../config/http_status.js";
 import ResponseMessage from "../../../config/message.js";
 import { findCommentService } from "../services/comment.service.js";
 
-export const verifyUserDeleteComment = async (req, res, next) => {
+export const verifyAuthor = async (req, res, next) => {
     try {
         const userId = req.user.id;
         const id = req.params.id;

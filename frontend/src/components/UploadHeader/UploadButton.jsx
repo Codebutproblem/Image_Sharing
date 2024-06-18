@@ -61,7 +61,7 @@ function UploadButton() {
       })
       .catch(() => {
         dispatch(showLoading(false));
-        setAlert({ type: "error", message: "Tải lên thất bại" });
+        dispatch(showAlert({ type: "error", message: "Tải lên thất bại" }));
       });
     dispatch(showLoading(true));
   };

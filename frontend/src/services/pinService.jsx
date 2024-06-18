@@ -1,4 +1,4 @@
-import { get, patch, post } from "../requests/request";
+import { del, get, patch, post } from "../requests/request";
 
 export const createPin = async (pin) => {
   const result = await post("pins/create", pin);
@@ -49,5 +49,15 @@ export const getUserPins = async (slug, {page, limit}) => {
 
 export const getDetailUserPin = async (slug) => {
   const result = await get(`pins/user-pin/detail/${slug}`);
+  return result;
+};
+
+export const updatePin = async (slug, data) => {
+  const result = await patch(`pins/user-pin/update/${slug}`, data);
+  return result;
+};
+
+export const deletePin = async (slug) => {
+  const result = await del(`pins/user-pin/delete/${slug}`);
   return result;
 };

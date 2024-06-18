@@ -19,7 +19,7 @@ function PinEdit() {
                 dispatch(setUploader({
                     title: result.pin.title,
                     description: result.pin.description,
-                    tableId: result.pin.Tables[0].id,
+                    tableId: result.pin.Tables[0]?.id,
                     topics: result.pin.topics,
                     allowComment: result.pin.allow_comment,
                     allowRecommend: result.pin.allow_recommend,

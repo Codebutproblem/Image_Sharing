@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { createPin } from "../../services/pinService";
-import { resetUploader } from "../../redux/actions/uploader";
+import { updatePin } from "../../services/pinService";
 import { showAlert } from "../../redux/actions/other";
 import { showLoading } from "../../redux/actions/other";
 import ResponseMessage from "../../config/message";
+import { useParams } from "react-router-dom";
 function EditButton() {
   const dispatch = useDispatch();
+  const {slug} = useParams();
   const uploader = useSelector((state) => state.UploadReducer);
   const handleUpload = (e) => {
     const loadingApi = async () => {
@@ -20,7 +21,7 @@ function EditButton() {
         topic_ids: uploader.topics.map((topic) => topic.id),
         table_id: uploader.tableId,
       };
-      const result = await createPin(pin);
+      const result = await updatePin(slug, pin);
       return result;
     };
     loadingApi()
@@ -28,7 +29,6 @@ function EditButton() {
         dispatch(showLoading(false));
         switch (result.message) {
           case ResponseMessage.UPDATE_SUCCESS:
-            dispatch(resetUploader());
             dispatch(
               showAlert({ type: "success", message: "Cập nhật thành công" }),
             );
@@ -47,16 +47,16 @@ function EditButton() {
       })
       .catch(() => {
         dispatch(showLoading(false));
-        setAlert({ type: "error", message: "Cập nhật thất bại" });
+        dispatch(showAlert({ type: "error", message: "Cập nhật thất bại" }));
       });
     dispatch(showLoading(true));
   };
   return (
     <button
       onClick={handleUpload}
-      className="p-2 bg-red-500 hover:bg-red-600 text-slate-50 rounded-md"
+      className="p-2 bg-orange-500 hover:bg-orange-600 text-slate-50 rounded-md"
     >
-      Lưu tệp
+      Cập nhật
     </button>
   );
 }
