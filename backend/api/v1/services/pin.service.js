@@ -48,10 +48,27 @@ export const getAllPinsService = async (pagination) => {
                 as: "Lover",
                 attributes: ["id"],
                 through: {
-                    attributes: []
+                    attributes: [],
+                    where: {
+                        deleted: false
+                    }
                 },
                 where: {
                     deleted: false
+                },
+                required: false
+            },
+            {
+                model: Table,
+                attributes: ["user_id"],
+                where: {
+                    deleted: false
+                },
+                through:{
+                    attributes: [],
+                    where: {
+                        deleted: false
+                    }
                 },
                 required: false
             }
@@ -104,10 +121,27 @@ export const getPinsByTopicService = async (pagination, topicIds) => {
                 as: "Lover",
                 attributes: ["id"],
                 through: {
-                    attributes: []
+                    attributes: [],
+                    where: {
+                        deleted: false
+                    }
                 },
                 where: {
                     deleted: false
+                },
+                required: false
+            },
+            {
+                model: Table,
+                attributes: ["user_id"],
+                where: {
+                    deleted: false
+                },
+                through:{
+                    attributes: [],
+                    where: {
+                        deleted: false
+                    }
                 },
                 required: false
             }
@@ -259,6 +293,19 @@ export const getRecommendPinsService = async (slug, limit) => {
                 },
                 where: {
                     deleted: false
+                },
+                required: false
+            },{
+                model: Table,
+                attributes: ["user_id"],
+                where: {
+                    deleted: false
+                },
+                through:{
+                    attributes: [],
+                    where: {
+                        deleted: false
+                    }
                 },
                 required: false
             }

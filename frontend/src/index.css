@@ -6,3 +6,6 @@ body {
     @apply min-h-screen text-black bg-slate-50;
     font-family: "Open Sans", sans-serif;
 }
+.button-active.active {
+    @apply bg-sky-500 text-slate-50;
+}

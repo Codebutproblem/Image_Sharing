@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 import { getUserPins } from "../../services/pinService";
 import UserPinTable from "../PinTable/UserPinTable";
 import SkeletonTable from "../PinTable/SkeletonTable";
@@ -20,22 +20,23 @@ function ProfilePin({isMe}) {
                 });
             }
         };
-        setTimeout(()=>{
-            waittingAPI();
-        },3000);
+        waittingAPI();
     }, [page]);
     return (
         <>
             {pinObject.pins.length === 0 ? (
                 <SkeletonTable col={3} row={3} />
             ) : (
-                <>
-                    {pinObject.total_pages > 1 && (<Pagination color="primary" size="large" variant="outlined" shape="rounded" count={pinObject.total_pages} page={page} onChange={(e, value) => setPage(value)} />)}
+                <div>
+                    <div className="flex justify-between items-center">
+                        <h1 className="text-3xl font-semibold">Đã tạo</h1>
+                        {pinObject.total_pages > 1 && (<Pagination color="primary" size="large" variant="outlined" shape="rounded" count={pinObject.total_pages} page={page} onChange={(e, value) => setPage(value)} />)}
+                    </div>
                     <div className="mt-3">
                         <UserPinTable isMe={isMe} pinObject={pinObject}/>
                     </div>
                     
-                </>
+                </div>
             )}
         </>
     )

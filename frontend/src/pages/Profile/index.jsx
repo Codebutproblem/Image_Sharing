@@ -4,6 +4,7 @@ import UserProfileCard from "../../components/UserProfileCard";
 import { getInfoUser } from "../../services/userAccountService";
 import ResponseMessage from "../../config/message";
 import { useParams } from "react-router-dom";
+import SaveTable from "../../components/SaveTable";
 
 function Profile() {
 
@@ -26,8 +27,10 @@ function Profile() {
             <div className="w-[30%]">
                 {userObject && <UserProfileCard userObject={userObject} setUserObject={setUserObject} />}
             </div>
-            <div className="w-[65%]">
+            <div className="w-[65%] flex flex-col gap-10">
                 {userObject && <ProfilePin isMe={userObject.isMe} />}
+                {userObject && <SaveTable isMe={userObject.isMe} />}
+                
             </div>
         </div>
     );

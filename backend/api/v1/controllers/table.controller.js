@@ -1,6 +1,6 @@
 import HttpStatusCode from "../../../config/http_status.js";
 import ResponseMessage from "../../../config/message.js";
-import { createTableService, getAllUserTablesService } from "../services/table.service.js";
+import { countUserTablesService, createTableService, getAllUserTablesService, getUserTablesService } from "../services/table.service.js";
 export const createTable = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -18,6 +18,22 @@ export const getAllUserTables = async (req, res) => {
         const tables = await getAllUserTablesService(req.user.id);
         res.status(HttpStatusCode.OK).json({ tables, message: ResponseMessage.GET_SUCCESS });
     } catch (error) {
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
+    }
+};
+
+export const getUserTables = async (req, res) => {
+    try {
+        const userSlug = req.params.user_slug;
+        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req.query.page) || 1;
+        const offset = (page - 1) * limit;
+        const tables = await getUserTablesService(userSlug, { limit, offset });
+        const totalTables = await countUserTablesService(userSlug);
+        const total_pages = Math.ceil(totalTables / limit);
+        res.status(HttpStatusCode.OK).json({ tables, total_pages, message: ResponseMessage.GET_SUCCESS });
+    } catch (error) {
+        console.log(error);
         res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
     }
 };

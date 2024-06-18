@@ -19,7 +19,7 @@ const routes = [
       { path: "topic", element: <PinByTopic /> },
       { path: "upload", element: <Uploader /> },
       { path: "pin-detail/:slug", element: <PinDetail /> },
-      { path: "profile/:slug", element: <Profile /> },
+      { path: "profile/:slug", element: <Profile />},
       { path: "profile/edit-pin/:slug", element: <PinEdit />},
     ],
   },

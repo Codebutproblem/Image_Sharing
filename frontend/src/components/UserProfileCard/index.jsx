@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { updateInfoUser } from '../../services/userAccountService';
 import { uploadImageFirebase } from '../../utils/UploadFirebase';
 import { useDispatch } from 'react-redux';
@@ -8,7 +8,18 @@ import ResponseMessage from '../../config/message';
 const UserProfileCard = ({userObject, setUserObject}) => {
     const fileInputRef = useRef(null);
     const dispatch = useDispatch();
-
+    useEffect(() => {
+        const moveUserCard = () => {
+            const margin = document.documentElement.scrollTop;
+            const userCard = document.getElementById('user-card');
+            userCard.style.marginTop = `${margin}px`;
+        };
+        window.addEventListener('scroll', moveUserCard);
+        return () => {
+            window.removeEventListener('scroll', moveUserCard);
+        };
+    }, []);
+    
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
         const waitting = async () => {
@@ -30,7 +41,7 @@ const UserProfileCard = ({userObject, setUserObject}) => {
         dispatch(showLoading(true));
     };
     return (
-        <div className="w-full bg-white rounded-lg shadow-lg overflow-hidden">
+        <div id="user-card" className="w-full bg-white rounded-lg shadow-lg overflow-hidden duration-500 ease-in-out">
             <div className='relative group'>
                 <img
                     className="w-full h-48 object-cover"

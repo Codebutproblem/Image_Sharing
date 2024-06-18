@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { ImageList, ImageListItem, Pagination } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function PinTable({ pinObject, page, setPage }) {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.UserReducer);
   let initColumns = 4;
   if (window.innerWidth < 768) {
     initColumns = 1;
@@ -42,7 +44,7 @@ function PinTable({ pinObject, page, setPage }) {
       window.removeEventListener("scroll", scrollToBottom);
     };
   }, []);
-  
+
   return (
     <div className="pb-5">
       <ImageList variant="standard" cols={columns} gap={8}>
@@ -53,15 +55,22 @@ function PinTable({ pinObject, page, setPage }) {
           >
             <img src={pin.url} alt={pin.title} loading="lazy" />
             <div
-              onClick={()=>{navigate(`/pin-detail/${pin.slug}`)}}
+              onClick={() => { navigate(`/pin-detail/${pin.slug}`) }}
               className="cursor-zoom-in absolute left-0 right-0 top-0 bottom-0 bg-[#00000040] hidden group-hover:flex flex-col justify-between p-3 font-medium"
             >
-              <div className="text-slate-50">❤️{pin?.Lover?.length}</div>
+              <div className="flex justify-between items-center">
+                <div className="text-slate-50">❤️{pin?.Lover?.length}</div>
+                {pin?.Tables.find((table) => table.user_id === user.id) &&
+                  <span className=" text-xs sm:text-base p-2 bg-gray-500 rounded-xl text-slate-50">
+                    Đã lưu
+                  </span>
+                }
+              </div>
               <div className="text-slate-50">
                 <div className="mb-1.5">{pin.title}</div>
                 <div className=" hidden sm:flex items-center gap-3">
                   <Link
-                    onClick={(e)=> e.stopPropagation()}
+                    onClick={(e) => e.stopPropagation()}
                     to={`/profile/${pin.Author.slug}`}
                   >
                     <img
@@ -73,7 +82,7 @@ function PinTable({ pinObject, page, setPage }) {
                       className="w-10 max-w-10 h-10 rounded-full object-cover"
                     />
                   </Link>
-                  <Link className=" hover:underline" onClick={(e)=> e.stopPropagation()} to={`/profile/${pin.Author.slug}`}>{pin.Author.username}</Link>
+                  <Link className=" hover:underline" onClick={(e) => e.stopPropagation()} to={`/profile/${pin.Author.slug}`}>{pin.Author.username}</Link>
                 </div>
               </div>
             </div>

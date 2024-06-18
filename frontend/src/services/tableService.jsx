@@ -9,3 +9,8 @@ export const getAllUserTables = async () => {
     const result = await get("tables");
     return result;
 };
+
+export const getUserTables = async (userSlug, {limit, page}) => {
+    const result = await get(`tables/${userSlug}?limit=${limit}&page=${page}`);
+    return result;
+}
