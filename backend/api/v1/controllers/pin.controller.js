@@ -3,6 +3,7 @@ import HttpStatusCode from "../../../config/http_status.js";
 import ResponseMessage from "../../../config/message.js";
 import { 
     countAllPinsService, 
+    countPinsByTablesService, 
     countPinsByTopicService, 
     countUserPinsService, 
     createPinService, 
@@ -10,6 +11,7 @@ import {
     getAllPinsService, 
     getDetailUserPinService, 
     getPinDetailService, 
+    getPinsByTablesService, 
     getPinsByTopicService, 
     getRecommendPinsService,
     getUserPinsService,
@@ -185,5 +187,21 @@ export const deletePin = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.DELETE_FAILED });
+    }
+};
+
+export const getPinsByTable = async (req, res) => {
+    try {
+        const tableSlug = req.params.table_slug;
+        const limit = parseInt(req.query.limit) || 16;
+        const page = parseInt(req.query.page) || 1;
+        const offset = (page - 1) * limit;
+        const {pins, tableName} = await getPinsByTablesService(tableSlug, { offset, limit });
+        const totalPins = await countPinsByTablesService(tableSlug);
+        const total_pages = Math.ceil(totalPins / limit);
+        res.status(HttpStatusCode.OK).json({ pins, tableName, total_pages: total_pages, message: ResponseMessage.GET_SUCCESS });
+    } catch (error) {
+        console.log(error);
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
     }
 };

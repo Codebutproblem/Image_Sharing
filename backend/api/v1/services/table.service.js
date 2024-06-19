@@ -93,3 +93,14 @@ export const countUserTablesService = async (userSlug) => {
     });
     return count;
 };
+
+export const findTableBySlugService = async (slug) => {
+    const table = await Table.findOne({
+        where: {
+            slug: slug,
+            deleted: false
+        },
+        raw: true
+    });
+    return table;
+};

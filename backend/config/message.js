@@ -9,6 +9,7 @@ const ResponseMessage = {
     UPDATE_FAILED: "update-failed",
     DELETE_SUCCESS: "delete-success",
     DELETE_FAILED: "delete-failed",
+    ACCESS_FAILED: "access-failed",
     REGISTER_SUCCESS: "register-success",
     REGISTER_FAILED: "register-failed",
     LOGIN_SUCCESS: "login-success",

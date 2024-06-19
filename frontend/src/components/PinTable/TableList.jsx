@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { ImageList, ImageListItem } from "@mui/material";
-function TableList({ isMe, tableObject }) {
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+function TableList({ tableObject }) {
+    const navigate = useNavigate();
+    const {slug} = useParams();
     let initColumns = 2;
     if (window.innerWidth < 768) {
         initColumns = 1;
@@ -14,8 +17,6 @@ function TableList({ isMe, tableObject }) {
             setColumns(2);
         }
     };
-
-
     useEffect(() => {
         window.addEventListener("resize", handleResize);
         return () => {
@@ -33,6 +34,7 @@ function TableList({ isMe, tableObject }) {
                     >
                         <img src={table?.frontPin?.url ||"/images/gray.jpg" } alt={table.name} loading="lazy" />
                         <div
+                            onClick={()=>navigate(`/profile/${slug}/table/${table.slug}`)}
                             className="group cursor-zoom-in absolute left-0 right-0 top-0 bottom-0 bg-[#00000060] flex flex-col justify-between p-3 font-medium"
                         >
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-semibold text-2xl duration-300 group-hover:scale-110">

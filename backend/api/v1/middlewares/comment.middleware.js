@@ -11,8 +11,8 @@ export const verifyAuthor = async (req, res, next) => {
             next();
             return;
         };
-        res.status(HttpStatusCode.FORBIDDEN).json({ message: ResponseMessage.DELETE_FAILED });
+        res.status(HttpStatusCode.FORBIDDEN).json({ message: ResponseMessage.ACCESS_FAILED});
     } catch (error) {
-        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.DELETE_FAILED });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.ACCESS_FAILED});
     }
 };

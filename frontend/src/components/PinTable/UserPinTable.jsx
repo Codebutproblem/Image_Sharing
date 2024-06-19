@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { ImageList, ImageListItem, Pagination } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { FaPen } from "react-icons/fa";
-function UserPinTable({ isMe, pinObject }) {
+function UserPinTable({ pinObject }) {
     const navigate = useNavigate();
+    const {userObject} = useOutletContext();
     let initColumns = 3;
     if (window.innerWidth < 768) {
         initColumns = 1;
@@ -45,7 +46,7 @@ function UserPinTable({ isMe, pinObject }) {
                         >
                             <div className="flex justify-between items-center">
                                 <div className="text-slate-50">❤️{pin?.Lover?.length}</div>
-                                {isMe && (
+                                {userObject?.isMe && (
                                     <Link to={`/profile/edit-pin/${pin.slug}`} onClick={(e)=>e.stopPropagation()} className=" bg-gray-500 duration-200 hover:bg-gray-600 p-2 rounded-full cursor-pointer">
                                         <FaPen className="text-slate-50" />
                                     </Link>

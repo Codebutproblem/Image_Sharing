@@ -9,6 +9,8 @@ import UserAccountDefault from "../layouts/UserAccountDefault";
 import PinDetail from "../pages/PinDetail";
 import Profile from "../pages/Profile";
 import PinEdit from "../pages/PinEdit";
+import Library from "../pages/Profile/Library";
+import TableDetail from "../pages/Profile/TableDetail";
 
 const routes = [
   {
@@ -19,7 +21,12 @@ const routes = [
       { path: "topic", element: <PinByTopic /> },
       { path: "upload", element: <Uploader /> },
       { path: "pin-detail/:slug", element: <PinDetail /> },
-      { path: "profile/:slug", element: <Profile />},
+      { path: "profile/:slug", element: <Profile />, 
+        children: [
+          {path: "", element: <Library />},
+          {path: "table/:table_slug", element: <TableDetail />}
+        ]
+      },
       { path: "profile/edit-pin/:slug", element: <PinEdit />},
     ],
   },

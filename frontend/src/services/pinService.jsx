@@ -61,3 +61,8 @@ export const deletePin = async (slug) => {
   const result = await del(`pins/user-pin/delete/${slug}`);
   return result;
 };
+
+export const getPinsByTable = async (slug, {page, limit}) => {
+  const result = await get(`pins/user-pin/table/${slug}?page=${page}&limit=${limit}`);
+  return result;
+};
