@@ -30,9 +30,9 @@ To run the project, follow these steps:
 2. Navigate to the project directory: `cd Image_Sharing`
 3. Install the dependencies for the frontend: `cd frontend && npm install`
 4. Install the dependencies for the backend: `cd ../backend && npm install`
-5. Start the frontend server: `npm start` (from the `frontend` directory)
+5. Start the frontend server: `npm run dev` (from the `frontend` directory)
 6. Start the backend server: `npm start` (from the `backend` directory)
-7. Open your browser and visit `http://localhost:3000` to access the application.
+7. Open your browser and visit `http://localhost:5173` to access the application.
 
 Please make sure you have Node.js and MySQL installed on your machine before running the project.
 
