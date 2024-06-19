@@ -7,34 +7,46 @@ import ResponseMessage from "../../config/message";
 import { Pagination } from "@mui/material";
 
 function ProfilePin() {
-    const { slug } = useParams();
-    const [pinObject, setPinObject] = useState({ pins: [], total_pages: 0 });
-    const [page, setPage] = useState(1);
-    useEffect(() => {
-        const waittingAPI = async () => {
-            const result = await getUserPins(slug, { page: page, limit: 9 });
-            if (result.message === ResponseMessage.GET_SUCCESS) {
-                setPinObject({
-                    pins: result.pins,
-                    total_pages: result.total_pages,
-                });
-            }
-        };
-        waittingAPI();
-    }, [page]);
-    return (
-        <div>
-            <div className="flex justify-between items-center mb-5">
-                <h1 className="text-4xl font-semibold">Đã tạo</h1>
-                {pinObject.total_pages > 1 && (<Pagination color="primary" size="large" variant="outlined" shape="rounded" count={pinObject.total_pages} page={page} onChange={(e, value) => setPage(value)} />)}
-            </div>
-            <div className="mt-3">
-                {pinObject.pins.length === 0 ? (
-                    <SkeletonTable col={3} row={3} />
-                ) : (<UserPinTable pinObject={pinObject} />)}
-            </div>
-        </div>
-    )
+  const { slug } = useParams();
+  const [pinObject, setPinObject] = useState({ pins: [], total_pages: 0 });
+  const [page, setPage] = useState(1);
+  useEffect(() => {
+    const waittingAPI = async () => {
+      const result = await getUserPins(slug, { page: page, limit: 9 });
+      if (result.message === ResponseMessage.GET_SUCCESS) {
+        setPinObject({
+          pins: result.pins,
+          total_pages: result.total_pages,
+        });
+      }
+    };
+    waittingAPI();
+  }, [page]);
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-5">
+        <h1 className="text-4xl font-semibold">Đã tạo</h1>
+        {pinObject.total_pages > 1 && (
+          <Pagination
+            color="primary"
+            size="large"
+            variant="outlined"
+            shape="rounded"
+            count={pinObject.total_pages}
+            page={page}
+            onChange={(e, value) => setPage(value)}
+          />
+        )}
+      </div>
+      <div className="mt-3">
+        {pinObject.pins.length === 0 ? (
+          <SkeletonTable col={3} row={3} />
+        ) : (
+          <UserPinTable pinObject={pinObject} />
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default ProfilePin;

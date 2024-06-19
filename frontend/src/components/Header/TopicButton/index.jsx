@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa6";
 import hideHiddenBoxListener from "../../../utils/hideHiddenBox";
 import DropDownList from "./DropDownList";
-function TopicButton({showText}) {
+function TopicButton({ showText }) {
   const [showTopics, setShowTopics] = useState(false);
   hideHiddenBoxListener(
     showTopics,

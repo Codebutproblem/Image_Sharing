@@ -1,4 +1,4 @@
-import {Pin, Table, UserAccount} from "../models/index.model.js";
+import { Pin, Table, UserAccount } from "../models/index.model.js";
 
 export const createTableService = async (userId, tableName) => {
     await Table.create({
@@ -7,11 +7,12 @@ export const createTableService = async (userId, tableName) => {
     });
 };
 
-export const findTableByNameService = async ( userId,tableName) => {
+export const findTableByNameService = async (userId, tableName) => {
     const table = await Table.findOne({
         where: {
             user_id: userId,
-            name: tableName
+            name: tableName,
+            deleted: false
         }
     });
     return table;
@@ -20,7 +21,8 @@ export const findTableByNameService = async ( userId,tableName) => {
 export const getAllUserTablesService = async (userId) => {
     const tables = await Table.findAll({
         where: {
-            user_id: userId
+            user_id: userId,
+            deleted: false
         }
     });
     return tables;
@@ -32,24 +34,22 @@ export const getUserTablesService = async (userSlug, pagination) => {
         where: {
             deleted: false,
         },
-        include: [
-            {
-                model: UserAccount,
-                as: "Author",
-                attributes: ["slug"],
-                where: {
-                    slug: userSlug,
-                    deleted: false
-                }
+        include: {
+            model: UserAccount,
+            as: "Author",
+            attributes: ["slug"],
+            where: {
+                slug: userSlug,
+                deleted: false
             }
-        ],
+        },
         limit: pagination.limit,
         offset: pagination.offset,
         order: [["createdAt", "DESC"]],
         raw: true
     });
-    
-    for(const table of tables){
+
+    for (const table of tables) {
         const frontPin = await Pin.findOne({
             attributes: ["url"],
             where: {
@@ -103,4 +103,26 @@ export const findTableBySlugService = async (slug) => {
         raw: true
     });
     return table;
+};
+
+export const updateTableNameService = async (slug, tableName) => {
+    await Table.update({
+        name: tableName
+    }, {
+        where: {
+            slug: slug,
+            deleted: false
+        }
+    });
+};
+
+export const deleteTableService = async (slug) => {
+    await Table.update({
+        deleted: true,
+        deletedAt: new Date()
+    }, {
+        where: {
+            slug: slug
+        }
+    });
 };

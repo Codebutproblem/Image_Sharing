@@ -6,7 +6,7 @@ import ResponseMessage from "../../config/message";
 import { useParams } from "react-router-dom";
 function EditButton() {
   const dispatch = useDispatch();
-  const {slug} = useParams();
+  const { slug } = useParams();
   const uploader = useSelector((state) => state.UploadReducer);
   const handleUpload = (e) => {
     const loadingApi = async () => {
@@ -39,7 +39,9 @@ function EditButton() {
             );
             break;
           case ResponseMessage.UPDATE_FAILED:
-            dispatch(showAlert({ type: "error", message: "Cập nhật thất bại" }));
+            dispatch(
+              showAlert({ type: "error", message: "Cập nhật thất bại" }),
+            );
             break;
           default:
             break;

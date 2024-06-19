@@ -61,8 +61,8 @@ function UploadReducer(state = initialState, action = null) {
     case "SET_UPLOADER":
       return {
         ...state,
-        ...action.uploader
-      }
+        ...action.uploader,
+      };
     default:
       return state;
   }

@@ -21,13 +21,15 @@ const routes = [
       { path: "topic", element: <PinByTopic /> },
       { path: "upload", element: <Uploader /> },
       { path: "pin-detail/:slug", element: <PinDetail /> },
-      { path: "profile/:slug", element: <Profile />, 
+      {
+        path: "profile/:slug",
+        element: <Profile />,
         children: [
-          {path: "", element: <Library />},
-          {path: "table/:table_slug", element: <TableDetail />}
-        ]
+          { path: "", element: <Library /> },
+          { path: "table/:table_slug", element: <TableDetail /> },
+        ],
       },
-      { path: "profile/edit-pin/:slug", element: <PinEdit />},
+      { path: "profile/edit-pin/:slug", element: <PinEdit /> },
     ],
   },
   {

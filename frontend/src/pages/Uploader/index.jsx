@@ -9,9 +9,9 @@ function Uploader() {
   const dispatch = useDispatch();
   useEffect(() => {
     return () => {
-      dispatch(resetUploader())
+      dispatch(resetUploader());
     };
-  },[]);
+  }, []);
   return (
     <div className="mx-4 sm:mx-1">
       <UploadHeader type="create" />

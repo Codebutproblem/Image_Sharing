@@ -12,11 +12,9 @@ function RecommendTable({ limit }) {
   let initColumns = 1;
   if (window.innerWidth < 640) {
     initColumns = 1;
-  }
-  else if (window.innerWidth < 768) {
+  } else if (window.innerWidth < 768) {
     initColumns = 2;
-  }
-  else {
+  } else {
     initColumns = 1;
   }
   const [columns, setColumns] = useState(initColumns);
@@ -24,11 +22,9 @@ function RecommendTable({ limit }) {
   const handleResize = () => {
     if (window.innerWidth < 640) {
       setColumns(1);
-    }
-    else if (window.innerWidth < 768) {
+    } else if (window.innerWidth < 768) {
       setColumns(2);
-    }
-    else {
+    } else {
       setColumns(1);
     }
   };
@@ -37,7 +33,7 @@ function RecommendTable({ limit }) {
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
-    }
+    };
   }, []);
 
   useEffect(() => {
@@ -49,7 +45,6 @@ function RecommendTable({ limit }) {
     };
     waittingAPI();
   }, [slug]);
-
 
   return (
     <>
@@ -66,14 +61,14 @@ function RecommendTable({ limit }) {
               className="cursor-zoom-in absolute left-0 right-0 top-0 bottom-0 bg-[#00000040] flex flex-col justify-between p-2.5 font-medium"
             >
               <div className="flex justify-between items-center">
-              <div className="text-slate-50">❤️{pin.Lover.length}</div>
-                  {pin?.Tables.find((table) => table.user_id === user.id) &&
-                    <span className=" text-xs sm:text-base p-2 bg-gray-500 rounded-xl text-slate-50">
-                      Đã lưu
-                    </span>
-                  }
-                </div>
-              
+                <div className="text-slate-50">❤️{pin.Lover.length}</div>
+                {pin?.Tables.find((table) => table.user_id === user.id) && (
+                  <span className=" text-xs sm:text-base p-2 bg-gray-500 rounded-xl text-slate-50">
+                    Đã lưu
+                  </span>
+                )}
+              </div>
+
               <div className="text-slate-50">
                 <div className="mb-1.5 text-sx sm:text-base">{pin.title}</div>
                 <div className="flex items-center gap-3">
@@ -83,14 +78,19 @@ function RecommendTable({ limit }) {
                   >
                     <img
                       src={
-                        pin.Author.avatar ||
-                        "https://www.gravatar.com/avatar/"
+                        pin.Author.avatar || "https://www.gravatar.com/avatar/"
                       }
                       alt={pin.Author.username}
                       className="w-10 max-w-10 h-10 rounded-full object-cover"
                     />
                   </Link>
-                  <Link className=" hover:underline" onClick={(e) => e.stopPropagation()} to={`/profile/${pin.Author.slug}`}>{pin.Author.username}</Link>
+                  <Link
+                    className=" hover:underline"
+                    onClick={(e) => e.stopPropagation()}
+                    to={`/profile/${pin.Author.slug}`}
+                  >
+                    {pin.Author.username}
+                  </Link>
                 </div>
               </div>
             </div>

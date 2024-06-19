@@ -4,8 +4,8 @@ import { FaPlus } from "react-icons/fa6";
 import { createTable } from "../../services/tableService";
 import ResponseMessage from "../../config/message";
 import { useDispatch } from "react-redux";
-import {showAlert } from "../../redux/actions/other";
-function TableCreateButton({ reload, setReload}) {
+import { showAlert } from "../../redux/actions/other";
+function TableCreateButton({ reload, setReload }) {
   const [showCreateTable, setShowCreateTable] = useState(false);
   const inputRef = useRef();
   const dispatch = useDispatch();
@@ -22,15 +22,13 @@ function TableCreateButton({ reload, setReload}) {
       return;
     }
     const result = await createTable(tableName);
-    if(result.message === ResponseMessage.CREATE_SUCCESS){
-      dispatch(showAlert({type: "success", message: "Tạo bảng thành công"}));
+    if (result.message === ResponseMessage.CREATE_SUCCESS) {
+      dispatch(showAlert({ type: "success", message: "Tạo bảng thành công" }));
       setReload(reload + 1);
-    }
-    else if(result.message === ResponseMessage.TABLE_EXISTS){
-      dispatch(showAlert({type: "error", message: "Tên bảng đã tồn tại"}));
-    }
-    else{
-      dispatch(showAlert({type: "error", message: "Tạo bảng thất bại"}));
+    } else if (result.message === ResponseMessage.TABLE_EXISTS) {
+      dispatch(showAlert({ type: "error", message: "Tên bảng đã tồn tại" }));
+    } else {
+      dispatch(showAlert({ type: "error", message: "Tạo bảng thất bại" }));
     }
   };
 
@@ -66,7 +64,10 @@ function TableCreateButton({ reload, setReload}) {
             />
           </div>
           <div className="text-right">
-            <button onClick={handleClick} className="p-2 bg-sky-500 text-slate-50 rounded-md">
+            <button
+              onClick={handleClick}
+              className="p-2 bg-sky-500 text-slate-50 rounded-md"
+            >
               Lưu
             </button>
           </div>

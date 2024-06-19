@@ -11,7 +11,7 @@ const allReducers = combineReducers({
   LoadingReducer,
   TopicReducer,
   UserReducer,
-  SaveBoxReducer
+  SaveBoxReducer,
 });
 
 export default allReducers;

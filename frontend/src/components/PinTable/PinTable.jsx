@@ -55,16 +55,18 @@ function PinTable({ pinObject, page, setPage }) {
           >
             <img src={pin.url} alt={pin.title} loading="lazy" />
             <div
-              onClick={() => { navigate(`/pin-detail/${pin.slug}`) }}
+              onClick={() => {
+                navigate(`/pin-detail/${pin.slug}`);
+              }}
               className="cursor-zoom-in absolute left-0 right-0 top-0 bottom-0 bg-[#00000040] hidden group-hover:flex flex-col justify-between p-3 font-medium"
             >
               <div className="flex justify-between items-center">
                 <div className="text-slate-50">❤️{pin?.Lover?.length}</div>
-                {pin?.Tables.find((table) => table.user_id === user.id) &&
+                {pin?.Tables.find((table) => table.user_id === user.id) && (
                   <span className=" text-xs sm:text-base p-2 bg-gray-500 rounded-xl text-slate-50">
                     Đã lưu
                   </span>
-                }
+                )}
               </div>
               <div className="text-slate-50">
                 <div className="mb-1.5">{pin.title}</div>
@@ -75,14 +77,19 @@ function PinTable({ pinObject, page, setPage }) {
                   >
                     <img
                       src={
-                        pin.Author.avatar ||
-                        "https://www.gravatar.com/avatar/"
+                        pin.Author.avatar || "https://www.gravatar.com/avatar/"
                       }
                       alt={pin.Author.username}
                       className="w-10 max-w-10 h-10 rounded-full object-cover"
                     />
                   </Link>
-                  <Link className=" hover:underline" onClick={(e) => e.stopPropagation()} to={`/profile/${pin.Author.slug}`}>{pin.Author.username}</Link>
+                  <Link
+                    className=" hover:underline"
+                    onClick={(e) => e.stopPropagation()}
+                    to={`/profile/${pin.Author.slug}`}
+                  >
+                    {pin.Author.username}
+                  </Link>
                 </div>
               </div>
             </div>

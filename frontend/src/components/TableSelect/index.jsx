@@ -9,7 +9,7 @@ function TableSelect() {
         Bảng
       </label>
       <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-        <SelectSection reload={reload}/>
+        <SelectSection reload={reload} />
         <TableCreateButton reload={reload} setReload={setReload} />
       </div>
     </>

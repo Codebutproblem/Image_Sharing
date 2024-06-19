@@ -9,7 +9,7 @@ import Pin from "./Pin";
 function PinDetailPart() {
   const { slug } = useParams();
   const navigate = useNavigate();
-  if(slug === null || slug === undefined){
+  if (slug === null || slug === undefined) {
     navigate("/");
   }
   const [pin, setPin] = useState({ Lover: [], Author: {}, topics: [] });
@@ -22,9 +22,9 @@ function PinDetailPart() {
     };
     waittingAPI();
   }, [slug]);
-  if(pin === null || pin === undefined){
+  if (pin === null || pin === undefined) {
     return <></>;
-  };
+  }
   return (
     <div className=" mb-14">
       <div className="mb-5">
@@ -41,18 +41,18 @@ function PinDetailPart() {
       </div>
       <div className="mb-5 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Link
-            to={`/profile/${pin?.Author.slug}`}
-          >
+          <Link to={`/profile/${pin?.Author.slug}`}>
             <img
               src={pin?.Author.avatar || "https://www.gravatar.com/avatar/"}
               alt={pin?.Author.username}
               className="w-14 h-14 rounded-full object-cover"
             />
           </Link>
-          <Link 
-          className=" text-xl font-semibold"
-            to={`/profile/${pin?.Author.slug}`}>{pin?.Author.username}
+          <Link
+            className=" text-xl font-semibold"
+            to={`/profile/${pin?.Author.slug}`}
+          >
+            {pin?.Author.username}
           </Link>
         </div>
         <button className="p-3 text-white duration-300 bg-red-500 hover:bg-red-600 rounded-2xl">

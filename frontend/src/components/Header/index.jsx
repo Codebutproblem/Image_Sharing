@@ -8,10 +8,10 @@ import { useEffect, useState } from "react";
 
 function Header() {
   let initShow = true;
-  if(window.innerWidth < 640) initShow = false;
+  if (window.innerWidth < 640) initShow = false;
   const [showText, setShowText] = useState(initShow);
   const handleResize = () => {
-    if(window.innerWidth < 640) setShowText(false);
+    if (window.innerWidth < 640) setShowText(false);
     else setShowText(true);
   };
   useEffect(() => {
@@ -24,7 +24,7 @@ function Header() {
   return (
     <div className="max-w-7xl mx-auto h-20 flex items-center px-3 gap-2">
       <HomeButton showText={showText} />
-      <TopicButton showText={showText}/>
+      <TopicButton showText={showText} />
       <AddButton />
       <SearchForm />
       <div className="ml-auto flex items-center">

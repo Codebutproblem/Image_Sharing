@@ -7,31 +7,35 @@ import { Outlet, useParams } from "react-router-dom";
 import SaveTable from "../../components/SaveTable";
 
 function Profile() {
-
-    const [userObject, setUserObject] = useState(null);
-    const { slug } = useParams();
-    useEffect(() => {
-        const waittingAPI = async () => {
-            const result = await getInfoUser(slug);
-            if (result.message === ResponseMessage.GET_SUCCESS) {
-                setUserObject({
-                    user: result.user,
-                    isMe: result.isMe
-                });
-            }
-        };
-        waittingAPI();
-    }, [slug]);
-    return (
-        <div className="pt-3 pb-10 flex justify-between">
-            <div className="w-[30%]">
-                {userObject && <UserProfileCard userObject={userObject} setUserObject={setUserObject} />}
-            </div>
-            <div className="w-[65%] flex flex-col gap-10">
-                <Outlet context={{userObject}} />
-            </div>
-        </div>
-    );
+  const [userObject, setUserObject] = useState(null);
+  const { slug } = useParams();
+  useEffect(() => {
+    const waittingAPI = async () => {
+      const result = await getInfoUser(slug);
+      if (result.message === ResponseMessage.GET_SUCCESS) {
+        setUserObject({
+          user: result.user,
+          isMe: result.isMe,
+        });
+      }
+    };
+    waittingAPI();
+  }, [slug]);
+  return (
+    <div className="pt-3 pb-10 flex justify-between">
+      <div className="w-[30%]">
+        {userObject && (
+          <UserProfileCard
+            userObject={userObject}
+            setUserObject={setUserObject}
+          />
+        )}
+      </div>
+      <div className="w-[65%] flex flex-col gap-10">
+        <Outlet context={{ userObject }} />
+      </div>
+    </div>
+  );
 }
 
 export default Profile;

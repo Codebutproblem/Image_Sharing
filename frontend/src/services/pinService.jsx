@@ -42,7 +42,7 @@ export const unSavePin = async (pinId) => {
   return result;
 };
 
-export const getUserPins = async (slug, {page, limit}) => {
+export const getUserPins = async (slug, { page, limit }) => {
   const result = await get(`pins/user-pin/${slug}?page=${page}&limit=${limit}`);
   return result;
 };
@@ -62,7 +62,9 @@ export const deletePin = async (slug) => {
   return result;
 };
 
-export const getPinsByTable = async (slug, {page, limit}) => {
-  const result = await get(`pins/user-pin/table/${slug}?page=${page}&limit=${limit}`);
+export const getPinsByTable = async (slug, { page, limit }) => {
+  const result = await get(
+    `pins/user-pin/table/${slug}?page=${page}&limit=${limit}`,
+  );
   return result;
 };

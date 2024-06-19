@@ -1,6 +1,6 @@
 import HttpStatusCode from "../../../config/http_status.js";
 import ResponseMessage from "../../../config/message.js";
-import { countUserTablesService, createTableService, getAllUserTablesService, getUserTablesService } from "../services/table.service.js";
+import { countUserTablesService, createTableService, deleteTableService, getAllUserTablesService, getUserTablesService, updateTableNameService } from "../services/table.service.js";
 export const createTable = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -35,5 +35,28 @@ export const getUserTables = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
+    }
+};
+
+export const updateTableName = async (req, res) => {
+    try {
+        const tableName = req.body.name;
+        const tableSlug = req.params.slug;
+        await updateTableNameService(tableSlug, tableName);
+        res.status(HttpStatusCode.OK).json({ message: ResponseMessage.UPDATE_SUCCESS });
+    } catch (error) {
+        console.log(error);
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.UPDATE_FAILED });
+    }
+};
+
+export const deleteTable = async (req, res) => {
+    try {
+        const tableSlug = req.params.slug;
+        await deleteTableService(tableSlug);
+        res.status(HttpStatusCode.OK).json({ message: ResponseMessage.DELETE_SUCCESS });
+    } catch (error) {
+        console.log(error);
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.DELETE_FAILED });
     }
 };
