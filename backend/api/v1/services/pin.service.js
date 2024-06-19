@@ -685,3 +685,73 @@ export const countPinsByTablesService = async (tableSlug) => {
     });
     return totalPins;
 };
+
+
+export const getSearchPinsService = async (keyword, pagination) => {
+    const pins = await Pin.findAll({
+        attributes: ["id", "title", "url", "createdAt", "slug"],
+        where: {
+            [Op.or]: [
+                { title: { [Op.like]: `%${keyword}%` } },
+                { description: { [Op.like]: `%${keyword}%` } }
+            ],
+            deleted: false
+        },
+        include: [
+            {
+                model: UserAccount,
+                as: "Author",
+                attributes: ["id", "username", "avatar", "slug"],
+                where: {
+                    deleted: false
+                }
+            },
+            {
+                model: UserAccount,
+                as: "Lover",
+                attributes: ["id"],
+                through: {
+                    attributes: [],
+                    where: {
+                        deleted: false
+                    }
+                },
+                where: {
+                    deleted: false
+                },
+                required: false
+            },
+            {
+                model: Table,
+                attributes: ["user_id"],
+                through: {
+                    attributes: [],
+                    where: {
+                        deleted: false
+                    }
+                },
+                where: {
+                    deleted: false
+                },
+                required: false
+            }
+        ],
+        limit: pagination.limit,
+        offset: pagination.offset,
+        order: [["createdAt", "DESC"]]
+    });
+    return pins;
+};
+
+export const countSearchPinsService = async (keyword) => {
+    const totalPins = await Pin.count({
+        where: {
+            deleted: false,
+            [Op.or]: [
+                { title: { [Op.like]: `%${keyword}%` } },
+                { description: { [Op.like]: `%${keyword}%` } }
+            ]
+        }
+    });
+    return totalPins;
+};

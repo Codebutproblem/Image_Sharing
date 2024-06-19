@@ -11,6 +11,7 @@ import Profile from "../pages/Profile";
 import PinEdit from "../pages/PinEdit";
 import Library from "../pages/Profile/Library";
 import TableDetail from "../pages/Profile/TableDetail";
+import Search from "../pages/Search";
 
 const routes = [
   {
@@ -30,6 +31,7 @@ const routes = [
         ],
       },
       { path: "profile/edit-pin/:slug", element: <PinEdit /> },
+      { path: "search/:keyword", element: <Search />},
     ],
   },
   {

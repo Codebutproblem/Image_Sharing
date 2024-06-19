@@ -5,6 +5,7 @@ import {
     countAllPinsService, 
     countPinsByTablesService, 
     countPinsByTopicService, 
+    countSearchPinsService, 
     countUserPinsService, 
     createPinService, 
     deletePinService, 
@@ -14,6 +15,7 @@ import {
     getPinsByTablesService, 
     getPinsByTopicService, 
     getRecommendPinsService,
+    getSearchPinsService,
     getUserPinsService,
     savePinService,
     setLovePinService,
@@ -200,6 +202,22 @@ export const getPinsByTable = async (req, res) => {
         const totalPins = await countPinsByTablesService(tableSlug);
         const total_pages = Math.ceil(totalPins / limit);
         res.status(HttpStatusCode.OK).json({ pins, tableName, total_pages: total_pages, message: ResponseMessage.GET_SUCCESS });
+    } catch (error) {
+        console.log(error);
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
+    }
+};
+
+export const getSearchPins = async (req, res) => {
+    try {
+        const keyword = req.query.keyword;
+        const limit = parseInt(req.query.limit) || 16;
+        const page = parseInt(req.query.page) || 1;
+        const offset = (page - 1) * limit;
+        const pins = await getSearchPinsService(keyword, { offset, limit });
+        const totalPins = await countSearchPinsService(keyword);
+        const total_pages = Math.ceil(totalPins / limit);
+        res.status(HttpStatusCode.OK).json({ pins, total_pages: total_pages, message: ResponseMessage.GET_SUCCESS });
     } catch (error) {
         console.log(error);
         res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });

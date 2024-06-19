@@ -8,6 +8,7 @@ import {
     getPinsByTable, 
     getPinsByTopic, 
     getRecommendPins, 
+    getSearchPins, 
     getUserPins, 
     savePin, 
     setLovePin, 
@@ -24,6 +25,7 @@ router.get("/recommend/:slug", getRecommendPins);
 router.get("/user-pin/:user_slug", getUserPins);
 router.get("/user-pin/detail/:slug", getDetailUserPin);
 router.get("/user-pin/table/:table_slug", getPinsByTable);
+router.get("/search", getSearchPins);
 router.post("/topics", getPinsByTopic);
 router.post("/create", createPin);
 router.patch("/love/:pinId", setLovePin);

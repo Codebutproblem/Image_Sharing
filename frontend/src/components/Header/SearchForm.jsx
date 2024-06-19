@@ -1,6 +1,8 @@
 import { FaSearch } from "react-icons/fa";
 import { FaTimesCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 function SearchForm() {
+  const navigate = useNavigate();
   const handleInput = (e) => {
     const searchIcon = document.getElementById("search-icon");
     const searchInput = document.getElementById("search-input");
@@ -16,6 +18,8 @@ function SearchForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const searchInput = document.getElementById("search-input");
+    navigate(`/search/${searchInput.value}`);
   };
 
   return (

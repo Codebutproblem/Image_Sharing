@@ -7,6 +7,7 @@ import LovePin from "./love_pin.model.js";
 import Comment from "./comment.model.js";
 import Table from "./table.model.js";
 import PinTable from "./pin_table.js";
+import Search from "./search.model.js";
 UserAccount.hasMany(Pin, {foreignKey: 'user_id'});
 Pin.belongsTo(UserAccount, {as: "Author", foreignKey: 'user_id'});
 
@@ -26,6 +27,9 @@ Table.belongsTo(UserAccount,{as: "Author",foreignKey: 'user_id'});
 Table.belongsToMany(Pin, { through: PinTable, foreignKey: 'table_id' });
 Pin.belongsToMany(Table, { through: PinTable, foreignKey: 'pin_id' });
 
+UserAccount.hasMany(Search, {foreignKey: 'user_id'});
+Search.belongsTo(UserAccount, {as: "Author", foreignKey: 'user_id'});
+
 export {
     UserAccount,
     Pin,
@@ -35,5 +39,6 @@ export {
     LovePin,
     Comment,
     Table,
-    PinTable
+    PinTable,
+    Search
 }
