@@ -1,4 +1,4 @@
-# Photo Sharing Social Media
+# Image Sharing Social Media
 
 A social network for sharing images
 
