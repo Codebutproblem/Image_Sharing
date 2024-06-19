@@ -22,3 +22,17 @@ A social network for sharing images
 - Search for images by tags
 - Notification system for likes, comments, and follows
 
+## Getting Started
+
+To run the project, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/Codebutproblem/Image_Sharing.git`
+2. Navigate to the project directory: `cd Image_Sharing`
+3. Install the dependencies for the frontend: `cd frontend && npm install`
+4. Install the dependencies for the backend: `cd ../backend && npm install`
+5. Start the frontend server: `npm start` (from the `frontend` directory)
+6. Start the backend server: `npm start` (from the `backend` directory)
+7. Open your browser and visit `http://localhost:3000` to access the application.
+
+Please make sure you have Node.js and MySQL installed on your machine before running the project.
+
