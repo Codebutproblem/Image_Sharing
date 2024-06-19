@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import { UserAccount } from '../models/index.model.js';
 export const getInfoUserBySlugService = async (slug) => {
     const user = await UserAccount.findOne({
@@ -19,4 +20,23 @@ export const updateInfoUserService = async (userId, data) => {
         }
     });
     return user;
+};
+
+export const getSearchUsersService = async (keyword) => {
+    const users = await UserAccount.findAll({
+        attributes: {
+            exclude: ['password', 'refreshToken']
+        },
+        where: {
+            deleted: false,
+            [Op.or]: [
+                {
+                    username: {
+                        [Op.like]: `%${keyword}%`
+                    }
+                }
+            ]
+        }
+    });
+    return users;
 };

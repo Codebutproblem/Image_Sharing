@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { showAlert, showLoading } from "../../redux/actions/other";
 
 function TableDetail() {
+  const {userObject} = useOutletContext();
   const { table_slug } = useParams();
   const [page, setPage] = useState(1);
   const [pinObject, setPinObject] = useState({
@@ -84,7 +85,6 @@ function TableDetail() {
       return result;
     };
     waittingAPI().then((result) => {
-      console.log(result);
       dispatch(showLoading(false));
       if (result.message === ResponseMessage.DELETE_SUCCESS) {
         dispatch(
@@ -113,6 +113,7 @@ function TableDetail() {
             type="text"
             className="text-3xl font-semibold outline-none bg-transparent min-w-[150px] px-3 py-2"
             defaultValue={pinObject?.tableName}
+            readOnly={userObject?.isMe ? false : true}
           />
         </div>
         <div className="flex items-center gap-3">
@@ -124,12 +125,14 @@ function TableDetail() {
               Cập nhật
             </button>
           )}
-          <button
-            onClick={handleDeleteTable}
-            className="p-2 bg-red-500 hover:bg-red-600 text-slate-50 rounded-md"
-          >
-            Xóa bảng
-          </button>
+          {userObject?.isMe && (
+            <button
+              onClick={handleDeleteTable}
+              className="p-2 bg-red-500 hover:bg-red-600 text-slate-50 rounded-md"
+            >
+              Xóa bảng
+            </button>
+          )}
         </div>
       </div>
       <div className="flex justify-end">

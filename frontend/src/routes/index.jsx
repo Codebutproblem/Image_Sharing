@@ -32,6 +32,7 @@ const routes = [
       },
       { path: "profile/edit-pin/:slug", element: <PinEdit /> },
       { path: "search/:keyword", element: <Search />},
+      { path: "*", element: <Home />},
     ],
   },
   {

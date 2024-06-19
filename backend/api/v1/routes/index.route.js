@@ -4,6 +4,7 @@ import TopicRoutes from "./topic.route.js";
 import PinRoutes from "./pin.route.js";
 import commentRoutes from "./comment.route.js";
 import tableRoutes from "./table.route.js";
+import searchRoutes from "./search.route.js";
 const routes = (app) => {
     const API_PATH = "/api/v1";
     app.use(authToken);
@@ -12,6 +13,7 @@ const routes = (app) => {
     app.use(`${API_PATH}/pins`,  PinRoutes);
     app.use(`${API_PATH}/comments`,  commentRoutes);
     app.use(`${API_PATH}/tables`,  tableRoutes);
+    app.use(`${API_PATH}/search`,  searchRoutes);
 }
 
 export default routes;

@@ -1,6 +1,6 @@
 import HttpStatusCode from "../../../config/http_status.js";
 import ResponseMessage from "../../../config/message.js";
-import { getInfoUserBySlugService, updateInfoUserService } from "../services/user_account.service.js";
+import { getInfoUserBySlugService, getSearchUsersService, updateInfoUserService } from "../services/user_account.service.js";
 
 export const getInfoUserAccount = (req, res) => {
     const user = req.user;
@@ -35,5 +35,16 @@ export const updateInfoUser = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.UPDATE_FAILED });
+    }
+};
+
+export const getSearchUsers = async (req, res) => {
+    try {
+        const keyword = req.query.keyword;
+        const users = await getSearchUsersService(keyword);
+        res.status(HttpStatusCode.OK).json({ users, message: ResponseMessage.GET_SUCCESS });
+    } catch (error) {
+        console.log(error);
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: ResponseMessage.GET_FAILED });
     }
 };

@@ -543,7 +543,7 @@ export const updatePinService = async (slug, data) => {
     if(pin){
         await pin.update(data);
     }
-    if(data.table_id !== null && pin){
+    if(data.table_id !== null){
         const pinTable = await PinTable.findOne({
             where: {
                 pin_id: pin.id,
@@ -559,6 +559,13 @@ export const updatePinService = async (slug, data) => {
         else if(pinTable.deleted){
             await pinTable.update({deleted: false});
         }
+    }
+    else{
+        await PinTable.update({deleted: true},{
+            where: {
+                pin_id: pin.id
+            }
+        });
     }
 
     if (topicIds && topicIds.length > 0 && pin) {

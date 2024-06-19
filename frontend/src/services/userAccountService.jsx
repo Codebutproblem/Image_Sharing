@@ -26,3 +26,8 @@ export const updateInfoUser = async (data) => {
   const result = await patch("user-account/update-info", data);
   return result;
 };
+
+export const getSearchUsers = async (keyword) => {
+  const result = await get(`user-account/search?keyword=${keyword}`);
+  return result;
+};

@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import ProfilePin from "../../components/ProfilePin";
 import UserProfileCard from "../../components/UserProfileCard";
 import { getInfoUser } from "../../services/userAccountService";
 import ResponseMessage from "../../config/message";
 import { Outlet, useParams } from "react-router-dom";
-import SaveTable from "../../components/SaveTable";
 
 function Profile() {
   const [userObject, setUserObject] = useState(null);
