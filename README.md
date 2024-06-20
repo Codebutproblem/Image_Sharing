@@ -4,7 +4,7 @@ A social network for sharing images
 
 
 ## Author
-- [Codebutproblem](https://github.com/Codebutproblem)
+- [Minh Vu](https://github.com/Codebutproblem)
 
 ## Technologies Used
 
