@@ -69,7 +69,9 @@ export const getPinsByTable = async (slug, { page, limit }) => {
   return result;
 };
 
-export const getSearchPins = async (keyword, {page, limit}) => {
-  const result = await get(`pins/search?keyword=${keyword}&page=${page}&limit=${limit}`);
+export const getSearchPins = async (keyword, { page, limit }) => {
+  const result = await get(
+    `pins/search?keyword=${keyword}&page=${page}&limit=${limit}`,
+  );
   return result;
 };

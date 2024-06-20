@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { showAlert, showLoading } from "../../redux/actions/other";
 
 function TableDetail() {
-  const {userObject} = useOutletContext();
+  const { userObject } = useOutletContext();
   const { table_slug } = useParams();
   const [page, setPage] = useState(1);
   const [pinObject, setPinObject] = useState({
