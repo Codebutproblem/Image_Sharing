@@ -96,6 +96,8 @@ Please make sure you have Node.js and MySQL installed on your machine before run
 
 ![pic13](/screenshots/pic13.png)
 
+![pic14](/screenshots/pic14.png)
+
 
 
 
