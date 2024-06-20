@@ -67,3 +67,38 @@ To run the project, follow these steps:
 10. Open your browser and visit `http://localhost:5173` to access the application
 
 Please make sure you have Node.js and MySQL installed on your machine before running the project.
+
+## Demo
+
+![pic1](/screenshots/pic1.png)
+
+![pic2](/screenshots/pic2.png)
+
+![pic3](/screenshots/pic3.png)
+
+![pic4](/screenshots/pic4.png)
+
+![pic5](/screenshots/pic5.png)
+
+![pic6](/screenshots/pic6.png)
+
+![pic7](/screenshots/pic7.png)
+
+![pic8](/screenshots/pic8.png)
+
+![pic9](/screenshots/pic9.png)
+
+![pic10](/screenshots/pic10.png)
+
+![pic11](/screenshots/pic11.png)
+
+![pic12](/screenshots/pic12.png)
+
+![pic13](/screenshots/pic13.png)
+
+
+
+
+
+
+
