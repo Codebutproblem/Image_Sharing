@@ -3,7 +3,6 @@ import { registerUserAccount } from "../../services/authService";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../../redux/actions/other";
 import ResponseMessage from "../../config/message";
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import FormInput from "../../components/FormInput";
 
 function Register() {
@@ -15,8 +14,7 @@ function Register() {
       email: e.target.email.value,
       username: e.target.username.value,
       password: e.target.password.value,
-      confirmPassword: e.target.confirmPassword.value,
-      gender: e.target.gender.value,
+      confirmPassword: e.target.confirmPassword.value
     };
     const result = await registerUserAccount(userAccount);
     switch (result.message) {
@@ -80,18 +78,6 @@ function Register() {
             type="password"
             placeholder="Nhập xác nhận mật khẩu"
           />
-        </div>
-        <div className="mb-4 flex items-center gap-3">
-          <div className="text-sm font-medium">Giới tính:</div>
-          <RadioGroup
-            row
-            aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue="female"
-            name="gender"
-          >
-            <FormControlLabel value="male" control={<Radio />} label="Nam" />
-            <FormControlLabel value="female" control={<Radio />} label="Nữ" />
-          </RadioGroup>
         </div>
         <div className="mb-4">
           <button className="p-2 w-full duration-200 bg-orange-500 hover:bg-orange-600 text-slate-50 rounded-md">

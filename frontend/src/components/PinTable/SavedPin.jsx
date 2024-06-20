@@ -54,7 +54,7 @@ function SavedPin({ pinObject }) {
             >
               <div className="flex justify-between items-center">
                 <div className="text-slate-50">❤️{pin?.Lover?.length}</div>
-                {pin?.Tables.find((table) => table.user_id === user.id) && (
+                {pin?.Tables.find((table) => table.user_id === user?.id) && (
                   <span className=" text-xs sm:text-base p-2 bg-gray-500 rounded-xl text-slate-50">
                     Đã lưu
                   </span>

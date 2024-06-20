@@ -22,19 +22,17 @@ function DropBox({ id }) {
       <div className="mb-5">
         <div className="text-sm mb-2">Tài khoản đăng nhập</div>
         <Link
-          to={`/profile/${infoUser.slug}`}
+          to={`/profile/${infoUser?.slug}`}
           className="flex items-center p-2 hover:bg-neutral-200 rounded-xl"
         >
           <img
-            src={infoUser.avatar || "https://www.gravatar.com/avatar/"}
+            src={infoUser?.avatar || "https://www.gravatar.com/avatar/"}
             alt="avatar"
             className="w-12 h-12 rounded-full overflow-hidden object-cover"
             loading="layzy"
           />
           <div className="mx-3 font-semibold">
-            {infoUser.firstName || infoUser.lastName
-              ? `${infoUser.firstName} ${infoUser.lastName}`
-              : infoUser.username}
+            {infoUser?.username}
           </div>
         </Link>
       </div>

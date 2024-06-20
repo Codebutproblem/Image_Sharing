@@ -8,6 +8,7 @@ function SaveButton({ pin }) {
   const user = useSelector((state) => state.UserReducer);
   const [saved, setSaved] = useState(false);
   const [showSaveBox, setShowSaveBox] = useState(false);
+  const [reload, setReload] = useState(false);
   const handleSave = (e) => {
     e.preventDefault();
     setShowSaveBox(true);
@@ -17,7 +18,7 @@ function SaveButton({ pin }) {
     const result = await unSavePin(pin.id);
     if (result.message === ResponseMessage.UPDATE_SUCCESS) {
       pin.Tables = pin.Tables.filter((table) => table.user_id !== user.id);
-      setSaved(false);
+      setReload(reload + 1);
     }
   };
   if (

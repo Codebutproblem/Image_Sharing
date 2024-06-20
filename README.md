@@ -35,11 +35,35 @@ To run the project, follow these steps:
 3. Install the dependencies for the frontend: `cd frontend && npm install`
 4. Install the dependencies for the backend: `cd ../backend && npm install`
 5. Create a database on MySQL.
-6. Create .env file in `frontend` folder. Add the following environment variables: VITE_REACT_FIREBASE_API_KEY, VITE_REACT_FIREBASE_AUTH_DOMAIN, VITE_REACT_FIREBASE_PROJECT_ID, VITE_REACT_FIREBASE_STORAGE_BUCKET, VITE_REACT_FIREBASE_MESSAGING_SENDER_ID, VITE_REACT_FIREBASE_APP_ID, VITE_REACT_FIREBASE_MESUREMENT_ID, VITE_REACT_FIREBASE_IMAGES_FOLDER, VITE_REACT_API_DOMAIN, VITE_REACT_API_AUTH_DOMAIN
-7. Create .env file in `backend` folder. Add the following environment variables: PORT, AUTH_PORT, DB_HOST, DB_NAME, DB_USER, DB_PASSWORD, ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET, EMAIL_USER, EMAIL_PASS
+6. Create .env file in `frontend` folder. Add the following environment variables: 
+    ```
+    VITE_REACT_FIREBASE_API_KEY= 
+    VITE_REACT_FIREBASE_AUTH_DOMAIN= 
+    VITE_REACT_FIREBASE_PROJECT_ID= 
+    VITE_REACT_FIREBASE_STORAGE_BUCKET=
+    VITE_REACT_FIREBASE_MESSAGING_SENDER_ID= 
+    VITE_REACT_FIREBASE_APP_ID= 
+    VITE_REACT_FIREBASE_MESUREMENT_ID= 
+    VITE_REACT_FIREBASE_IMAGES_FOLDER=
+    VITE_REACT_API_DOMAIN=
+    VITE_REACT_API_AUTH_DOMAIN=
+    ```
+
+7. Create .env file in `backend` folder. Add the following environment variables: 
+    ```
+    PORT= 
+    AUTH_PORT= 
+    DB_HOST= 
+    DB_NAME= 
+    DB_USER= 
+    DB_PASSWORD= 
+    ACCESS_TOKEN_SECRET= 
+    REFRESH_TOKEN_SECRET= 
+    EMAIL_USER= 
+    EMAIL_PASS=
+    ```
 8. Start the frontend server: `npm run dev` (from the `frontend` directory)
 9. Start the backend server: `npm start` (from the `backend` directory)
 10. Open your browser and visit `http://localhost:5173` to access the application
 
 Please make sure you have Node.js and MySQL installed on your machine before running the project.
-
