@@ -5,12 +5,12 @@ function TableList({ tableObject }) {
   const navigate = useNavigate();
   const { slug } = useParams();
   let initColumns = 2;
-  if (window.innerWidth < 768) {
+  if (window.innerWidth < 480) {
     initColumns = 1;
   }
   const [columns, setColumns] = useState(initColumns);
   const handleResize = () => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 480) {
       setColumns(1);
     } else {
       setColumns(2);

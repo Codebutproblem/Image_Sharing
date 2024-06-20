@@ -6,17 +6,28 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 function SavedPin({ pinObject }) {
   const navigate = useNavigate();
   const user = useSelector((state) => state.UserReducer);
-  const { slug } = useParams();
-  let initColumns = 2;
-  if (window.innerWidth < 768) {
+  let initColumns = 3;
+  if (window.innerWidth < 480) {
     initColumns = 1;
+  } else if (window.innerWidth < 640) {
+    initColumns = 2;
+  } else if (window.innerWidth < 768) {
+    initColumns = 3;
+  } else if (window.innerWidth < 1024) {
+    initColumns = 2;
   }
   const [columns, setColumns] = useState(initColumns);
   const handleResize = () => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 480) {
       setColumns(1);
-    } else {
+    } else if (window.innerWidth < 640) {
       setColumns(2);
+    } else if (window.innerWidth < 768) {
+      setColumns(3);
+    } else if (window.innerWidth < 1024) {
+      setColumns(2);
+    } else {
+      setColumns(3);
     }
   };
   useEffect(() => {

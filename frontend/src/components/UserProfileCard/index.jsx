@@ -10,13 +10,23 @@ const UserProfileCard = ({ userObject, setUserObject }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     const moveUserCard = () => {
-      const margin = document.documentElement.scrollTop;
-      const userCard = document.getElementById("user-card");
-      userCard.style.marginTop = `${margin}px`;
+      if (window.innerWidth >= 768) {
+        const margin = document.documentElement.scrollTop;
+        const userCard = document.getElementById("user-card");
+        userCard.style.marginTop = `${margin}px`;
+      }
+    };
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        const userCard = document.getElementById("user-card");
+        userCard.style.marginTop = "0px";
+      }
     };
     window.addEventListener("scroll", moveUserCard);
+    window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("scroll", moveUserCard);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 

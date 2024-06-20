@@ -111,7 +111,7 @@ function TableDetail() {
             onChange={handleChange}
             ref={inputRef}
             type="text"
-            className="text-3xl font-semibold outline-none bg-transparent min-w-[150px] px-3 py-2"
+            className="text-3xl font-semibold outline-none bg-transparent w-[180px] px-3 py-2"
             defaultValue={pinObject?.tableName}
             readOnly={userObject?.isMe ? false : true}
           />

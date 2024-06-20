@@ -72,7 +72,7 @@ function SearchForm() {
           <span
             onClick={handleClose}
             id="close-icon"
-            className="text-xl p-3 rounded-full cursor-pointer"
+            className="hidden lg:block text-xl p-3 rounded-full cursor-pointer"
           >
             <FaTimesCircle />
           </span>

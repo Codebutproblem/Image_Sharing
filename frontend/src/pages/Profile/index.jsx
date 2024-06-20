@@ -20,8 +20,8 @@ function Profile() {
     waittingAPI();
   }, [slug]);
   return (
-    <div className="pt-3 pb-10 flex justify-between">
-      <div className="w-[30%]">
+    <div className="pt-3 pb-10 flex gap-10 flex-col md:flex-row justify-between">
+      <div className="w-[30%] min-w-[350px] md:min-w-[300px] mx-auto md:mx-0">
         {userObject && (
           <UserProfileCard
             userObject={userObject}
@@ -29,7 +29,7 @@ function Profile() {
           />
         )}
       </div>
-      <div className="w-[65%] flex flex-col gap-10">
+      <div className="w-full md:w-[55%] lg:w-[65%] flex flex-col gap-10">
         <Outlet context={{ userObject }} />
       </div>
     </div>
